@@ -25,7 +25,8 @@ class Register extends React.Component{
                 city: '',
                 pincode:'',
                 phnNo: '',
-            }
+            },
+            isValid: false,
         };     
        
     }
@@ -38,42 +39,49 @@ class Register extends React.Component{
                 value.length < 3
                   ? 'First Name must be at least 3 characters long!'
                   : '';
+                  this.state.isValid=true;
               break;
               case 'lastName': 
               errors.lastName = 
                 value.length < 5
                   ? 'Last Name must be at least 5 characters long!'
                   : '';
+                  this.state.isValid=true;
               break;
             case 'userName': 
               errors.userName = 
               /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)
                   ? ''
                   : 'userName is not valid!';
+                  this.state.isValid=true;
               break;
             case 'password': 
               errors.password = 
                 value.length < 8
                   ? 'Password must be at least 8 characters long!'
                   : '';
+                  this.state.isValid=true;
               break;
             case 'address': 
               errors.address = 
                 value.length < 8
                   ? 'address must be at least 8 characters long!'
                   : '';
+                  this.state.isValid=true;
               break;
               case 'pincode': 
               errors.pincode = 
                 value.length < 6
                   ? 'Pincode must be atleast 6 Numbers long!'
                   : '';
+                  this.state.isValid=true;
               break;
             case 'phnNo': 
               errors.phnNo = 
                 value.length < 10
                   ? 'Phone Number must be 10 Numbers long!'
                   : '';
+                  this.state.isValid=true;
               break;
             default:
               break;
@@ -86,9 +94,15 @@ class Register extends React.Component{
     handleSubmit=(event)=>{
         event.preventDefault()
         console.log(this.state)
+        console.log(this.state.isValid)
+        if(this.state.isValid === true){
+            alert("Please enter all the fields correctly");
+        }
+        else{
+            alert("Registered Successfully");
+            this.props.history.push(`/login`);
+        }        
         
-        alert("Registered Successfully");
-        this.props.history.push(`/login`);
     //     Axios.post('http://localhost:8081/api/student',this.state)
     //   .then(response=> response.data)
     //   .catch(()=>{

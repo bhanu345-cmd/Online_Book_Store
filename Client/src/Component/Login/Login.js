@@ -10,7 +10,8 @@ class Login extends React.Component{
         errors:{
             email: '',
             password: '',
-        }
+        },
+        isValid: false,
         }
     }
     handleChange = (event) =>{       
@@ -22,12 +23,14 @@ class Login extends React.Component{
               /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)
                   ? ''
                   : 'UserName is not valid!';
+                  this.state.isValid=true;
               break;
             case 'password': 
               errors.password = 
                 value.length < 8
                   ? 'Password must be at least 8 characters long!'
                   : '';
+                  this.state.isValid=true;
               break;
             default:
               break;
@@ -40,8 +43,14 @@ class Login extends React.Component{
     handleSubmit = (event)=>{
         event.preventDefault()
         console.log(this.state)
-        alert("Logged in successfully");
-        this.props.history.push(`/userhome/${this.state.email}`);
+        if(this.state.isValid === true){
+            alert("Enter fields correctly");
+        }
+        else{
+            alert("Logged in successfully");
+            this.props.history.push(`/userhome/${this.state.email}`);
+        }
+        
     //     Axios.post(`http://localhost:8081/api/student/${state.firstName}/${state.lastName}`,state)
     //   .then((response)=> {
     //     if(response.data.success === true)
