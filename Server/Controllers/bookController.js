@@ -1,11 +1,9 @@
 var express=require('express');
 var bodyParser=require('body-parser');
 var books=require('../Models/book');
-var cors=require('cors');
 var router=express.Router();
 router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({extended:false}));
-router.use(cors());
 router.get('/getBook',(req,res)=>{
     
     if(req.query.name&&req.query.category){
