@@ -1,9 +1,11 @@
 import React from 'react';
 import Axios from 'axios';
+import {Link} from 'react-router-dom';
 import './Register.css';
+import Auth from '../../Authentication/Auth'
 class Register extends React.Component{
     constructor(props){
-        super()
+        super(props)
         this.state = 
         {
             firstName: '',
@@ -27,9 +29,11 @@ class Register extends React.Component{
                 phnNo: '',
             },
             isValid: false,
-        };     
-       
+        }; 
+        this.auth=new Auth(this.props.history);     
     }
+
+
     handleChange=(event)=>{
         const {id,value} =event.target;
         let errors = this.state.errors;
@@ -39,77 +43,88 @@ class Register extends React.Component{
                 value.length < 3
                   ? 'First Name must be at least 3 characters long!'
                   : '';
-                  this.state.isValid=true;
+                
               break;
               case 'lastName': 
               errors.lastName = 
                 value.length < 5
                   ? 'Last Name must be at least 5 characters long!'
                   : '';
-                  this.state.isValid=true;
+                
               break;
             case 'userName': 
               errors.userName = 
               /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)
                   ? ''
                   : 'userName is not valid!';
-                  this.state.isValid=true;
+                
               break;
             case 'password': 
               errors.password = 
                 value.length < 8
                   ? 'Password must be at least 8 characters long!'
                   : '';
-                  this.state.isValid=true;
+                
               break;
             case 'address': 
               errors.address = 
                 value.length < 8
                   ? 'address must be at least 8 characters long!'
                   : '';
-                  this.state.isValid=true;
+                
               break;
               case 'pincode': 
               errors.pincode = 
                 value.length < 6
                   ? 'Pincode must be atleast 6 Numbers long!'
                   : '';
-                  this.state.isValid=true;
+                
               break;
             case 'phnNo': 
               errors.phnNo = 
                 value.length < 10
                   ? 'Phone Number must be 10 Numbers long!'
                   : '';
-                  this.state.isValid=true;
+                
               break;
             default:
               break;
           }
         this.setState(            
             {errors,[id] : value}
-        );
-        console.log([id] +":"+ value)
+        );    
     }
-    handleSubmit=(event)=>{
-        event.preventDefault()
-        console.log(this.state)
-        console.log(this.state.isValid)
+    handleSubmit=async(event)=>{
+        event.preventDefault();
+        const {firstName,lastName,userName,password,phnNo,address,state,city,pincode}=this.state;
+        const data={
+            firstName:firstName,
+            lastName:lastName,
+            userName:userName,
+            password:password,
+            phnNo:phnNo,
+            address:address,
+            state:state,
+            city:city,
+            pincode:pincode
+        }
+
+        for(const key in this.state.errors){
+            if(this.state.errors[key]){
+                await this.setState({isValid:true});
+            }       
+        }
+        
         if(this.state.isValid === true){
             alert("Please enter all the fields correctly");
         }
         else{
-            alert("Registered Successfully");
-            this.props.history.push(`/login`);
-        }        
-        
-    //     Axios.post('http://localhost:8081/api/student',this.state)
-    //   .then(response=> response.data)
-    //   .catch(()=>{
-    //     console.log("Error receiving data")
-    //   });
-    //   alert('Data entered to db');
+            this.auth.registration(data);
+        }
+       
+    
     }
+
     render(){
         const {errors} = this.state;
         return(
@@ -159,7 +174,7 @@ class Register extends React.Component{
                             </div>
                             <div className="form-group">
                             <label htmlFor="state" className="float-left">State:</label>
-                                <select id="state" value= {this.state.state} onChange={this.handleChange} className="form-control">
+                                <select id="state" value= {this.state.state} onChange={this.handleChange} className="form-control" required>
                                     <option>---Select a State---</option>
                                     <option value = "Telangana">Telangana</option>
                                     <option value = "Andhra Pradesh">Andhra Pradesh</option>
@@ -168,7 +183,7 @@ class Register extends React.Component{
                             </div>
                             <div className="form-group">
                             <label htmlFor="city" className="float-left">City:</label>
-                                <select id="city" value= {this.state.city} onChange={this.handleChange} className="form-control">
+                                <select id="city" value= {this.state.city} onChange={this.handleChange} className="form-control" required>
                                     <option>---Select a City---</option>
                                     <option value = "Hyderabad">Hyderabad</option>
                                     <option value = "Vizaq">Vizaq</option>
@@ -196,7 +211,7 @@ class Register extends React.Component{
                 </div>                
             </div>
             <h6><small>Already a registered USer?</small></h6>
-            <a href="#" className="btn btn-success form-control sign">Login</a>
+            <Link to="/login" className="btn btn-success form-control sign">Login</Link>
         </div>
         )
     }

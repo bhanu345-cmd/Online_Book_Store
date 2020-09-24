@@ -1,75 +1,71 @@
 import React, {useState} from 'react';
 import Axios from 'axios';
+import {Link} from 'react-router-dom';
 import './Login.css'
+import Auth from '../../Authentication/Auth';
 class Login extends React.Component{
     constructor(props){
-        super()
+        super(props)
         this.state={
-        email: "",
+        userName: "",
         password: "" ,
         errors:{
             email: '',
             password: '',
         },
         isValid: false,
-        }
+        message:''
+        };
+        this.auth=new Auth(this.props.history);
     }
     handleChange = (event) =>{       
         const {id, value} = event.target;
         let errors = this.state.errors;
         switch (id) {            
-            case 'email': 
+            case 'userName': 
               errors.email = 
               /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)
                   ? ''
                   : 'UserName is not valid!';
-                  this.state.isValid=true;
+                 
               break;
             case 'password': 
               errors.password = 
                 value.length < 8
                   ? 'Password must be at least 8 characters long!'
                   : '';
-                  this.state.isValid=true;
+                  
               break;
             default:
               break;
           }
         this.setState(            
             {errors,[id] : value}
-        );
-        console.log([id] +":"+ value)        
+        );        
     }
-    handleSubmit = (event)=>{
-        event.preventDefault()
-        console.log(this.state)
+    handleSubmit = async(event)=>{
+        event.preventDefault();
+        const {userName,password}=this.state;
+        const data={
+            userName:userName,
+            password:password
+        };
+
+        for(const key in this.state.errors){
+            if(this.state.errors[key]){
+                await this.setState({isValid:true});
+            }
+        }
+        
         if(this.state.isValid === true){
             alert("Enter fields correctly");
         }
         else{
-            alert("Logged in successfully");
-            this.props.history.push(`/userhome/${this.state.email}`);
+            this.auth.login(data);
         }
-        
-    //     Axios.post(`http://localhost:8081/api/student/${state.firstName}/${state.lastName}`,state)
-    //   .then((response)=> {
-    //     if(response.data.success === true)
-    //     {
-    //         props.history.push(`/userhome/${state.firstName}`)
-    //         // alert("Valid User!! WELCOME")
-    //     }
-    //     else{
-    //         console.log(response)
-    //         alert("Invalid User!!")
-    //     }
-         
-    //   })
-    //   .catch(()=>{
-    //     console.log("Error receiving data")
-    //   });
     }
     render(){
-        const {errors} = this.state;    
+        const {errors,message} = this.state;    
     return(
         <div className="container text-center">
             <div className="projName text-center">
@@ -81,8 +77,8 @@ class Login extends React.Component{
                         <h4>Login</h4>
                         <form onSubmit={this.handleSubmit}>
                             <div className="form-group">
-                                <label htmlFor="email" className="float-left">User Name(email):</label>
-                                <input id="email" value={this.state.email} type="text" className="form-control" onChange={this.handleChange} placeholder="ex:abcdef@ghi.xyz" required/>
+                                <label htmlFor="userName" className="float-left">User Name(email):</label>
+                                <input id="userName" value={this.state.email} type="text" className="form-control" onChange={this.handleChange} placeholder="ex:abcdef@ghi.xyz" required/>
                                 <div className="float-right error">
                                 {errors.email.length > 0 && 
                                     <span className='error'>{errors.email}</span>}</div>
@@ -96,12 +92,15 @@ class Login extends React.Component{
                             </div>                        
                             <input type="Submit" className="form-control btn-success"/> 
                             <small>By Submitting you agree to our Conditions of Use and Privacy Notice</small>
+                            <div>
+                                {this.state.message && <span className='error'>{message}</span>}
+                            </div>
                         </form>
                     </div>
                 </div>                
             </div>
             <h6><small>New to Book Store?</small></h6>
-            <a href="#" className="btn btn-success form-control sign">SignUp</a>
+            <Link to="/register" className="btn btn-success form-control sign">SignUp</Link>
         </div>
     );
 }
