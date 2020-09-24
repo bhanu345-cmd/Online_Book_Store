@@ -3,16 +3,23 @@ import {Route, BrowserRouter as Router, Switch} from 'react-router-dom';
 import Register from './Component/Register/Register';
 import Login from './Component/Login/Login';
 import UserHome from './Component/UserHome/UserHome';
-function App() {
+import Auth from './Authentication/Auth';
+class App extends React.Component {
+  constructor(props){
+    super(props);
+    this.auth=new Auth(this.props.history);
+  }
+  render(){
   return (
     <Router>
       <Switch>
         <Route path="/" exact component={Register} />
         <Route path="/login" component={Login} />
-        <Route path="/userhome/:userName" component={UserHome}/>
+        {this.auth.isAuthenticated && <Route path="/userhome/:userName" component={UserHome}/>}
       </Switch>
     </Router>
   );
+  }
 }
 
 export default App;

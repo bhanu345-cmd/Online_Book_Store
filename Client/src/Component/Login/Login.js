@@ -1,9 +1,10 @@
 import React, {useState} from 'react';
 import Axios from 'axios';
 import './Login.css'
+import Auth from '../../Authentication/Auth';
 class Login extends React.Component{
     constructor(props){
-        super()
+        super(props)
         this.state={
         userName: "",
         password: "" ,
@@ -13,7 +14,8 @@ class Login extends React.Component{
         },
         isValid: false,
         message:''
-        }
+        };
+        this.auth=new Auth(this.props.history);
     }
     handleChange = (event) =>{       
         const {id, value} = event.target;
@@ -53,28 +55,13 @@ class Login extends React.Component{
                 await this.setState({isValid:true});
             }
         }
-        console.log(this.state.isValid);
+        
         if(this.state.isValid === true){
             alert("Enter fields correctly");
         }
         else{
-            Axios.post('http://localhost:4000/user/login',data)
-            .then((res)=> {
-            if(res.data.message === true)
-            {
-                this.props.history.push(`/userhome/${this.state.userName}`)
-             // alert("Valid User!! WELCOME")
-            }
-            else{
-                this.setState({message:res.data.message});
-            }
-            })
-            .catch(()=>{
-            console.log("Error receiving data")
-            });
-            
+            this.auth.login(data);
         }
-         
     }
     render(){
         const {errors,message} = this.state;    

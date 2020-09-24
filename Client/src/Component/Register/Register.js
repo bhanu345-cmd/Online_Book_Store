@@ -1,9 +1,10 @@
 import React from 'react';
 import Axios from 'axios';
 import './Register.css';
+import Auth from '../../Authentication/Auth'
 class Register extends React.Component{
     constructor(props){
-        super()
+        super(props)
         this.state = 
         {
             firstName: '',
@@ -27,9 +28,11 @@ class Register extends React.Component{
                 phnNo: '',
             },
             isValid: false,
-        };     
-       
+        }; 
+        this.auth=new Auth(this.props.history);     
     }
+
+
     handleChange=(event)=>{
         const {id,value} =event.target;
         let errors = this.state.errors;
@@ -115,21 +118,12 @@ class Register extends React.Component{
             alert("Please enter all the fields correctly");
         }
         else{
-            Axios.post('http://localhost:4000/user/reg',data)
-            .then((res)=>{ 
-                if(res.data.message===true){
-                    alert('Data entered to db');
-                    this.props.history.push(`/login`);
-                }else{
-                    alert("Error in storing the values");
-                }    
-            })
-            .catch(()=>{
-              console.log("Error receiving data")
-            });
+            this.auth.registration(data);
         }
+       
     
     }
+
     render(){
         const {errors} = this.state;
         return(

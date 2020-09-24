@@ -1,6 +1,9 @@
 var express=require('express');
 var bodyParser=require('body-parser');
 var userReg=require('../Models/userReg.js');
+var config=require('../Config/secret');
+var jwt=require('jsonwebtoken');
+var bcrypt=require('bcryptjs');
 var router=express.Router();
 router.use(bodyParser.urlencoded({extended:true}));
 router.use(bodyParser.json());
@@ -21,7 +24,7 @@ router.use(bodyParser.json());
 });*/
 router.post('/reg',(req,res)=>{
     const {firstName,lastName,userName,password,phnNo,address,state,city,pincode}=req.body;
-    const newUser=userReg({firstName:firstName,lastName:lastName,userName:userName,password:password,phnNo:phnNo,address:address,state:state,city:city,pincode:pincode});
+    const newUser=userReg({firstName:firstName,lastName:lastName,userName:userName,password:bcrypt.hashSync(password, 8),phnNo:phnNo,address:address,state:state,city:city,pincode:pincode});
     newUser.save(function(err,result){
         if(err){
             res.send({message:'Error in saving the user'});
@@ -37,21 +40,24 @@ router.post('/reg',(req,res)=>{
 router.post('/login',(req,res)=>{
     userReg.find({userName:req.body.userName.trim()},function(err,users){
         if(err){
-            res.send({message:'Error 404'});
+            return res.send({message:'Error 404'});
         }else if(users){
                const user= users.find((user)=>{
-                    if(user.password===req.body.password){
+                    if(bcrypt.compareSync(req.body.password,user.password)){
                         return user;
                     }
                 });
                 if(user){
-                    
-                    res.send({message:true});
+                    let token = jwt.sign({ id: user.id }, config.secret, {
+                        expiresIn: 86400 // 24 hours
+                    });
+                    return res.send({message:true,accessToken:token});
+
                 }else{
-                    res.send({message:"Invalid password"});
+                   return res.send({message:"Invalid password",accessToken:null});
                 }
         }else{
-                res.send({message:"No user with that name"});
+               return res.send({message:"Invalid password"});
         }
         
     });

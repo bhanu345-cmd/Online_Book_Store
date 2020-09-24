@@ -1,8 +1,7 @@
 var mongoose=require('mongoose');
-var Schema=mongoose.Schema;
-var userLoginSchema=new Schema({
+var userLogin=mongoose.model('userLogin',new mongoose.Schema({
     userName:String,
     password:String
-});
-var userLogin=mongoose.model('userLogin',userLoginSchema);
+    })
+);
 module.exports=userLogin;
