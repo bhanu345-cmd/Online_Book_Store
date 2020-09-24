@@ -15,7 +15,7 @@ class App extends React.Component {
       <Switch>
         <Route path="/" exact component={Register} />
         <Route path="/login" component={Login} />
-        {this.auth.isAuthenticated && <Route path="/userhome/:userName" component={UserHome}/>}
+        {this.auth.isAuthenticated() && <Route path="/userhome/:userName" component={UserHome}/>}
       </Switch>
     </Router>
   );

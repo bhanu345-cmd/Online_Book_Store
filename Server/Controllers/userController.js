@@ -22,10 +22,10 @@ router.use(bodyParser.json());
         }
     });
 });*/
-router.post('/reg',(req,res)=>{
+router.post('/reg', (req,res)=>{
     const {firstName,lastName,userName,password,phnNo,address,state,city,pincode}=req.body;
     const newUser=userReg({firstName:firstName,lastName:lastName,userName:userName,password:bcrypt.hashSync(password, 8),phnNo:phnNo,address:address,state:state,city:city,pincode:pincode});
-    newUser.save(function(err,result){
+     newUser.save(function(err,result){
         if(err){
             res.send({message:'Error in saving the user'});
         }else if(result){
@@ -38,7 +38,7 @@ router.post('/reg',(req,res)=>{
 });
 
 router.post('/login',(req,res)=>{
-    userReg.find({userName:req.body.userName.trim()},function(err,users){
+     userReg.find({userName:req.body.userName.trim()},function(err,users){
         if(err){
             return res.send({message:'Error 404'});
         }else if(users){
@@ -48,7 +48,7 @@ router.post('/login',(req,res)=>{
                     }
                 });
                 if(user){
-                    let token = jwt.sign({ id: user.id }, config.secret, {
+                    let token = jwt.sign({ id: user._id }, config.secret, {
                         expiresIn: 86400 // 24 hours
                     });
                     return res.send({message:true,accessToken:token});
@@ -57,7 +57,7 @@ router.post('/login',(req,res)=>{
                    return res.send({message:"Invalid password",accessToken:null});
                 }
         }else{
-               return res.send({message:"Invalid password"});
+               return res.send({message:"Invalid userName"});
         }
         
     });

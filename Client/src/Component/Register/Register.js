@@ -29,7 +29,7 @@ class Register extends React.Component{
             },
             isValid: false,
         }; 
-        this.auth=new Auth(this.props.history);     
+        this.auth=new Auth();     
     }
 
 
@@ -118,7 +118,13 @@ class Register extends React.Component{
             alert("Please enter all the fields correctly");
         }
         else{
-            this.auth.registration(data);
+            this.auth.registration(data).then((res)=>{
+                if(res.message===true){
+                    this.props.history.push('/login');
+                }else{
+                    alert(res.message);
+                }
+            });
         }
        
     
