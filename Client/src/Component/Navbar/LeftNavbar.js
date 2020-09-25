@@ -14,22 +14,22 @@ class LeftNavbar extends React.Component{
                         <a className="nav-link" href="#">Category 2</a>
                         </li>
                         <li className="nav-item">
-                        <a class="nav-link" href="#">Category 3</a>
+                        <a className="nav-link" href="#">Category 3</a>
                         </li>
                     </ul>
             </nav>
             </div>
             <div className="authors pb-2">
-            <nav class="navbar bg-light">
-                    <ul class="navbar-nav">
-                        <li class="nav-item">
-                        <a class="nav-link" href="#">Autho 1</a>
+            <nav className="navbar bg-light">
+                    <ul className="navbar-nav">
+                        <li className="nav-item">
+                        <a className="nav-link" href="#">Autho 1</a>
                         </li>
-                        <li class="nav-item">
-                        <a class="nav-link" href="#">Author 2</a>
+                        <li className="nav-item">
+                        <a className="nav-link" href="#">Author 2</a>
                         </li>
-                        <li class="nav-item">
-                        <a class="nav-link" href="#">Author 3</a>
+                        <li className="nav-item">
+                        <a className="nav-link" href="#">Author 3</a>
                         </li>
                     </ul>
             </nav>

@@ -36,8 +36,8 @@ class Books extends React.Component{
                                 <p className="card-text">Category</p>
                                 <p className="card-text">Published Date</p>
                                 <p className="card-text">Price</p>
-                                <a href="#" class="btn btn-primary">Buy</a>
-                                <a href="#" class="btn btn-primary float-right">Add to Cart</a>
+                                <a href="#" className="btn btn-primary">Buy</a>
+                                <a href="#" className="btn btn-primary float-right">Add to Cart</a>
                             </div>
                         </div>
                     </div>
@@ -50,8 +50,8 @@ class Books extends React.Component{
                                 <p className="card-text">Category</p>
                                 <p className="card-text">Published Date</p>
                                 <p className="card-text">Price</p>
-                                <a href="#" class="btn btn-primary">Buy</a>
-                                <a href="#" class="btn btn-primary float-right">Add to Cart</a>
+                                <a href="#" className="btn btn-primary">Buy</a>
+                                <a href="#" className="btn btn-primary float-right">Add to Cart</a>
                             </div>
                         </div>
                     </div>
@@ -64,8 +64,8 @@ class Books extends React.Component{
                                 <p className="card-text">Category</p>
                                 <p className="card-text">Published Date</p>
                                 <p className="card-text">Price</p>
-                                <a href="#" class="btn btn-primary">Buy</a>
-                                <a href="#" class="btn btn-primary float-right">Add to Cart</a>
+                                <a href="#" className="btn btn-primary">Buy</a>
+                                <a href="#" className="btn btn-primary float-right">Add to Cart</a>
                             </div>
                         </div>
                     </div>
@@ -78,8 +78,8 @@ class Books extends React.Component{
                                 <p className="card-text">Category</p>
                                 <p className="card-text">Published Date</p>
                                 <p className="card-text">Price</p>
-                                <a href="#" class="btn btn-primary">Buy</a>
-                                <a href="#" class="btn btn-primary float-right">Add to Cart</a>
+                                <a href="#" className="btn btn-primary">Buy</a>
+                                <a href="#" className="btn btn-primary float-right">Add to Cart</a>
                             </div>
                         </div>
                     </div>
@@ -92,8 +92,8 @@ class Books extends React.Component{
                                 <p className="card-text">Category</p>
                                 <p className="card-text">Published Date</p>
                                 <p className="card-text">Price</p>
-                                <a href="#" class="btn btn-primary">Buy</a>
-                                <a href="#" class="btn btn-primary float-right">Add to Cart</a>
+                                <a href="#" className="btn btn-primary">Buy</a>
+                                <a href="#" className="btn btn-primary float-right">Add to Cart</a>
                             </div>
                         </div>
                     </div>

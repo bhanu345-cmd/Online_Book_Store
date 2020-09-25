@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
-import Axios from 'axios';
 import {Link} from 'react-router-dom';
+import Axios from 'axios';
 import './Login.css'
 import Auth from '../../Authentication/Auth';
 class Login extends React.Component{
@@ -58,20 +58,19 @@ class Login extends React.Component{
         }
         
         if(this.state.isValid === true){
-            alert("Enter fields correctly");
+            alert("Enter field values correctly");
             return false;
         }
         else{
             this.auth.login(data).then((res)=>{
                 if(res.message===true){
-                    this.props.history.push(`/usehome/${data.userName}`);
-                }
-                else{
+                    this.props.history.push(`/userhome/${data.userName}`);
+                }else{
                     this.setState({message:res.message});
                 }
-            });
-        }
+        });
     }
+}
     render(){
         const {errors,message} = this.state;    
     return(

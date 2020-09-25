@@ -1,8 +1,12 @@
 import React,{useHistory} from 'react';
 import './Navbar.css';
-//import 'bootstrap/dist/css/bootstrap.min.css';
+import {Link} from 'react-router-dom';
 class Navbar extends React.Component{
+    
     render(){
+        const { isAuthenticated, logout } = this.props.auth;
+        let token = isAuthenticated();
+        console.log(token);
         return(
             <>
                 <nav className="navbar navbar-expand-lg navbar-light bg-light sticky-top">
@@ -26,15 +30,29 @@ class Navbar extends React.Component{
                             </li>
                         </ul>
                         <ul className="navbar-nav">
-                            <li className="nav-item">
-                                <a className="nav-link text-dark" href="/login">LogIn</a>
-                            </li>
-                            <li className="nav-item">
-                                <a className="nav-link text-dark" href="/register">SignUp</a>
-                            </li>
-                            <li className="nav-item">
-                                <a className="nav-link text-dark" href="#"><i className="fa fa-shopping-cart"></i></a>
-                            </li>
+                            {token ? (
+                                <>
+                                <li className="nav-item">
+                                    <button className="btn btn-success btn-sm" onClick={logout}>LogOut</button>
+                                </li>
+                                <li className="nav-item">
+                                    <a className="nav-link text-dark" href="#"><i className="fa fa-shopping-cart"></i></a>
+                                </li>
+                                </>
+                            ):
+                                <>
+                                <li className="nav-item pr-1">
+                                    <Link className="btn btn-success btn-sm" to="/login">LogIn</Link>
+                                </li>{" "}
+                                <li className="nav-item">
+                                <Link className="btn btn-success btn-sm" to="/register">Sign Up</Link>
+                                </li>
+                                <li className="nav-item">
+                                    <a className="nav-link text-dark" href="#"><i className="fa fa-shopping-cart"></i></a>
+                                </li>
+                                </>
+                            }
+                            
                         </ul>
                         {/* <ul className="navbar-nav ">
                             {props.userName ?

@@ -14,21 +14,21 @@ class Carousel extends React.Component{
                 <div className="carousel-inner">
                     <div className="carousel-item active">
                     <img className="d-block w-100" src={carousel1} alt="First slide"/>
-                    <div class="carousel-caption d-none d-md-block">
+                    <div className="carousel-caption d-none d-md-block">
                         <h5>There is no such thing as too many books</h5>
                         <p><a className="btn explorebtn">Explore More</a></p>
                     </div>
                     </div>
                     <div className="carousel-item">
                     <img className="d-block w-100" src={carousel1} alt="Second slide" />
-                    <div class="carousel-caption d-none d-md-block">
+                    <div className="carousel-caption d-none d-md-block">
                         <h5>...</h5>
                         <p>...</p>
                     </div>
                     </div>
                     <div className="carousel-item">
                     <img className="d-block w-100" src={carousel1} alt="Third slide" />
-                    <div class="carousel-caption d-none d-md-block">
+                    <div className="carousel-caption d-none d-md-block">
                         <h5>...</h5>
                         <p>...</p>
                     </div>
