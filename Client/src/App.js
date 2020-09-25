@@ -1,5 +1,5 @@
 import React from 'react';
-import {Route, BrowserRouter as Router, Switch} from 'react-router-dom';
+import {Route, BrowserRouter as Router, Switch,Redirect} from 'react-router-dom';
 import Register from './Component/Register/Register';
 import Login from './Component/Login/Login';
 import UserHome from './Component/UserHome/UserHome';
@@ -17,7 +17,9 @@ class App extends React.Component {
       <Route path="/" exact component={Home}  />
         <Route path="/register" exact component={Register} />
         <Route path="/login" component={Login} />
-        {this.auth.isAuthenticated() && <Route path="/userhome/:userName" component={UserHome}/>}
+        {this.auth.isAuthenticated() ? <Route path="/userhome/:userName" component={UserHome}/> :
+        <Redirect to="/" />
+        }
       </Switch>
     </Router>
   );
