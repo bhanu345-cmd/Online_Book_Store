@@ -1,5 +1,4 @@
 import React from 'react';
-import Axios from 'axios';
 import './Register.css';
 import Auth from '../../Authentication/Auth'
 class Register extends React.Component{

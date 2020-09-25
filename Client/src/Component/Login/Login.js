@@ -1,8 +1,8 @@
-import React, {useState} from 'react';
-import Axios from 'axios';
+import React from 'react';
 import './Login.css'
 import Auth from '../../Authentication/Auth';
 class Login extends React.Component{
+
     constructor(props){
         super(props)
         this.state={
@@ -17,6 +17,8 @@ class Login extends React.Component{
         };
         this.auth=new Auth(this.props.history);
     }
+
+
     handleChange = (event) =>{       
         const {id, value} = event.target;
         let errors = this.state.errors;
@@ -42,6 +44,8 @@ class Login extends React.Component{
             {errors,[id] : value}
         );        
     }
+
+
     handleSubmit = async(event)=>{
         event.preventDefault();
         const {userName,password}=this.state;
@@ -67,9 +71,11 @@ class Login extends React.Component{
                 }else{
                     this.setState({message:res.message});
                 }
-        });
+            });
+        }
     }
-}
+
+    
     render(){
         const {errors,message} = this.state;    
     return(

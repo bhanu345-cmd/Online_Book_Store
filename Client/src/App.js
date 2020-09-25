@@ -14,9 +14,9 @@ class App extends React.Component {
     <Router>
       <Switch>
         <Route path="/" exact component={Home}/>
-        {this.auth.isAuthenticated()?<Route path="/Home/:data" component={Home}/> : <Redirect to='/'/>}
-        <Route path="/register" exact component={Register} />
         <Route path="/login" component={Login} />
+        <Route path="/register" exact component={Register} /> 
+        {this.auth.isAuthenticated()?<Route path="/Home/:data" component={Home}/> : <Redirect to='/'/>}
       </Switch>
     </Router>
   );

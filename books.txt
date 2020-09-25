@@ -1,0 +1,47 @@
+[
+        {
+            "_id": "5f6dbdefc8bef735b0f9f3d9",
+            "bookName": "I too have love Story",
+            "author": "Chaithan bagath singh",
+            "price": 250,
+            "category": "Romantic",
+            "publishedDate": "2020-09-25T00:00:00.000Z",
+            "__v": 0
+        },
+        {
+            "_id": "5f6dbe0dc8bef735b0f9f3da",
+            "bookName": "Dark house",
+            "author": "Chaithan bagath singh",
+            "price": 350,
+            "category": "Horror",
+            "publishedDate": "2020-09-25T00:00:00.000Z",
+            "__v": 0
+        },
+        {
+            "_id": "5f6dbe45c8bef735b0f9f3db",
+            "bookName": "Maha Bharath",
+            "author": "Vyasamaharshi",
+            "price": 500,
+            "category": "Mythology",
+            "publishedDate": "2020-09-25T00:00:00.000Z",
+            "__v": 0
+        },
+        {
+            "_id": "5f6dbe58c8bef735b0f9f3dc",
+            "bookName": "Ramayanam",
+            "author": "Valmiki",
+            "price": 500,
+            "category": "Mythology",
+            "publishedDate": "2020-09-25T00:00:00.000Z",
+            "__v": 0
+        },
+        {
+            "_id": "5f6dbe77c8bef735b0f9f3dd",
+            "bookName": "Bagavathgeetha",
+            "author": "Vyasamaharshi",
+            "price": 500,
+            "category": "Mythology",
+            "publishedDate": "2020-09-25T00:00:00.000Z",
+            "__v": 0
+        }
+    ]
