@@ -63,7 +63,7 @@ class Login extends React.Component{
         else{
             this.auth.login(data).then((res)=>{
                 if(res.message===true){
-                    this.props.history.push(`/userhome/${data.userName}`);
+                    this.props.history.push(`/Home/${data.userName}`);
                 }else{
                     this.setState({message:res.message});
                 }
@@ -112,5 +112,4 @@ class Login extends React.Component{
 }
 
 }
-
 export default Login;

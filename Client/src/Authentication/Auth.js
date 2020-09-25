@@ -1,6 +1,11 @@
 import Axios from 'axios';
 export default class auth{
-    
+
+    constructor(history){
+        this.history=history
+    }
+
+
     registration=({firstName,lastName,userName,password,phnNo,
         address,state,city,pincode})=>{
         const data={
@@ -28,6 +33,7 @@ export default class auth{
             });
     }
 
+    
      login=({userName,password})=>{
         const data={userName:userName,password:password};
         return Axios.post('http://localhost:4000/user/login',data)
@@ -43,7 +49,7 @@ export default class auth{
             }
             })
             .catch((err)=>{
-                console.log(err);
+                return err;
             });
             
     }
@@ -59,7 +65,7 @@ export default class auth{
 
     logout=()=>{
         localStorage.removeItem("access_token");
-        this.history.replace('/');
+        return this.history.replace('/');
     }
 
 }
