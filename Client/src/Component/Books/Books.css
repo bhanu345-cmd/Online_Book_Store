@@ -1,0 +1,15 @@
+.bookcard .card-text {
+    line-height: 1em !important;
+}
+.bookcard{
+    border: 0px;
+    border-radius: 0px;
+}
+.fa-inr{
+    font-size: small;
+    margin-right: 0px !important;
+    margin-left: 3px;
+}
+.allbooks{
+    border-top: 1px solid rgb(167, 166, 166);
+}

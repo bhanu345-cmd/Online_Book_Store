@@ -3,26 +3,38 @@ import Navbar from '../Navbar/Navbar';
 import Carousel from '../Carousel/Carousel';
 import LeftNavbar from '../Navbar/LeftNavbar';
 import Books from '../Books/Books';
-import Auth from '../../Authentication/Auth';
+import Footer from '../Others/Footer';
+import Services from '../Others/Services';
+import './Home.css';
+import Auth from '../../Authentication/Auth.js';
 class Home extends React.Component{
-    constructor(props) {
+    constructor(props){
         super(props);
-        this.auth = new Auth(this.props.history);
+        this.auth=new Auth(this.props.history);
+    }
+    logoutHandler=()=>{
+        this.auth.logout();
     }
     render(){
         return(
-            <>
-            <Navbar auth={this.auth}/>
+            <div className="container-relative">
+            <Navbar {...this.props} logout={()=>{this.logoutHandler()}}/>
             <div className="row">
-                <div className="col-lg-2 col-md-2 col-sm-2">
+                <div className="col-12">
+                <Carousel />
+                </div>
+                <div className="leftNavbar col-2 ">
                     <LeftNavbar />                    
                 </div>
-                <div className="col-lg-10 col-md-10 col-sm-10 w-100">
-                    <Carousel />
+                <div className="col-lg-10 col-md-10 col-sm-10 w-100">                    
                     <Books />
                 </div>
-            </div>            
-            </>
+            </div>
+            <hr className="hrhome"/>
+            <Services />
+            <hr className="hrhome"/>
+            <Footer />          
+            </div>
         );
     }
 }

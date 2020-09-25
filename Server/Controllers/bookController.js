@@ -5,7 +5,6 @@ var router=express.Router();
 router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({extended:false}));
 router.get('/getBook',(req,res)=>{
-    
     if(req.query.name&&req.query.category){
         books.find({$and:[{author:req.query.name},{category:req.query.category}]},function(err,book){
                 if(err){
@@ -17,12 +16,9 @@ router.get('/getBook',(req,res)=>{
                 }
         });
     }else{
-        books.find({},function(err,books){
-            if(err){
-                res.send("Error in finding book");
-            }
-            res.send(books);
-        });
+        books.find({}).then((books)=>{
+            return res.send({message:true,books:books});
+        }).catch((err)=>res.send({message:err}));
     }
 });
 
@@ -39,7 +35,7 @@ router.get('/getBook/:name',(req,res)=>{
 router.get('/getBook/:author',(req,res)=>{
     books.find({author:author},function(err,book){
         if(book){
-            res.send(book);
+            res.send({message:true,book:book});
         }else{
            res.send("No books found with that author"); 
         }

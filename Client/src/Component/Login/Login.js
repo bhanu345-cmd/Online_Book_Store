@@ -1,6 +1,4 @@
-import React, {useState} from 'react';
-import {Link} from 'react-router-dom';
-import Axios from 'axios';
+import React from 'react';
 import './Login.css'
 import Auth from '../../Authentication/Auth';
 class Login extends React.Component{
@@ -64,7 +62,7 @@ class Login extends React.Component{
         else{
             this.auth.login(data).then((res)=>{
                 if(res.message===true){
-                    this.props.history.push(`/userhome/${data.userName}`);
+                    this.props.history.push(`/Home/${data.userName}`);
                 }else{
                     this.setState({message:res.message});
                 }
@@ -107,11 +105,10 @@ class Login extends React.Component{
                 </div>                
             </div>
             <h6><small>New to Book Store?</small></h6>
-            <Link to="/register" className="btn btn-success form-control sign">SignUp</Link>
+            <a href="#" className="btn btn-success form-control sign">SignUp</a>
         </div>
     );
 }
 
 }
-
 export default Login;

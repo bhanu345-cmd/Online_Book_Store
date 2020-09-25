@@ -1,6 +1,18 @@
-.categories{
-    padding-left: 20px;
+.categories, .authors{
+    /* padding-left: 20px; */
+    /* margin-left: 20px; */
+    background-color: none;
 }
-.authors{
-    padding-left: 20px;
+.categories nav li,
+.authors nav li{
+    line-height: 0.9rem !important;
+    padding-left: 10px;
+}
+.categories nav li a,
+.authors nav li a{
+    color: black;
+}
+.categories nav,
+.authors nav{
+    background-color: white !important;
 }
