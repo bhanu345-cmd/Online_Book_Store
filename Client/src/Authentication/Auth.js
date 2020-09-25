@@ -37,12 +37,10 @@ export default class auth{
             if(res.data.message === true)
             {
                 this.setSession(res.data.accessToken);
-                console.log(data.userName)
-                this.history.push(`/userhome/${data.userName}`)
-             // alert("Valid User!! WELCOME")
+                return {message:res.data.message};
             }
             else{
-                this.setState({message:res.data.message});
+                return {message:res.data.message};
             }
             })
             .catch((err)=>{

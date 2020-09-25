@@ -59,9 +59,17 @@ class Login extends React.Component{
         
         if(this.state.isValid === true){
             alert("Enter fields correctly");
+            return false;
         }
         else{
-            this.auth.login(data);
+            this.auth.login(data).then((res)=>{
+                if(res.message===true){
+                    this.props.history.push(`/usehome/${data.userName}`);
+                }
+                else{
+                    this.setState({message:res.message});
+                }
+            });
         }
     }
     render(){

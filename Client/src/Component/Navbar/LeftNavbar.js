@@ -4,32 +4,32 @@ class LeftNavbar extends React.Component{
     render(){
         return(
             <>
-            <div className="categories">
+            <div className="categories pb-2">
             <nav className="navbar bg-light">
                     <ul className="navbar-nav">
                         <li className="nav-item">
-                        <a className="nav-link" href="#">Link 1</a>
+                        <a className="nav-link" href="#">Category 1</a>
                         </li>
                         <li className="nav-item">
-                        <a className="nav-link" href="#">Link 2</a>
+                        <a className="nav-link" href="#">Category 2</a>
                         </li>
                         <li className="nav-item">
-                        <a class="nav-link" href="#">Link 3</a>
+                        <a class="nav-link" href="#">Category 3</a>
                         </li>
                     </ul>
             </nav>
             </div>
-            <div className="container authors">
+            <div className="authors pb-2">
             <nav class="navbar bg-light">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                        <a class="nav-link" href="#">Link 1</a>
+                        <a class="nav-link" href="#">Autho 1</a>
                         </li>
                         <li class="nav-item">
-                        <a class="nav-link" href="#">Link 2</a>
+                        <a class="nav-link" href="#">Author 2</a>
                         </li>
                         <li class="nav-item">
-                        <a class="nav-link" href="#">Link 3</a>
+                        <a class="nav-link" href="#">Author 3</a>
                         </li>
                     </ul>
             </nav>
