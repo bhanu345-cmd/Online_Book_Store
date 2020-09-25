@@ -4,17 +4,23 @@ import Register from './Component/Register/Register';
 import Login from './Component/Login/Login';
 import UserHome from './Component/UserHome/UserHome';
 import Home from './Component/Home/Home';
-function App(props) {
+import Auth from './Authentication/Auth';
+class App extends React.Component {
+  constructor(props){
+    super(props);
+    this.auth=new Auth(this.props.history);
+  }
+  render(){
   return (
     <Router>
       <Switch>
-        <Route path="/" exact component={Home}  />
+      <Route path="/" exact component={Home}  />
         <Route path="/register" exact component={Register} />
         <Route path="/login" component={Login} />
-        <Route path="/userhome/:data" component={UserHome} />
+        {this.auth.isAuthenticated() && <Route path="/userhome/:userName" component={UserHome}/>}
       </Switch>
     </Router>
   );
+  }
 }
-
 export default App;

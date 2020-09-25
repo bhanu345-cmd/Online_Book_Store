@@ -12,7 +12,7 @@ class UserHome extends React.Component{
         
     }
     render(){
-        console.log(this.props.match.params.data)
+        console.log(this.props.match.params.userName)
         return(
             <>
             <Navbar auth={this.auth}/>
@@ -27,7 +27,7 @@ class UserHome extends React.Component{
             </div>
             <div className="container pt-3">
                 <div className="jumbotron">
-                    <p>Weklcome to your home {this.props.match.params.data}</p>
+                    <p>Weklcome to your home {this.props.match.params.userName}</p>
                     {/* <Link className="text-dark"className="btn btn-success btn-sm" to="/login">LogOut</Link> */}
                 </div>
             </div>

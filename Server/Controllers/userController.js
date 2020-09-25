@@ -22,45 +22,41 @@ router.use(bodyParser.json());
         }
     });
 });*/
-router.post('/reg',(req,res)=>{
+router.post('/reg', (req,res)=>{
     const {firstName,lastName,userName,password,phnNo,address,state,city,pincode}=req.body;
     const newUser=userReg({firstName:firstName,lastName:lastName,userName:userName,password:bcrypt.hashSync(password, 8),phnNo:phnNo,address:address,state:state,city:city,pincode:pincode});
-    newUser.save(function(err,result){
-        if(err){
-            res.send({message:'Error in saving the user'});
-        }else if(result){
-            res.send({message:true})
+    userReg.findOne({userName:userName}).then((user)=>{
+        if(user){
+            res.send({message:"UserName already exists"});
         }else{
-            res.send({message:false});
+            newUser.save().then((result)=>{
+                if(result){
+                   res.send({message:true})
+               }else{
+                   res.send({message:false});
+               }
+           }).catch(err=>res.send({message:err}));
         }
-    });
-
+    }).catch((err)=>res.send({message:err}));   
 });
 
 router.post('/login',(req,res)=>{
-    userReg.find({userName:req.body.userName.trim()},function(err,users){
-        if(err){
-            return res.send({message:'Error 404'});
-        }else if(users){
-               const user= users.find((user)=>{
-                    if(bcrypt.compareSync(req.body.password,user.password)){
-                        return user;
-                    }
-                });
-                if(user){
-                    let token = jwt.sign({ id: user.id }, config.secret, {
+     userReg.findOne({userName:req.body.userName.trim()}).then((user)=>{
+         if(user){
+                if(bcrypt.compareSync(req.body.password,user.password)){
+                    let token = jwt.sign({ id: user._id }, config.secret, {
                         expiresIn: 86400 // 24 hours
                     });
                     return res.send({message:true,accessToken:token});
-
+  
                 }else{
                    return res.send({message:"Invalid password",accessToken:null});
                 }
         }else{
-               return res.send({message:"Invalid password"});
+               return res.send({message:"Invalid userName"});
         }
         
-    });
+    }).catch((err)=>res.send({message:"Error in finding the user "}));
 });
 
 module.exports=router;
