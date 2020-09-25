@@ -57,7 +57,7 @@ class Login extends React.Component{
         }
         
         if(this.state.isValid === true){
-            alert("Enter fields correctly");
+            alert("Enter field values correctly");
             return false;
         }
         else{

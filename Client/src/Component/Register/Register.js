@@ -28,6 +28,7 @@ class Register extends React.Component{
                 phnNo: '',
             },
             isValid: false,
+            message:''
         }; 
         this.auth=new Auth();     
     }

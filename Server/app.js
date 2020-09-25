@@ -9,7 +9,7 @@ app.set('port',4000);
 app.use(cors());
 app.use('/book',bookController);
 app.use('/user',userController);
-mongoose.connect(config.getDbConnectionString(),{useNewUrlParser:true,useUnifiedTopology:true});
+mongoose.connect(config.getDbConnectionString(),{useCreateIndex:true,useNewUrlParser:true,useUnifiedTopology:true});
 const db=mongoose.connection;
 db.on('error',console.error.bind(console,'connection error:'))
 db.once('open',function(){

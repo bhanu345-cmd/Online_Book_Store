@@ -2,10 +2,7 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import Auth from '../../Authentication/Auth.js'
 class UserHome extends React.Component{
-    // handleClick=()=>{
-    //     this.props.history.push('/login');
-    // }
-    constructor(props){
+        constructor(props){
         super(props);
         this.auth=new Auth(this.props.history);
     }
