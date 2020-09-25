@@ -9,14 +9,17 @@ class App extends React.Component {
     super(props);
     this.auth=new Auth(this.props.history);
   }
+  componentWillMount(){
+    this.authValue=this.auth.isAuthenticated();
+  }
   render(){
   return (
     <Router>
       <Switch>
-        <Route path="/" exact component={Home}/>
         <Route path="/login" component={Login} />
         <Route path="/register" exact component={Register} /> 
-        {this.auth.isAuthenticated()?<Route path="/Home/:data" component={Home}/> : <Redirect to='/'/>}
+        <Route path="/" exact component={Home}/>
+        {this.authValue ? <Route path="/Home/:data" component={Home}/> : <Redirect to='/'/>}
       </Switch>
     </Router>
   );

@@ -2,7 +2,8 @@ import React from 'react';
 import './Books.css';
 import carousel1 from '../Images/carousel1.jpg';
 import Axios from 'axios';
-class Books extends React.Component{
+import Aux from '../../hoc/Auxiliary.js';
+export default class Books extends React.Component{
     state={
         books:[],
         message:""
@@ -19,23 +20,23 @@ class Books extends React.Component{
     render(){
         console.log(this.state);
         return(
-            <>
+            <Aux>
             <div className="container">
                 <div className="row">
                     {this.state.books.map((book,index)=>{
-                      return(
-                          
+                      return( 
                         <div className="col-lg-3 col-md-4 col-sm-6">
-                        <div className="card">
+                        <div className="card mt-4">
                             <img src={carousel1} className="card-img-top" alt="..."/>
                         <div className="card-body" key={index}>
-                        <p className="card-text font-weight-bold">{book.bookName}</p>
-                        <p className="card-text">{book.author}</p>
-                        <p className="card-text">{book.category}</p>
-                        <p className="card-text">{book.publishedDate}</p>
+                        <p className="card-text font-weight-bolder"><span style={{fontSize:'15px'}}>{book.bookName}</span></p>
+                        <p className="card-text">Author:<span>{book.author}</span></p>
+                        <p className="card-text">Category:<span>{book.category}</span></p>
                         <p className="card-text">Price:$<span className="text-primary font-weight-bold">{book.price}</span></p>
-                        <a href="#" class="btn btn-danger">Buy</a>
-                        <a href="#" class="btn btn-success float-right">Add to Cart</a>
+                        <div className="card-footer">
+                        <a href="#" class="btn btn-danger btn-sm">Buy</a>
+                        <a href="#" class="btn btn-success btn-sm float-right">Add to Cart</a>
+                        </div>
                         </div>
                         </div>
                         </div>
@@ -112,11 +113,10 @@ class Books extends React.Component{
                             </div>
                         </div>
                     </div>
-                    {/* can remove till here */}*/
+                    {/* can remove till here */}
                 </div>
             </div>
-            </>
+            </Aux>
         );
     }
 }
-export default Books;

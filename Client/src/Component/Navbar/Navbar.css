@@ -11,3 +11,8 @@
 .badge{
     margin-left: -10px;
 }
+
+.input-group{
+    width:50% !important;
+    vertical-align: center;
+}

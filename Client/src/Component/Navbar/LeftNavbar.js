@@ -1,40 +1,44 @@
 import React from 'react';
 import './LeftNavbar.css';
+import {Link} from 'react-router-dom';
+import Aux from '../../hoc/Auxiliary.js'
 class LeftNavbar extends React.Component{
     render(){
         return(
-            <>
-            <div className="categories ">
-            <nav className="navbar bg-light">
-                    <ul className="navbar-nav w-100">
+            <Aux>
+            <div className="categories">
+            <h1 className="fontstyle text-dark">Categories</h1>
+            <nav className="navbar">
+                    <ul className="navbar-nav w-100 ">
                         <li className="nav-item text-center">
-                        <a className="nav-link" href="#">Category 1</a>
+                        <Link className="nav-link text-dark" to="#">Category 1</Link>
                         </li>
                         <li className="nav-item text-center">
-                        <a className="nav-link" href="#">Category 2</a>
+                        <Link className="nav-link text-dark" to="#">Category 2</Link>
                         </li>
                         <li className="nav-item text-center">
-                        <a class="nav-link" href="#">Category 3</a>
+                        <Link class="nav-link text-dark" to="#">Category 3</Link>
                         </li>
                     </ul>
             </nav>
             </div>
             <div className="authors mb-2">
-            <nav class="navbar bg-light">
+            <h1 className="fontstyle text-dark">Authors</h1>
+            <nav class="navbar">
                     <ul class="navbar-nav w-100">
                         <li class="nav-item text-center">
-                        <a class="nav-link" href="#">Autho 1</a>
+                        <Link class="nav-link text-dark" href="#">Autho 1</Link>
                         </li>
                         <li class="nav-item text-center">
-                        <a class="nav-link" href="#">Author 2</a>
+                        <Link class="nav-link text-dark" href="#">Author 2</Link>
                         </li>
                         <li class="nav-item text-center">
-                        <a class="nav-link" href="#">Author 3</a>
+                        <Link class="nav-link text-dark" href="#">Author 3</Link>
                         </li>
                     </ul>
             </nav>
             </div>
-            </>
+            </Aux>
         );
     }
 }

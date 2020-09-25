@@ -1,10 +1,18 @@
 .categories{
     margin:10px 0px;
-    padding: 0 10px 0 30px !important;
+    padding: 0 10px 0 10px !important;
     box-sizing: border-box;
 }
 .authors{
     margin:10px 0px;
-    padding: 0 10px 0 30px !important;
+    padding: 0 10px 0 10px !important;
     box-sizing: border-box;
+}
+.fontstyle{
+    font-size:20px;
+    color:white;
+}
+
+nav{
+    background-color:#F0F0F0;
 }
