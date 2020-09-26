@@ -8,6 +8,13 @@ import Authors from '../Authors/Authors';
 import Auth from '../../Authentication/Auth.js';
 import Aux from '../../hoc/Auxiliary.js';
 class BooksOnSearch extends React.Component{
+    constructor(props){
+        super(props);
+        this.auth=new Auth(this.props.history);
+    }
+    logoutHandler=()=>{
+        this.auth.logout();
+    }
     render(){
         return(
             <>

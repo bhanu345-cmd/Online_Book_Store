@@ -20,8 +20,11 @@ class App extends React.Component {
       <Route path="/" exact component={Home}/>
         <Route path="/login" component={Login} />
         <Route path="/register" component={Register} /> 
+        
         <Route path="/Home/:data/booksonsearch" component={BooksOnSearch} />
+        <Route path="/Home/booksonsearch" component={BooksOnSearch} />
         {this.auth.isAuthenticated() ? <Route path="/Home/:data" component={Home}/> : <Redirect to='/'/>}
+        
       </Switch>
     </Router>
   );

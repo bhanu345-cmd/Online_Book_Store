@@ -7,6 +7,7 @@ class Search extends React.Component{
         this.state={
             searchText: ""
         }
+        this.auth= this.props.auth;
         
     }
     handleSearchChange = (event)=>{
@@ -17,9 +18,12 @@ class Search extends React.Component{
     handleSearchSubmit =(event) =>{
         event.preventDefault();
         alert("You searched for " +this.state.searchText);
-        this.props.history.push(`/Home/${this.props.match.params.data}/booksonsearch`)
+        this.auth.isAuthenticated() ?
+        this.props.history.push(`/Home/${this.props.match.params.data}/booksonsearch`):
+        this.props.history.push(`/Home/booksonsearch`)
     }
     render(){
+        console.log(this.auth.isAuthenticated())
         return(
              <Aux>
                 <div className="col-lg-8 col-md-8 col-sm-8">

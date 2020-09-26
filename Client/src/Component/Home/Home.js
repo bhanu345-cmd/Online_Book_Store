@@ -19,7 +19,7 @@ class Home extends React.Component{
     }
     render(){
         return(
-            <Aux>
+            <>
             <Navbar {...this.props} logout={()=>{this.logoutHandler()}}/>
             <div className="row">
                 <div className="col-lg-12 col-md-12 col-sm-12">
@@ -39,7 +39,7 @@ class Home extends React.Component{
             <Services />
             <hr className="hrhome"/>
             <Footer />         
-            </Aux>
+            </>
         );
     }
 }
