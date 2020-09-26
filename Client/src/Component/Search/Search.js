@@ -1,0 +1,35 @@
+import React from 'react';
+import Aux from '../../hoc/Auxiliary.js';
+
+class Search extends React.Component{
+    constructor(props){
+        super(props)
+        this.state={
+            searchText: ""
+        }
+        
+    }
+    handleSearchChange = (event)=>{
+        const {id,value} = event.target;
+        console.log({[id]: value});
+        this.setState({[id]: value})
+    }
+    handleSearchSubmit =(event) =>{
+        event.preventDefault();
+        alert("You searched for " +this.state.searchText);
+        this.props.history.push(`/Home/${this.props.match.params.data}/booksonsearch`)
+    }
+    render(){
+        return(
+             <Aux>
+                <div className="col-lg-8 col-md-8 col-sm-8">
+                    <form className="form-inline justify-content-center" onSubmit={this.handleSearchSubmit}>
+                        <input className="form-control mr-sm-2 w-50" type="text" placeholder="Search" aria-label="Search" id="searchText" onChange={this.handleSearchChange}/>
+                        <button className="btn btn-outline-success my-2 my-sm-0" type="submit" >Search</button>
+                    </form>
+                </div>
+            </Aux>
+        )
+    }
+}
+export default Search;

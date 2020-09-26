@@ -2,6 +2,7 @@ import React,{useHistory} from 'react';
 import './Navbar.css';
 //import 'bootstrap/dist/css/bootstrap.min.css';
 import {Link,NavLink} from 'react-router-dom';
+import Search from '../Search/Search';
 import Auth from '../../Authentication/Auth.js';
 import Aux from '../../hoc/Auxiliary.js';
 class Navbar extends React.Component{
@@ -16,12 +17,7 @@ class Navbar extends React.Component{
                    {/* <NavLink className="navbar-brand" to="/#"><strong>Book Store</strong></NavLink> */}
                    {!this.auth.isAuthenticated()&&<Link className="navbar-brand" to={{pathname:`/`}}><strong>Book Store</strong></Link>}
                     {this.auth.isAuthenticated()&&<Link className="navbar-brand" to={{pathname:`/Home/${this.props.match.params.data}`}}><strong>Book Store</strong></Link>}
-                    <div className="col-lg-8 col-md-8 col-sm-8">
-                        <form className="form-inline justify-content-center">
-                            <input className="form-control mr-sm-2 w-50"type="text" placeholder="Search" aria-label="Search"/>
-                            <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                        </form>
-                    </div>
+                        <Search {...this.props}/>
                     <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
                         <span className="navbar-toggler-icon"></span>
                     </button>
