@@ -67,6 +67,7 @@ class Login extends React.Component{
         else{
             this.auth.login(data).then((res)=>{
                 if(res.message===true){
+                    console.log("hi");
                     this.props.history.push('/Home/'+data.userName);
                 }else{
                     this.setState({message:res.message});

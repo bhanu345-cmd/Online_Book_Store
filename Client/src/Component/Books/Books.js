@@ -20,28 +20,43 @@ export default class Books extends React.Component{
     render(){
         console.log(this.state);
         return(
-            <Aux>
-            <div className="container">
                 <div className="row">
-                    {this.state.books.map((book,index)=>{
+                    {this.props.searchResult.length==0 ? this.state.books.map((book,index)=>{
                       return( 
-                        <div className="col-lg-3 col-md-4 col-sm-6">
-                        <div className="card mt-4">
-                            <img src={carousel1} className="card-img-top" alt="..."/>
-                        <div className="card-body" key={index}>
-                        <p className="card-text font-weight-bolder"><span style={{fontSize:'15px'}}>{book.bookName}</span></p>
-                        <p className="card-text">Author:<span>{book.author}</span></p>
-                        <p className="card-text">Category:<span>{book.category}</span></p>
-                        <p className="card-text">Price:$<span className="text-primary font-weight-bold">{book.price}</span></p>
-                        <div className="card-footer">
-                        <a href="#" class="btn btn-danger btn-sm">Buy</a>
-                        <a href="#" class="btn btn-success btn-sm float-right">Add to Cart</a>
-                        </div>
-                        </div>
-                        </div>
+                        <div className="col-xl-3 col-lg-4 col-md-5 col-sm-6 col-xs-7">
+                            <div className="card mt-4">
+                                <img src={carousel1} className="card-img-top" alt="..."/>
+                                <div className="card-body" key={index}>
+                                    <p className="card-text font-weight-bolder"><span style={{fontSize:'15px'}}>{book.bookName}</span></p>
+                                    <p className="card-text">Author:<span>{book.author}</span></p>
+                                    <p className="card-text">Category:<span>{book.category}</span></p>
+                                    <p className="card-text">Price:$<span className="text-primary font-weight-bold">{book.price}</span></p>
+                                    <div className="card-footer">
+                                            <a href="#" className="btn btn-danger btn-sm">Buy</a>
+                                            <a href="#" className="btn btn-success btn-sm">Add to Cart</a>    
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                       );
-                    })}
+                    }): this.props.searchResult.map((book,index)=>{
+                        return( 
+                          <div className="col-xl-3 col-lg-4 col-md-5 col-sm-6 col-xs-7">
+                                <div className="card mt-4">
+                                    <img src={carousel1} className="card-img-top" alt="..."/>
+                                    <div className="card-body" key={index}>
+                                        <p className="card-text font-weight-bolder"><span style={{fontSize:'15px'}}>{book.bookName}</span></p>
+                                        <p className="card-text">Author:<span>{book.author}</span></p>
+                                        <p className="card-text">Category:<span>{book.category}</span></p>
+                                        <p className="card-text">Price:$<span className="text-primary font-weight-bold">{book.price}</span></p>
+                                        <div className="card-footer">
+                                                <a href="#" className="btn btn-danger btn-sm">Buy</a>
+                                                <a href="#" className="btn btn-success btn-sm">Add to Cart</a>    
+                                        </div>
+                                    </div>
+                                </div>
+                          </div>
+                        )})}
                     
                     {/*<div className="col-lg-3 col-md-4 col-sm-6 pb-2">
                         <div className="card">
@@ -115,8 +130,7 @@ export default class Books extends React.Component{
                     </div>
                     {/* can remove till here */}
                 </div>
-            </div>
-            </Aux>
+        
         );
     }
 }

@@ -5,7 +5,6 @@ export default class auth{
         this.history=history
     }
 
-
     registration=({firstName,lastName,userName,password,phnNo,
         address,state,city,pincode})=>{
         const data={

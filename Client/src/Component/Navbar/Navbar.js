@@ -13,12 +13,13 @@ class Navbar extends React.Component{
         return(
             <Aux>
                 <nav className="navbar navbar-expand-lg navbar-light bg-light sticky-top">
-                   <NavLink className="navbar-brand" to="/#"><strong>Book Store</strong></NavLink>
-                    {this.auth.isAuthenticated()&&<Link className="navbar-brand" to="/#"><strong>Book Store</strong></Link>}
-                    <div className="col-lg-9 col-md-9 col-sm-9">
+                    <div className="container-fluid">
+                    {!this.auth.isAuthenticated() && <Link className="navbar-brand" to='/'><strong>Bookstore</strong></Link>}
+                    {this.auth.isAuthenticated()&&<Link className="navbar-brand" to={{pathname:"/Home/"+this.props.match.params.data}}><strong>Book Store</strong></Link>}
+                    <div className="col-lg-9 col-md-6 col-sm-6">
                         <form className="form-inline justify-content-center">
-                            <input className="form-control mr-sm-2 w-50"type="text" placeholder="Search" aria-label="Search"/>
-                            <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                            <input className="form-control mr-sm-2 w-50"type="text" placeholder="Search" aria-label="Search" onChange={this.props.search}/>
+                            <button className="btn btn-outline-success my-2 my-sm-0" onClick={this.props.click}>Search</button>
                         </form>
                     </div>
                     <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
@@ -41,6 +42,7 @@ class Navbar extends React.Component{
                             {this.auth.isAuthenticated() && <li className="nav-item"><button className="btn btn-success" onClick={this.props.logout}>LogOut</button></li>}
                         </ul>
                         
+                    </div>
                     </div>
                 </nav>
             </Aux>

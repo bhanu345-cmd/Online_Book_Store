@@ -16,3 +16,25 @@
     width:50% !important;
     vertical-align: center;
 }
+
+.dropdown-menu {
+    /* float: right !important; */
+    right: 0;
+    left: auto;
+}
+
+@media (max-width:600px){
+    .justify-content-center{
+        justify-content:left !important;
+    }
+    form input{
+        margin-right:2px;
+    }
+    .col-sm-6{
+        width:250px !important
+    }
+    .navbar-toggler{
+        padding:2px !important
+    }
+    
+}
