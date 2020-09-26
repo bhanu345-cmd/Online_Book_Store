@@ -5,6 +5,7 @@ import LeftNavbar from '../Navbar/LeftNavbar';
 import Books from '../Books/Books';
 import Footer from '../Others/Footer';
 import Services from '../Others/Services';
+import Authors from '../Authors/Authors';
 import './Home.css';
 import Auth from '../../Authentication/Auth.js';
 import Aux from '../../hoc/Auxiliary.js';
@@ -29,7 +30,8 @@ class Home extends React.Component{
                 <div className=" col-lg-2 col-md-2 col-sm-2 bg-white ml-2">
                     <LeftNavbar />                    
                 </div>
-                <div className="col-lg-9 col-md-9 col-sm-9 ml-2">
+                <div className="col-lg-9 col-md-9 col-sm-9 ml-2 books">
+                    <Authors />
                     <Books />
                 </div>
             </div>

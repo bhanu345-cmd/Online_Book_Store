@@ -68,7 +68,7 @@ class Login extends React.Component{
         else{
             this.auth.login(data).then((res)=>{
                 if(res.message===true){
-                    this.props.history.push('/Home/'+data.userName);
+                    this.props.history.push(`/Home/${data.userName}`);
                 }else{
                     this.setState({message:res.message});
                 }
@@ -82,7 +82,7 @@ class Login extends React.Component{
     return(
         <div className="container text-center">
             <div className="projName text-center">
-                <a href="#"><strong>Book Store</strong></a>
+                <Link to="/"><strong>Book Store</strong></Link>
             </div>
             <div className="row ">
                 <div className="col-12 d-flex justify-content-center">

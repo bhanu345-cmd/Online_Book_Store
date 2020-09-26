@@ -23,7 +23,7 @@ export default class Books extends React.Component{
             <Aux>
             <div className="container cardcontainer">
                 <div className="row">
-                <div className="col-12"><h3>All Books</h3><hr /></div>
+                <div className="col-12 divnames"><h4>Most Popular Books...</h4><hr /></div>
                     {this.state.books.map((book,index)=>{
                       return( 
                         <div className="col-lg-3 col-md-4 col-sm-6">
@@ -44,8 +44,8 @@ export default class Books extends React.Component{
                       );
                     })}
                     
-                    <div className="col-12"><hr /><h3>Books by Category</h3><hr /></div>
-                    <div className="col-12"><hr /><h3>Books by Author</h3><hr /></div>
+                    <div className="col-12 divnames"><hr /><h4>Books by Category</h4><hr /></div>
+                    <div className="col-12 divnames"><hr /><h4>Books by Author</h4><hr /></div>
                     {/*<div className="col-lg-3 col-md-4 col-sm-6 pb-2">
                         <div className="card">
                             <img src={carousel1} className="card-img-top" alt="..."/>

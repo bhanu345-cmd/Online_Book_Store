@@ -9,10 +9,18 @@
     margin-top: -100px;
     margin-right: 10px;
 }
+.nav-link .fa-user-circle-o{
+    padding: 0%;
+}
 .badge{
     margin-left: -10px;
 }
 .input-group{
     width:50% !important;
     vertical-align: center;
+}
+.dropdown-menu {
+    /* float: right !important; */
+    right: 0;
+    left: auto;
 }
