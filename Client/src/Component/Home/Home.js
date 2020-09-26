@@ -38,8 +38,9 @@ class Home extends React.Component{
             <hr className="hrhome"/>
             <Services />
             <hr className="hrhome"/>
-            <Footer />         
-            </>
+            <Footer /> 
+            </>        
+            
         );
     }
 }

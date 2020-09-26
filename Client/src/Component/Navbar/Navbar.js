@@ -3,6 +3,7 @@ import './Navbar.css';
 //import 'bootstrap/dist/css/bootstrap.min.css';
 import {Link,NavLink} from 'react-router-dom';
 import Search from '../Search/Search';
+import Profile from './Profile';
 import Auth from '../../Authentication/Auth.js';
 import Aux from '../../hoc/Auxiliary.js';
 class Navbar extends React.Component{
@@ -15,7 +16,7 @@ class Navbar extends React.Component{
         console.log(this.auth.isAuthenticated());
         return(
             <Aux>
-                <nav className="navbar navbar-expand-lg navbar-light bg-light sticky-top">
+                <nav className="navbar navbar-expand-lg navbar-light bg-light sticky-top" >
                    {/* <NavLink className="navbar-brand" to="/#"><strong>Book Store</strong></NavLink> */}
                    {!this.auth.isAuthenticated()&&<Link className="navbar-brand" to={{pathname:`/`}}><strong>Book Store</strong></Link>}
                     {this.auth.isAuthenticated()&&<Link className="navbar-brand" to={{pathname:`/Home/${this.props.match.params.data}`}}><strong>Book Store</strong></Link>}
@@ -32,14 +33,17 @@ class Navbar extends React.Component{
                                 <a className="nav-link text-dark" href="/register">SignUp</a>
                             </li>}
                             {this.auth.isAuthenticated()&& this.props.match.params.data &&
-                            <>                            
+                            <>
                             <li>
+                            <Profile {...this.props} auth={this.auth}/>
+                            </li>                           
+                            {/* <li>
                             <a className="nav-link text-dark" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><i className="fa fa-user-circle-o"></i></a>
                             <div className="dropdown-menu pull-right">
                             <a className="dropdown-item" href="#">Hi!! {this.props.match.params.data}</a>
                             <p className="dropdown-item">Welcome</p>
                             </div>
-                            </li>
+                            </li> */}
                             </>
                             }
                             <li className="nav-item">
