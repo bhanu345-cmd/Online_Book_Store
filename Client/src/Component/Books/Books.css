@@ -1,15 +1,19 @@
-.bookcard .card-text {
+.card .card-text {
     line-height: 1em !important;
+    font-size:12px !important ;
 }
-.bookcard{
-    border: 0px;
-    border-radius: 0px;
+.card{
+    font-family:sans-serif;
+    transition: .2s ease-in-out ;
 }
-.fa-inr{
-    font-size: small;
-    margin-right: 0px !important;
-    margin-left: 3px;
+.card:hover{
+    box-shadow:5px 10px 8px #888888;
+    transform:scale(1.1) ;   
 }
-.allbooks{
-    border-top: 1px solid rgb(167, 166, 166);
+.card-footer{
+    padding-right: 0 !important;
+    padding-left: 0 !important;
+}
+.price{
+    font-size: medium;
 }

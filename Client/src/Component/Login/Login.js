@@ -1,7 +1,9 @@
 import React from 'react';
 import './Login.css'
 import Auth from '../../Authentication/Auth';
+import {Link} from 'react-router-dom';
 class Login extends React.Component{
+
     constructor(props){
         super(props)
         this.state={
@@ -16,6 +18,8 @@ class Login extends React.Component{
         };
         this.auth=new Auth(this.props.history);
     }
+
+
     handleChange = (event) =>{       
         const {id, value} = event.target;
         let errors = this.state.errors;
@@ -41,6 +45,8 @@ class Login extends React.Component{
             {errors,[id] : value}
         );        
     }
+
+
     handleSubmit = async(event)=>{
         event.preventDefault();
         const {userName,password}=this.state;
@@ -62,13 +68,15 @@ class Login extends React.Component{
         else{
             this.auth.login(data).then((res)=>{
                 if(res.message===true){
-                    this.props.history.push(`/Home/${data.userName}`);
+                    this.props.history.push('/Home/'+data.userName);
                 }else{
                     this.setState({message:res.message});
                 }
-        });
+            });
+        }
     }
-}
+
+
     render(){
         const {errors,message} = this.state;    
     return(
@@ -105,7 +113,7 @@ class Login extends React.Component{
                 </div>                
             </div>
             <h6><small>New to Book Store?</small></h6>
-            <a href="#" className="btn btn-success form-control sign">SignUp</a>
+            <Link href="/register" className="btn btn-success form-control sign">SignUp</Link>
         </div>
     );
 }

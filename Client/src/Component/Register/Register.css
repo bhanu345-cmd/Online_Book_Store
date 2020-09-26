@@ -14,7 +14,7 @@
     background-color: white;
     border: 1px solid black;
     border-radius: 0px;
-    padding: 15px 40px 20px 40px;
+    padding: 15px 40px 15px 40px;
 }
 .jumbotron label{
     padding-top: 10px;
@@ -26,4 +26,8 @@
 .error{
     color: red;
     font-size: 13px;
+}
+.loginRe{
+    padding-bottom: 10px;
+    
 }

@@ -12,7 +12,7 @@
 .badge{
     margin-left: -10px;
 }
-.search{
-    display: flex;
-    justify-content: center;
+.input-group{
+    width:50% !important;
+    vertical-align: center;
 }

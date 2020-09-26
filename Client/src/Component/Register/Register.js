@@ -141,6 +141,8 @@ class Register extends React.Component{
                     <div className="jumbotron" style={{width:"550px"}}>
                         <h4>SignUp</h4>
                         <form onSubmit={this.handleSubmit}>
+                            <div className="row">
+                            <div className="col-6">
                             <div className="form-group">
                                 <label htmlFor="firstName" className="float-left">First Name:</label>
                                 <input id="firstName" value={this.state.email} type="text" className="form-control" onChange={this.handleChange} placeholder="First Name" required/>
@@ -148,12 +150,16 @@ class Register extends React.Component{
                                 {errors.firstName.length > 0 && 
                                     <span className='error'>{errors.firstName}</span>}</div>
                             </div>
+                            </div>
+                            <div className="col-6">
                             <div className="form-group">
                                 <label htmlFor="lastName" className="float-left">Last Name:</label>
                                 <input id="lastName" value={this.state.email} type="text" className="form-control" onChange={this.handleChange} placeholder="Last Name" required/>
                                 <div className="float-right error">
                                 {errors.lastName.length > 0 && 
                                     <span className='error'>{errors.lastName}</span>}</div>
+                            </div>
+                            </div>
                             </div>
                             <div className="form-group">
                                 <label htmlFor="userName" className="float-left">User Name(Email):</label>
@@ -169,6 +175,8 @@ class Register extends React.Component{
                                 {errors.password.length > 0 && 
                                     <span className='error'>{errors.password}</span>}</div>
                             </div>
+                            <div className="row">
+                            <div className="col-6">
                             <div className="form-group">
                                 <label htmlFor="address" className="float-left">Address:</label>
                                 <input id="address" value={this.state.address} type="text" className="form-control" onChange={this.handleChange} placeholder="Address" required/>
@@ -176,6 +184,19 @@ class Register extends React.Component{
                                 {errors.address.length > 0 && 
                                     <span className='error'>{errors.address}</span>}</div>
                             </div>
+                            </div>
+                            <div className="col-6">
+                            <div className="form-group">
+                                <label htmlFor="pincode" className="float-left">Pincode:</label>
+                                <input id="pincode" value={this.state.pincode} type="number" className="form-control" onChange={this.handleChange} placeholder="PinCode" required/>
+                                <div className="float-right error">
+                                {errors.pincode.length > 0 && 
+                                    <span className='error'>{errors.pincode}</span>}</div>
+                            </div>
+                            </div>
+                            </div>
+                            <div className="row">
+                            <div className="col-6">
                             <div className="form-group">
                             <label htmlFor="state" className="float-left">State:</label>
                                 <select id="state" value= {this.state.state} onChange={this.handleChange} className="form-control" required>
@@ -185,6 +206,8 @@ class Register extends React.Component{
                                     <option value = "Tamil Nadu">Tamil Nadu</option>
                                 </select>                                
                             </div>
+                            </div>
+                            <div className="col-6">
                             <div className="form-group">
                             <label htmlFor="city" className="float-left">City:</label>
                                 <select id="city" value= {this.state.city} onChange={this.handleChange} className="form-control" required>
@@ -194,13 +217,9 @@ class Register extends React.Component{
                                     <option value = "Chennai">Chennai</option>
                                 </select>
                             </div>
-                            <div className="form-group">
-                                <label htmlFor="pincode" className="float-left">Pincode:</label>
-                                <input id="pincode" value={this.state.pincode} type="number" className="form-control" onChange={this.handleChange} placeholder="PinCode" required/>
-                                <div className="float-right error">
-                                {errors.pincode.length > 0 && 
-                                    <span className='error'>{errors.pincode}</span>}</div>
                             </div>
+                            </div>
+                            
                             <div className="form-group">
                                 <label htmlFor="phnNo" className="float-left">Phone Number:</label>
                                 <input id="phnNo" value={this.state.phnNo} type="number" className="form-control" onChange={this.handleChange} placeholder="Phone Number" required/>
@@ -214,8 +233,10 @@ class Register extends React.Component{
                     </div>
                 </div>                
             </div>
+            <div className="loginRe">
             <h6><small>Already a registered USer?</small></h6>
             <Link to="/login" className="btn btn-success form-control sign">Login</Link>
+            </div>
         </div>
         )
     }

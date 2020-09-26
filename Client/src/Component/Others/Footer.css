@@ -33,3 +33,8 @@
 .hrtag{
     width: 90%;
 }
+.fa-facebook,.fa-twitter,
+.fa-youtube-play,.fa-instagram,.fa-pinterest
+{
+    font-size: xx-large;
+}
