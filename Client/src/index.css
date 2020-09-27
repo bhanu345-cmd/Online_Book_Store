@@ -16,3 +16,8 @@ code {
 .modal-backdrop {
   z-index: -1;
 }
+@media (min-width: 1200px){
+.container{
+    max-width: 2000px;
+} 
+}

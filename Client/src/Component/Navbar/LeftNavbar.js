@@ -6,6 +6,7 @@ class LeftNavbar extends React.Component{
     render(){
         return(
             <Aux>
+            
             <div className="categories">
             <h1 className="fontstyle text-dark">Categories</h1>
             <nav className="navbar">
@@ -38,6 +39,7 @@ class LeftNavbar extends React.Component{
                     </ul>
             </nav>
             </div>
+            
             </Aux>
         );
     }

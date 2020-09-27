@@ -2,7 +2,7 @@ import React,{useHistory} from 'react';
 import './Navbar.css';
 //import 'bootstrap/dist/css/bootstrap.min.css';
 import {Link,NavLink} from 'react-router-dom';
-import Search from '../Search/Search';
+// import Search from '../Search/Search';
 import Profile from './Profile';
 import Auth from '../../Authentication/Auth.js';
 import Aux from '../../hoc/Auxiliary.js';
@@ -16,11 +16,17 @@ class Navbar extends React.Component{
         console.log(this.auth.isAuthenticated());
         return(
             <Aux>
+                {/* <div className="container"> */}
                 <nav className="navbar navbar-expand-lg navbar-light bg-light sticky-top" >
-                   {/* <NavLink className="navbar-brand" to="/#"><strong>Book Store</strong></NavLink> */}
+                   <div className="container-fluid">
                    {!this.auth.isAuthenticated()&&<Link className="navbar-brand" to={{pathname:`/`}}><strong>Book Store</strong></Link>}
                     {this.auth.isAuthenticated()&&<Link className="navbar-brand" to={{pathname:`/Home/${this.props.match.params.data}`}}><strong>Book Store</strong></Link>}
-                        <Search {...this.props} auth={this.auth}/> 
+                    <div className="col-lg-8 col-md-6 col-sm-6">
+                        <form className="form-inline justify-content-center">
+                            <input className="form-control mr-sm-2 w-50"type="text" placeholder="Search" aria-label="Search" onChange={this.props.search}/>
+                            <button className="btn btn-outline-success my-2 my-sm-0" onClick={this.props.click}>Search</button>
+                        </form>
+                    </div>
                     <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
                         <span className="navbar-toggler-icon"></span>
                     </button>
@@ -51,9 +57,10 @@ class Navbar extends React.Component{
                             </li>
                             {this.auth.isAuthenticated() && <li className="nav-item"><button className="btn btn-success" onClick={this.props.logout}>LogOut</button></li>}
                         </ul>
-                        
+                        </div>  
                     </div>
                 </nav>
+                {/* </div> */}
             </Aux>
         );
     }

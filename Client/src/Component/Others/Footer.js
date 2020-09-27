@@ -3,6 +3,7 @@ import './Footer.css';
 class Footer extends React.Component{
     render(){
     return(
+        // <div className="container">
         <>
         <div className="row ">
             <div className="col-lg-8 col-md-8 col-sm-8" id="aboutUs">

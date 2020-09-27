@@ -5,7 +5,7 @@ class Services extends React.Component{
     return(
         <div className="container">
             <div className="row" id="services">
-            <div className="col-lg-3 col-md-4 col-sm-6">
+            <div className="col-lg-3 col-md-4 col-sm-6 pl-5">
                 <div className="row">
                     <div className="col-lg-3 pt-2">
                         <i className="fa fa-car text-danger"></i>  

@@ -59,8 +59,8 @@ router.post('/addBook',(req,res)=>{
         }
     })
 });
-router.post('/search',(req,res)=>{
-    books.find({"bookName":{$regex : `^${req.body.name}.*` , $options: 'si' }}).then((result)=>{
+router.get('/search/:name',(req,res)=>{
+    books.find({"bookName":{$regex : `^${req.params.name}.*` , $options: 'si' }}).then((result)=>{
         res.send(result);
     }
     ).catch((err)=>{

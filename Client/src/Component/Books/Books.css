@@ -12,8 +12,10 @@
     transform:scale(1.1) ;   
 }
 .card-footer{
-    padding-right: 0 !important;
-    padding-left: 0 !important;
+    display:flex !important;
+    justify-content: space-between;
+    padding-right: 0px !important;
+    padding-left:0px !important;
 }
 .price{
     font-size: medium;
@@ -25,4 +27,15 @@
 .divnames h4{
     
     line-height: 1rem;
+}
+.container{
+    padding:0 !important;
+}
+@media (max-width:780px){
+    .card-footer{
+        flex-flow: column;
+    }
+    .card-footer a{
+        margin-top: 5px;
+    }
 }

@@ -5,6 +5,7 @@ class Authors extends React.Component{
     render(){
         return(
             <Aux>
+                {/* <div className="container"> */}
                 <div className="col-12 divnames divnamesAuthors"><h4>Featured Authors...</h4></div>
                 <div className="row">
                     <div className="col-lg-2 col-md-4 col-sm-6 authorimg">
@@ -26,6 +27,7 @@ class Authors extends React.Component{
                     <img src="https://images-eu.ssl-images-amazon.com/images/G/31/img20/Books/042020/XCM_Manual_1222432_1160169_IN_IN_Book_HOMEPAGE_Graphics_Authors_40f6ca1f_202e_4905_b965_139cb26ba796_440x300_null_en_IN.jpg" alt="Dan Brown" />
                     </div>
                 </div>
+                {/* </div> */}
             </Aux>
         );
     }

@@ -24,7 +24,7 @@ export default class Books extends React.Component{
             <div className="container cardcontainer">
                 <div className="row">
                 <div className="col-12 divnames"><h4>Most Popular Books...</h4><hr /></div>
-                    {this.state.books.map((book,index)=>{
+                    {this.props.searchResult.length==0? this.state.books.map((book,index)=>{
                       return( 
                         <div className="col-lg-3 col-md-4 col-sm-6">
                         <div className="card mt-4">
@@ -42,7 +42,24 @@ export default class Books extends React.Component{
                         </div>
                         </div>
                       );
-                    })}
+                    }):this.props.searchResult.map((book,index)=>{
+                        return( 
+                          <div className="col-xl-3 col-lg-4 col-md-5 col-sm-6 col-xs-7">
+                                <div className="card mt-4">
+                                    <img src={carousel1} className="card-img-top" alt="..."/>
+                                    <div className="card-body" key={index}>
+                                        <p className="card-text font-weight-bolder"><span style={{fontSize:'15px'}}>{book.bookName}</span></p>
+                                        <p className="card-text">Author:<span>{book.author}</span></p>
+                                        <p className="card-text">Category:<span>{book.category}</span></p>
+                                        <p className="card-text">Price:$<span className="text-primary font-weight-bold">{book.price}</span></p>
+                                        <div className="card-footer">
+                                                <a href="#" className="btn btn-danger btn-sm">Buy</a>
+                                                <a href="#" className="btn btn-success btn-sm">Add to Cart</a>    
+                                        </div>
+                                    </div>
+                                </div>
+                          </div>
+                        )})}
                     
                     <div className="col-12 divnames"><hr /><h4>Books by Category</h4><hr /></div>
                     <div className="col-12 divnames"><hr /><h4>Books by Author</h4><hr /></div>
