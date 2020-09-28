@@ -1,6 +1,7 @@
 import React from 'react';
 import './Register.css';
-import Auth from '../../Authentication/Auth'
+import Auth from '../../Authentication/Auth';
+import {Link} from 'react-router-dom';
 class Register extends React.Component{
     constructor(props){
         super(props)
@@ -216,7 +217,7 @@ class Register extends React.Component{
                 </div>                
             </div>
             <h6><small>Already a registered USer?</small></h6>
-            <a href="#" className="btn btn-success form-control sign">Login</a>
+            <Link to="/login" className="btn btn-success form-control sign">Login</Link>
         </div>
         )
     }

@@ -19,15 +19,32 @@ class Home extends React.Component{
     logoutHandler=()=>{
         this.auth.logout();
     }
+    resetHandler=()=>{
+        this.setState({result:[],message:""});
+    }
     changeHandler=(event)=>{
         event.preventDefault();
         this.setState({searchItem:event.target.value});
     }
+
+    addToCartHandler=(id)=>{
+        console.log(id);
+    }
+
     getSearchResult=async(event)=>{
         event.preventDefault();
+        this.resetHandler();
         await this.setState({display:false});
-        search(this.state.searchItem).then((searchResult)=>{this.setState({result:searchResult})}).catch(err=>{this.setState({message:"Could not find"})});
+        search(this.state.searchItem).then((searchResult)=>
+                        {
+                            if(searchResult.length>0){
+                                this.setState({result:searchResult});
+                            }else{
+                                this.setState({message:`No book found with ${this.state.searchItem} name`});
+                            }
+        }).catch(err=>{this.setState({message:"Could not find"})});
     }
+
     render(){
         return(
             <Aux>
@@ -48,7 +65,7 @@ class Home extends React.Component{
                     </div>
                     <div className="col-lg-9 col-md-8 col-sm-7 ">
                         {this.state.display&&<Authors/>}
-                        <Books {...this.props} searchResult={this.state.result}/>
+                        <Books {...this.props} searchResult={this.state.result} message={this.state.message} display={this.state.display} addToCart={this.addToCartHandler}/>
                     </div>
                 </div>
             </div>

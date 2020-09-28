@@ -1,7 +1,6 @@
-import React,{useHistory} from 'react';
+import React from 'react';
 import './Navbar.css';
-//import 'bootstrap/dist/css/bootstrap.min.css';
-import {Link,NavLink} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import Auth from '../../Authentication/Auth.js';
 import Aux from '../../hoc/Auxiliary.js';
 class Navbar extends React.Component{
@@ -31,7 +30,7 @@ class Navbar extends React.Component{
                                 <Link className="nav-link text-dark" to="/login">LogIn</Link>
                             </li>}
                             {!this.auth.isAuthenticated()&&<li className="nav-item">
-                                <a className="nav-link text-dark" href="/register">SignUp</a>
+                                <Link className="nav-link text-dark" to="/register">SignUp</Link>
                             </li>}
                             {this.auth.isAuthenticated()&& this.props.match.params.data && <li><a className="nav-link text-dark" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><i className="fa fa-user-circle-o"></i></a>
                             <div className="dropdown-menu">

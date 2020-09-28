@@ -18,10 +18,9 @@ export default class Books extends React.Component{
         });
     }
     render(){
-        console.log(this.state);
         return(
                 <div className="row">
-                    {this.props.searchResult.length==0 ? this.state.books.map((book,index)=>{
+                    {this.props.display? this.state.books.map((book,index)=>{
                       return( 
                         <div className="col-xl-3 col-lg-4 col-md-5 col-sm-6 col-xs-7">
                             <div className="card mt-4">
@@ -50,13 +49,16 @@ export default class Books extends React.Component{
                                         <p className="card-text">Category:<span>{book.category}</span></p>
                                         <p className="card-text">Price:$<span className="text-primary font-weight-bold">{book.price}</span></p>
                                         <div className="card-footer">
-                                                <a href="#" className="btn btn-danger btn-sm">Buy</a>
-                                                <a href="#" className="btn btn-success btn-sm">Add to Cart</a>    
+                                                <button className="btn btn-danger btn-sm">Buy</button>
+                                                <button  className="btn btn-success btn-sm" onClick={()=>this.props.addToCart(book._id)}>Add to Cart</button>    
                                         </div>
                                     </div>
                                 </div>
                           </div>
                         )})}
+                        {this.props.message&&<div className="col-lg-12">
+                        <h1>{this.props.message}</h1>
+                        </div>}
                     
                     {/*<div className="col-lg-3 col-md-4 col-sm-6 pb-2">
                         <div className="card">

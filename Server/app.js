@@ -4,12 +4,14 @@ var cors=require('cors');
 var app=express();
 var bookController=require('./Controllers/bookController.js');
 var userController=require('./Controllers/userController.js');
+var cartController=require('./Controllers/shoppingCartController');
 var config=require('./Config');
 app.set('port',4000);
 app.use(cors());
 app.use('/book',bookController);
 app.use('/user',userController);
-mongoose.connect(config.getDbConnectionString(),{useCreateIndex:true,useNewUrlParser:true,useUnifiedTopology:true});
+app.use('/cart',cartController);
+mongoose.connect(config.getDbConnectionString(),{useCreateIndex:true,useNewUrlParser:true,useUnifiedTopology:true,useFindAndModify:false});
 const db=mongoose.connection;
 db.on('error',console.error.bind(console,'connection error:'))
 db.once('open',function(){
