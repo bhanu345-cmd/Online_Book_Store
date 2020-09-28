@@ -25,6 +25,12 @@
     right: 0;
     left: auto;
 }
+.modal {
+    padding-right: 0px !important;
+}
+.modal-backdrop {
+    z-index: -1;
+  }
 @media (max-width:600px){
     .justify-content-center{
         justify-content:left !important;

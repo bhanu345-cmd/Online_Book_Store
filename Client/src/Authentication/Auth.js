@@ -48,8 +48,7 @@ export default class auth{
                 console.log(err);
             });
             
-    }
-         
+    }         
     setSession = token => {
         localStorage.setItem("access_token", token);
     };

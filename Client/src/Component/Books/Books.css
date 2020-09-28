@@ -31,11 +31,11 @@
 .container{
     padding:0 !important;
 }
-@media (max-width:780px){
+@media (max-width:1200px){
     .card-footer{
         flex-flow: column;
     }
-    .card-footer a{
+    .card-footer button{
         margin-top: 5px;
     }
 }

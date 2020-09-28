@@ -59,12 +59,10 @@ router.post('/login',(req,res)=>{
     }).catch((err)=>res.send({message:"Error in finding the user "}));
 });
 router.get('/getUser/:name',(req,res)=>{
-    userReg.findOne({userName:req.query.name},function(err,users){
-        if(users){
-            res.send({user:users});
-        }else if(err){
-            res.send({message:"No books found with that name"});
-        }
-    })
+    userReg.find({userName:req.params.name}).then((result)=>{
+            res.send(result);
+    }).catch((err)=>{
+        res.send(err);
+    });
 });
 module.exports=router;
