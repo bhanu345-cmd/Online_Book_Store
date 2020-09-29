@@ -22,7 +22,7 @@ router.post('/addBook',(req,res)=>{
                                     }else{
                                         res.send({message:false});
                                     }
-                                }).catch(err=>res.send({message:err}));
+                                }).catch(err=>res.send({message:err.message}));
                         }else{
                             res.send({message:false});
                         }
@@ -35,11 +35,11 @@ router.post('/addBook',(req,res)=>{
                                 }else{
                                     res.send({message:false});
                                 }
-                        }).catch(err=>res.send({message:err}));
-                    }).catch(err=>res.send(err));
+                        }).catch(err=>res.send({message:err.message}));
+                    }).catch(err=>res.send(err.message));
                     
                 }
-            }).catch(err=>res.send({message:err}));
+            }).catch(err=>res.send({message:err.message}));
 });
 
 router.get('/getCartItems',(req,res)=>{
@@ -49,7 +49,7 @@ router.get('/getCartItems',(req,res)=>{
                 }else{
                     res.send({message:false});
                 }
-            }).catch((err)=>res.send({message:err}));
+            }).catch((err)=>res.send({message:err.message}));
         
 });
 
@@ -88,13 +88,21 @@ router.post('/inc',(req,res)=>{
                         }
                     });
                     if(cartbook){
-                            cart.findByIdAndUpdate(cartbook._id,{$inc:{quantity:+1},totalPrice:cartbook.book.price*(cartbook.quantity+1)}).then((result)=>{
-                                if(result){
-                                    res.send({message:true,cartItem:result});//object
+                            cart.findById(cartbook._id).then((cartBookById)=>{
+                                if(cartBookById){
+                                    cartBookById.update({$inc:{quantity:+1},totalPrice:cartbook.book.price*(cartbook.quantity+1)}).then((cartBookUpdate)=>{
+                                        if(cartBookUpdate){
+                                            res.send({message:true});
+                                        }else{
+                                            res.send({message:false});
+                                        }
+                                    }).catch(err=>res.send({message:err.message}));
+                                    //res.send({message:true,cartItem:result});//object
+                                   
                                 }else{
                                     res.send({message:false});
                                 }
-                            }).catch(err=>res.send({message:err}));
+                            }).catch(err=>res.send({message:err.message}));
                     }else{
                         res.send({message:false});
                     }
@@ -116,22 +124,27 @@ router.post('/dec',(req,res)=>{
                         }
                     });
                     if(cartbook){
-                            cart.findByIdAndUpdate(cartbook._id,{$inc:{quantity:-1},totalPrice:cartbook.book.price*(cartbook.quantity-1)}).then((result)=>{
-                                if(result){
-                                    res.send({message:true,cartItem:result});//object
-                                }else{
-                                    res.send({message:false});
-                                }
-                            }).catch(err=>res.send({message:err}));
+                        cart.findById(cartbook._id).then((cartBookById)=>{
+                            if(cartBookById){
+                                cartBookById.update({$inc:{quantity:-1},totalPrice:cartbook.book.price*(cartbook.quantity-1)}).then((cartBookUpdate)=>{
+                                    if(cartBookUpdate){
+                                        res.send({message:true});
+                                    }else{
+                                        res.send({message:false});
+                                    }
+                                }).catch(err=>res.send({message:err.message}));
+                            //res.send({message:true,cartItem:result});//object
+                            }else{
+                                res.send({message:false});
+                            }
+                        }).catch(err=>res.send({message:err.message}));
                     }else{
                         res.send({message:false});
                     }
                 }else{
                     res.send({message:false});
                 }
-            }).catch(err=>res.send({message:err}));
+            }).catch(err=>res.send({message:err.message}));
     
 });
-
-
 module.exports=router;

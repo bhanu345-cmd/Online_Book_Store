@@ -39,7 +39,7 @@ export default class auth{
             .then((res)=> {
             if(res.data.message === true)
             {
-                this.setSession(res.data.accessToken);
+                this.setSession(res.data.accessToken,data.userName);
                 return {message:res.data.message};
                 
             }
@@ -53,17 +53,23 @@ export default class auth{
             
     }
          
-    setSession = token => {
+    setSession = (token,userName) => {
         localStorage.setItem("access_token", token);
+        localStorage.setItem("userName",userName);
     };
 
     isAuthenticated() {
         let storeItem = localStorage.getItem("access_token");
         return storeItem && storeItem.length > 0;
     }
+    getUserName(){
+        let userName=localStorage.getItem('userName');
+        return userName;
+    }
 
     logout=()=>{
         localStorage.removeItem("access_token");
+        localStorage.removeItem('userName');
         return this.history.replace('/');
     }
 

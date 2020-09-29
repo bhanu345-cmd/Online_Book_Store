@@ -51,7 +51,7 @@ class Home extends React.Component{
         return(
             <Aux>
             <div className="container-fluid">
-                <Navbar {...this.props} logout={()=>{this.logoutHandler()}} search={(e)=>this.changeHandler(e)} click={(e)=>this.getSearchResult(e)}/>
+                <Navbar {...this.props} logout={()=>{this.logoutHandler()}} search={(e)=>this.changeHandler(e)} click={(e)=>this.getSearchResult(e)} userName={this.auth.getUserName()}/>
             </div>
             <div className="container">
                 <div className="row">

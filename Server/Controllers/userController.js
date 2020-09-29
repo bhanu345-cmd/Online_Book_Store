@@ -35,9 +35,9 @@ router.post('/reg', (req,res)=>{
                }else{
                    res.send({message:false});
                }
-           }).catch(err=>res.send({message:err}));
+           }).catch(err=>res.send({message:err.message}));
         }
-    }).catch((err)=>res.send({message:err}));   
+    }).catch((err)=>res.send({message:err.message}));   
 });
 
 router.post('/login',(req,res)=>{
