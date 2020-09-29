@@ -12,10 +12,11 @@ export default class App extends React.Component {
   render(){
   return (
       <Switch>
-        <Route path="/login"exact component={Login} />
-        <Route path="/register" exact component={Register} />
-        <Route path="/" exact component={Home}/> 
-        {this.auth.isAuthenticated()?<Route path='/Home/:data'exact component={Home}/> : <Redirect to='/'/>}
+        <Route path="/login" component={Login} />
+        <Route path="/register"  component={Register} />
+        <Route path="/" exact component={Home}/>
+        {this.auth.isAuthenticated()?<Route path='/Home/:data' component={Home}/> : <Redirect to='/'/>}
+        {this.auth.isAuthenticated()&&<Route path="/shoppingCart/:id"  render={()=><h1>Hi</h1>}/>}
       </Switch>
   );
   }

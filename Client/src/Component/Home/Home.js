@@ -29,6 +29,8 @@ class Home extends React.Component{
 
     addToCartHandler=(id)=>{
         console.log(id);
+        console.log(this.props.history);
+        this.props.history.push('/shoppingcart/bhanu@gmail.com');
     }
 
     getSearchResult=async(event)=>{
