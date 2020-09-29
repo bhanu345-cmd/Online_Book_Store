@@ -15,8 +15,8 @@ export default class App extends React.Component {
         <Route path="/login" component={Login} />
         <Route path="/register"  component={Register} />
         <Route path="/" exact component={Home}/>
-        <Route path="/Home/:data" render={(props)=>this.auth.isAuthenticated()?<Home {...props}/>:<Redirect to='/'/>}/>
-        <Route path="/shoppingCart/:id" render={(props)=>this.auth.isAuthenticated()?<h1>Hi</h1>:<Redirect to='/login'/>}/>
+        <Route path="/Home" render={(props)=>this.auth.isAuthenticated()?<Home {...props}/>:<Redirect to='/'/>}/>
+        <Route path="/shoppingCart" render={(props)=>this.auth.isAuthenticated()?<h1>Hi</h1>:<Redirect to='/login'/>}/>
       </Switch>
   );
   }
