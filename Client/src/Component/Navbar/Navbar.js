@@ -17,7 +17,7 @@ class Navbar extends React.Component{
                 <nav className="navbar navbar-expand-lg navbar-light bg-light sticky-top" >
                    <div className="container-fluid">
                    {!this.auth.isAuthenticated()&&<Link className="navbar-brand" to={{pathname:`/`}}><strong>Book Store</strong></Link>}
-                    {this.auth.isAuthenticated()&&<Link className="navbar-brand" to={{pathname:`/Home/${this.props.match.params.data}`}}><strong>Book Store</strong></Link>}
+                    {this.auth.isAuthenticated()&&<Link className="navbar-brand" to={{pathname:`/Home/${this.props.userName}`}}><strong>Book Store</strong></Link>}
                     <div className="col-lg-8 col-md-6 col-sm-6">
                         <form className="form-inline justify-content-center">
                             <input className="form-control mr-sm-2 w-50"type="text" placeholder="Search" aria-label="Search" onChange={this.props.search}/>
@@ -35,7 +35,7 @@ class Navbar extends React.Component{
                             {!this.auth.isAuthenticated()&&<li className="nav-item">
                                 <Link className="nav-link text-dark" to="/register">SignUp</Link>
                             </li>}
-                            {this.auth.isAuthenticated()&& this.props.match.params.data &&
+                            {this.auth.isAuthenticated()&& this.props.userName &&
                             <>
                             <li>
                             <Profile {...this.props} auth={this.auth}/>
@@ -50,7 +50,7 @@ class Navbar extends React.Component{
                             </>
                             }
                             <li className="nav-item">
-                               {this.auth.isAuthenticated() && <Link className="nav-link text-dark" to="/cart"><i className="fa fa-shopping-cart"></i></Link>}
+                               {this.auth.isAuthenticated() && <Link className="nav-link text-dark" to={{pathname:`/cart`}}><i className="fa fa-shopping-cart"></i></Link>}
                                {!this.auth.isAuthenticated() && 
                                <>
                                <a className="nav-link text-dark" href="#" data-toggle="modal" data-target=".bd-example-modal-lg"><i className="fa fa-shopping-cart"></i></a>

@@ -60,11 +60,28 @@ router.post('/addBook',(req,res)=>{
     })
 });
 router.get('/search/:name',(req,res)=>{
-    books.find({"bookName":{$regex : `^${req.params.name}.*` , $options: 'si' }}).then((result)=>{
-        res.send(result);
-    }
-    ).catch((err)=>{
-        res.send(err);
+    books.find({"bookName":{$regex : `^${req.params.name}.*` , $options: 'si' }}).then((searchedBooks)=>{
+        if(searchedBooks.length>0){
+            res.send(searchedBooks);
+        }else{
+            books.find({"category":{$regex : `^${req.params.name}.*` , $options: 'si' }}).then((searchedBooks)=>{
+                if(searchedBooks.length>0){
+                    res.send(searchedBooks);
+                }else{
+                    books.find({"author":{$regex : `^${req.params.name}.*` , $options: 'si' }}).then((searchedBooks)=>{
+                        res.send(searchedBooks);
+                     }
+                     ).catch((err)=>{
+                         res.send(err.message);
+                     });
+                }
+            }).catch((err)=>{
+                res.send(err.message);
+            });
+        }
+        
+    }).catch((err)=>{
+        res.send(err.message);
     });
 });
 module.exports=router;

@@ -1,8 +1,10 @@
 import Axios from 'axios';
 export default class auth{
+
     constructor(history){
-        this.history=history;
+        this.history=history
     }
+
     registration=({firstName,lastName,userName,password,phnNo,
         address,state,city,pincode})=>{
         const data={
@@ -30,13 +32,14 @@ export default class auth{
             });
     }
 
+    
      login=({userName,password})=>{
         const data={userName:userName,password:password};
         return Axios.post('http://localhost:4000/user/login',data)
             .then((res)=> {
             if(res.data.message === true)
             {
-                this.setSession(res.data.accessToken);
+                this.setSession(res.data.accessToken,data.userName);
                 return {message:res.data.message};
                 
             }
@@ -45,22 +48,29 @@ export default class auth{
             }
             })
             .catch((err)=>{
-                console.log(err);
+                return err;
             });
             
-    }         
-    setSession = token => {
+    }
+         
+    setSession = (token,userName) => {
         localStorage.setItem("access_token", token);
+        localStorage.setItem("userName",userName);
     };
 
     isAuthenticated() {
         let storeItem = localStorage.getItem("access_token");
         return storeItem && storeItem.length > 0;
     }
+    getUserName(){
+        let userName=localStorage.getItem('userName');
+        return userName;
+    }
 
     logout=()=>{
         localStorage.removeItem("access_token");
-        this.history.replace('/');
+        localStorage.removeItem('userName');
+        return this.history.replace('/');
     }
 
 }

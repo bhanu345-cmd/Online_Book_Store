@@ -1,17 +1,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@1,700&display=swap');
-.card .card-text {
+.cardcontainer .card .card-text {
     line-height: 1em !important;
     font-size:12px !important ;
 }
-.card{
+.cardcontainer .card{
     font-family:sans-serif;
     transition: .2s ease-in-out ;
 }
-.card:hover{
+.cardcontainer .card:hover{
     box-shadow:5px 10px 8px #888888;
     transform:scale(1.1) ;   
 }
-.card-footer{
+.cardcontainer .card-footer{
     display:flex !important;
     justify-content: space-between;
     padding-right: 0px !important;
@@ -32,10 +32,10 @@
     padding:0 !important;
 }
 @media (max-width:1200px){
-    .card-footer{
+    .cardcontainer .card-footer{
         flex-flow: column;
     }
-    .card-footer button{
+    .cardcontainer .card-footer button{
         margin-top: 5px;
     }
 }

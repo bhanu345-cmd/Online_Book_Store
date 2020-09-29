@@ -7,7 +7,7 @@ class Profile extends React.Component{
         message:""
     };
     componentDidMount(){
-        Axios.get(`http://localhost:4000/user/getUser/${this.props.match.params.data}`).then((res)=>{
+        Axios.get(`http://localhost:4000/user/getUser/${this.props.userName}`).then((res)=>{
             console.log(res.data)
             if(res.data){
                 this.setState({details:res.data[0]});
@@ -19,7 +19,7 @@ class Profile extends React.Component{
     }
     render(){
         console.log(this.props.auth.isAuthenticated())
-        console.log(this.props.match.params.data)
+        // console.log(this.props.match.params.data)
         console.log(this.state.details)
         let data=Array(this.state.details);
         console.log(data);

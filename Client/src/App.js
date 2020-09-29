@@ -1,5 +1,5 @@
 import React from 'react';
-import {Route, BrowserRouter as Router, Switch ,Redirect} from 'react-router-dom';
+import {Route, BrowserRouter as Router,Switch ,Redirect} from 'react-router-dom';
 import Register from './Component/Register/Register';
 import Login from './Component/Login/Login';
 import Home from './Component/Home/Home';
@@ -17,15 +17,17 @@ class App extends React.Component {
   render(){
   return (
     <Router>
-      {/* <Switch> */}
-      <Route path="/" exact component={Home}/>
+      <Switch>
         <Route path="/login" component={Login} />
         <Route path="/register" component={Register} />
-        <Route path="/cart" component={Cart} />
-        {this.auth.isAuthenticated() ? <Route path="/Home/:data" component={Home}/> : <Redirect to='/'/>}
-        
-      {/* </Switch> */}
+        <Route path="/" exact component={Home}/>
+        <Route path="/Home" render={(props)=>this.auth.isAuthenticated()?<Home {...props}/>:<Redirect to='/'/>}/>
+        <Route path="/cart" render={(props)=>this.auth.isAuthenticated()?<Cart {...props} userName={this.auth.getUserName()}/>:<Redirect to='/login'/>}/>
+        {/* <Route path="/cart/:data" component={Cart} />
+        {this.auth.isAuthenticated() ? <Route path="/Home/:data" component={Home}/> : <Redirect to='/'/>} */}
+      </Switch>
     </Router>
+    
   );
   }
 }

@@ -1,5 +1,6 @@
 import React from 'react';
 import carousel1 from '../Images/carousel1.jpg';
+import carousel2 from '../Images/EveryBook.jpg';
 import './Carousel.css'
 class Carousel extends React.Component{
     render(){
@@ -20,7 +21,7 @@ class Carousel extends React.Component{
                     </div>
                     </div>
                     <div className="carousel-item">
-                    <img className="d-block w-100" src={carousel1} alt="Second slide" />
+                    <img className="d-block w-100" src={carousel2} alt="Second slide" />
                     <div className="carousel-caption d-none d-md-block">
                         <h5>...</h5>
                         <p>...</p>

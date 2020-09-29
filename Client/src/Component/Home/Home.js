@@ -1,5 +1,4 @@
 import React from 'react';
-import {Redirect} from 'react-router-dom';
 import Navbar from '../Navbar/Navbar';
 import Carousel from '../Carousel/Carousel';
 import LeftNavbar from '../Navbar/LeftNavbar';
@@ -8,6 +7,7 @@ import Footer from '../Others/Footer';
 import Services from '../Others/Services';
 import Authors from '../Authors/Authors';
 import {search} from '../Search/SearchFunctions.js';
+import Banner from '../Banner/Banner';
 import './Home.css';
 import Auth from '../../Authentication/Auth.js';
 import Aux from '../../hoc/Auxiliary.js';
@@ -41,28 +41,20 @@ class Home extends React.Component{
                             }
         }).catch(err=>{this.setState({message:"Could not find"})});
     }
-    // addToCartHandler=(id)=>{
-    //     console.log(id);
-    //     Axios.post(`http://localhost:4000/cart/addBook/${id}`).then((res)=>{
-    //         if(res.data.message===true){
-               
-    //         }else{
-    //             this.setState({message: `Unable to add to cart please try again later`});
-    //         }
-    //     });
-
-    // }
     render(){
         console.log(this.props);
+        
         return(
             <Aux>
+                
             {/* <div className=" sticky-top"> */}
-                <Navbar {...this.props} logout={()=>{this.logoutHandler()}} search={(e)=>this.changeHandler(e)} click={(e)=>this.getSearchResult(e)}/>
+                <Navbar {...this.props} logout={()=>{this.logoutHandler()}} search={(e)=>this.changeHandler(e)} click={(e)=>this.getSearchResult(e)} userName={this.auth.getUserName()}/>
             {/* </div> */}
             <div className="container">
                 <div className="row">
                     <div className="col-lg-12 col-md-12 col-sm-12">
-                        {this.state.display&&<Carousel />}
+                    {this.state.display&&<Banner />}
+                        {/* {this.state.display&&<Carousel />} */}
                     </div>
                 </div>
             </div>
@@ -73,7 +65,7 @@ class Home extends React.Component{
                     </div>
                     <div className="col-lg-9 col-md-8 col-sm-7 ">
                         {this.state.display&&<Authors/>}
-                        <Books {...this.props} searchResult={this.state.result} message={this.state.message} display={this.state.display}/>
+                        <Books {...this.props} searchResult={this.state.result} message={this.state.message} display={this.state.display} userName={this.auth.getUserName()}/>
                          {/* addToCart={this.addToCartHandler}/> */}
                     </div>
                 </div>

@@ -10,7 +10,7 @@ export default class Books extends React.Component{
         super(props);
         this.state={
             books:[],
-            message:"",
+            message:""
         };
         this.auth=new Auth(this.props.history);
 
@@ -27,18 +27,20 @@ export default class Books extends React.Component{
     }
     addToCartHandler=(id)=>{
         console.log(id);
-        // Axios.post(`http://localhost:4000/cart/addBook/?id=${id}&userID=${this.props.match.params.data}`).then((res)=>{
-        //     if(res.data.message===true){
-        //         this.props.history.push('/cart');               
-        //     }else{
-        //         this.setState({message: `Unable to add to cart please try again later`});
-        //         alert(this.state.message);
-        //     }
-        // });
+        Axios.post(`http://localhost:4000/cart/addBook?id=${id}&userName=${this.props.userName}`).then((res)=>{
+        console.log(res.data.message)    
+        if(res.data.message===true){
+                this.props.history.push(`/cart`);               
+            }else{
+                this.setState({message: `Unable to add to cart please try again later`});
+                alert(this.state.message);
+            }
+        });
 
     }
     render(){
         console.log(this.auth.isAuthenticated())
+        console.log(this.props.userName);
         return(
             <Aux>
             <div className="container cardcontainer">
