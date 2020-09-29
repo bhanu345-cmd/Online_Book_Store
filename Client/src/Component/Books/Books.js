@@ -2,7 +2,6 @@ import React from 'react';
 import './Books.css';
 import carousel1 from '../Images/carousel1.jpg';
 import Axios from 'axios';
-import Aux from '../../hoc/Auxiliary.js';
 export default class Books extends React.Component{
     state={
         books:[],
@@ -31,8 +30,8 @@ export default class Books extends React.Component{
                                     <p className="card-text">Category:<span>{book.category}</span></p>
                                     <p className="card-text">Price:$<span className="text-primary font-weight-bold">{book.price}</span></p>
                                     <div className="card-footer">
-                                            <a href="#" className="btn btn-danger btn-sm">Buy</a>
-                                            <a href="#" className="btn btn-success btn-sm">Add to Cart</a>    
+                                            <button  className="btn btn-danger btn-sm" onClick={()=>this.props.addToCart(book._id)}>Buy</button>
+                                            <button className="btn btn-success btn-sm" onClick={()=>this.props.addToCart(book._id)}>Add to Cart</button>    
                                     </div>
                                 </div>
                             </div>
@@ -49,7 +48,7 @@ export default class Books extends React.Component{
                                         <p className="card-text">Category:<span>{book.category}</span></p>
                                         <p className="card-text">Price:$<span className="text-primary font-weight-bold">{book.price}</span></p>
                                         <div className="card-footer">
-                                                <button className="btn btn-danger btn-sm">Buy</button>
+                                                <button className="btn btn-danger btn-sm" onClick={()=>this.props.addToCart(book._id)}>Buy</button>
                                                 <button  className="btn btn-success btn-sm" onClick={()=>this.props.addToCart(book._id)}>Add to Cart</button>    
                                         </div>
                                     </div>
@@ -60,78 +59,7 @@ export default class Books extends React.Component{
                         <h1>{this.props.message}</h1>
                         </div>}
                     
-                    {/*<div className="col-lg-3 col-md-4 col-sm-6 pb-2">
-                        <div className="card">
-                            <img src={carousel1} className="card-img-top" alt="..."/>
-                            <div className="card-body">
-                                <p className="card-text">Book Name</p>
-                                <p className="card-text">Aurthor</p>
-                                <p className="card-text">Category</p>
-                                <p className="card-text">Published Date</p>
-                                <p className="card-text">Price</p>
-                                <a href="#" class="btn btn-primary">Buy</a>
-                                <a href="#" class="btn btn-primary float-right">Add to Cart</a>
-                            </div>
-                        </div>
                     </div>
-                    <div className="col-lg-3 col-md-4 col-sm-6 pb-2">
-                        <div className="card">
-                            <img src={carousel1} className="card-img-top" alt="..."/>
-                            <div className="card-body">
-                                <p className="card-text">Book Name</p>
-                                <p className="card-text">Aurthor</p>
-                                <p className="card-text">Category</p>
-                                <p className="card-text">Published Date</p>
-                                <p className="card-text">Price</p>
-                                <a href="#" class="btn btn-primary">Buy</a>
-                                <a href="#" class="btn btn-primary float-right">Add to Cart</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="col-lg-3 col-md-4 col-sm-6 pb-2">
-                        <div className="card">
-                            <img src={carousel1} className="card-img-top" alt="..."/>
-                            <div className="card-body">
-                                <p className="card-text">Book Name</p>
-                                <p className="card-text">Aurthor</p>
-                                <p className="card-text">Category</p>
-                                <p className="card-text">Published Date</p>
-                                <p className="card-text">Price</p>
-                                <a href="#" class="btn btn-primary">Buy</a>
-                                <a href="#" class="btn btn-primary float-right">Add to Cart</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="col-lg-3 col-md-4 col-sm-6 pb-2">
-                        <div className="card">
-                            <img src={carousel1} className="card-img-top" alt="..."/>
-                            <div className="card-body">
-                                <p className="card-text">Book Name</p>
-                                <p className="card-text">Aurthor</p>
-                                <p className="card-text">Category</p>
-                                <p className="card-text">Published Date</p>
-                                <p className="card-text">Price</p>
-                                <a href="#" class="btn btn-primary">Buy</a>
-                                <a href="#" class="btn btn-primary float-right">Add to Cart</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="col-lg-3 col-md-4 col-sm-6 pb-2">
-                        <div className="card">
-                            <img src={carousel1} className="card-img-top" alt="..."/>
-                            <div className="card-body">
-                                <p className="card-text">Book Name</p>
-                                <p className="card-text">Aurthor</p>
-                                <p className="card-text">Category</p>
-                                <p className="card-text">Published Date</p>
-                                <p className="card-text">Price</p>
-                                <a href="#" class="btn btn-primary">Buy</a>
-                                <a href="#" class="btn btn-primary float-right">Add to Cart</a>
-                            </div>
-                        </div>
-                    </div>
-                    {/* can remove till here */}
-                </div>
         
         );
     }

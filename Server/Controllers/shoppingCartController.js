@@ -24,7 +24,17 @@ router.post('/addBook',(req,res)=>{
                                     }
                                 }).catch(err=>res.send({message:err.message}));
                         }else{
-                            res.send({message:false});
+                            books.findById(req.query.id).then((book)=>{
+                                let newItem=cart({book:book,quantity:1,userName:req.query.userName,totalPrice:book.price});
+                                newItem.save().then((item)=>{
+                                        if(item){
+                                            res.send(item);
+                                        }else{
+                                            res.send({message:false});
+                                        }
+                                }).catch(err=>res.send({message:err.message}));
+                            }).catch(err=>res.send(err.message));
+                            
                         }
                 }else{
                     books.findById(req.query.id).then((book)=>{
@@ -37,7 +47,6 @@ router.post('/addBook',(req,res)=>{
                                 }
                         }).catch(err=>res.send({message:err.message}));
                     }).catch(err=>res.send(err.message));
-                    
                 }
             }).catch(err=>res.send({message:err.message}));
 });

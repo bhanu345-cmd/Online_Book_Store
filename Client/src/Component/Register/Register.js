@@ -136,7 +136,7 @@ class Register extends React.Component{
         return(
             <div className="container text-center">
             <div className="projName text-center">
-                <a href="#"><strong>Book Store</strong></a>
+                <a href="/#"><strong>Book Store</strong></a>
             </div>
             <div className="row ">
                 <div className="col-12 d-flex justify-content-center">

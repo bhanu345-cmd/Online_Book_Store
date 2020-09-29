@@ -1,6 +1,7 @@
 import React from 'react';
 import './Login.css'
 import Auth from '../../Authentication/Auth';
+import {Link} from 'react-router-dom';
 class Login extends React.Component{
 
     constructor(props){
@@ -82,7 +83,7 @@ class Login extends React.Component{
     return(
         <div className="container text-center">
             <div className="projName text-center">
-                <a href="#"><strong>Book Store</strong></a>
+                <a href="/#"><strong>Book Store</strong></a>
             </div>
             <div className="row ">
                 <div className="col-12 d-flex justify-content-center">
@@ -113,7 +114,7 @@ class Login extends React.Component{
                 </div>                
             </div>
             <h6><small>New to Book Store?</small></h6>
-            <a href="#" className="btn btn-success form-control sign">SignUp</a>
+            <Link to="/register" className="btn btn-success form-control sign">SignUp</Link>
         </div>
     );
 }

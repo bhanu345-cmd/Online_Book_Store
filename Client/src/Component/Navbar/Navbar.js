@@ -33,11 +33,11 @@ class Navbar extends React.Component{
                             {!this.auth.isAuthenticated()&&<li className="nav-item">
                                 <Link className="nav-link text-dark" to="/register">SignUp</Link>
                             </li>}
-                            {this.auth.isAuthenticated()&& this.props.userName && <li><a className="nav-link text-dark" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><i className="fa fa-user-circle-o"></i></a>
+                            {this.auth.isAuthenticated()&& this.props.userName && <li><a href="/#" className="nav-link text-dark" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i className="fa fa-user-circle-o"></i></a>
                             <div className="dropdown-menu">
-                            <a className="dropdown-item" href="#">Hi!! {this.props.userName}</a></div></li>}
+                            <a href="/#" className="dropdown-item">Hi!! {this.props.userName}</a></div></li>}
                             <li className="nav-item">
-                                <a className="nav-link text-dark" href="#"><i className="fa fa-shopping-cart"></i></a>
+                                <Link className="nav-link text-dark" to='/shoppingCart'><i className="fa fa-shopping-cart"></i></Link>
                             </li>
                             {this.auth.isAuthenticated() && <li className="nav-item"><button className="btn btn-success" onClick={this.props.logout}>LogOut</button></li>}
                         </ul>
