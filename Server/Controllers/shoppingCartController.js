@@ -28,7 +28,7 @@ router.post('/addBook',(req,res)=>{
                                 let newItem=cart({book:book,quantity:1,userName:req.query.userName,totalPrice:book.price});
                                 newItem.save().then((item)=>{
                                         if(item){
-                                            res.send(item);
+                                            res.send({message:true,cartItem:item});
                                         }else{
                                             res.send({message:false});
                                         }
@@ -41,7 +41,7 @@ router.post('/addBook',(req,res)=>{
                         let newItem=cart({book:book,quantity:1,userName:req.query.userName,totalPrice:book.price});
                         newItem.save().then((item)=>{
                                 if(item){
-                                    res.send(item);
+                                    res.send({message:true,cartItem:item});
                                 }else{
                                     res.send({message:false});
                                 }
