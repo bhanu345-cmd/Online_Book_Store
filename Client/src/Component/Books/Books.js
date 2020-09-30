@@ -21,11 +21,11 @@ export default class Books extends React.Component{
                 <div className="row">
                     {this.props.display? this.state.books.map((book,index)=>{
                       return( 
-                        <div className="col-xl-3 col-lg-4 col-md-5 col-sm-6 col-xs-7">
+                        <div className="col-xl-3 col-lg-4 col-md-5 col-sm-6 col-xs-7 booksCard" key={book._id}>
                             <div className="card mt-4">
                                 <img src={carousel1} className="card-img-top" alt="..."/>
                                 <div className="card-body" key={index}>
-                                    <p className="card-text font-weight-bolder"><span style={{fontSize:'15px'}}>{book.bookName}</span></p>
+                                    <h5 className="card-title">{book.bookName}</h5>
                                     <p className="card-text">Author:<span>{book.author}</span></p>
                                     <p className="card-text">Category:<span>{book.category}</span></p>
                                     <p className="card-text">Price:$<span className="text-primary font-weight-bold">{book.price}</span></p>
@@ -39,11 +39,11 @@ export default class Books extends React.Component{
                       );
                     }): this.props.searchResult.map((book,index)=>{
                         return( 
-                          <div className="col-xl-3 col-lg-4 col-md-5 col-sm-6 col-xs-7">
+                          <div className="col-xl-3 col-lg-4 col-md-5 col-sm-6 col-xs-7 booksCard">
                                 <div className="card mt-4">
                                     <img src={carousel1} className="card-img-top" alt="..."/>
                                     <div className="card-body" key={index}>
-                                        <p className="card-text font-weight-bolder"><span style={{fontSize:'15px'}}>{book.bookName}</span></p>
+                                        <h5 className="card-title">{book.bookName}</h5>
                                         <p className="card-text">Author:<span>{book.author}</span></p>
                                         <p className="card-text">Category:<span>{book.category}</span></p>
                                         <p className="card-text">Price:$<span className="text-primary font-weight-bold">{book.price}</span></p>

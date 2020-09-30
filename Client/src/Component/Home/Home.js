@@ -1,6 +1,5 @@
 import React from 'react';
 import Navbar from '../Navbar/Navbar';
-import Carousel from '../Carousel/Carousel';
 import LeftNavbar from '../Navbar/LeftNavbar';
 import Books from '../Books/Books';
 import './Home.css';
@@ -9,15 +8,18 @@ import Aux from '../../hoc/Auxiliary.js';
 import Authors from '../../Authors/Authors.js';
 import Services from '../../Others/Services.js';
 import Footer from '../../Others/Footer';
-import {search} from '../Search/SearchFunctions.js'
+import {search} from '../UserFunctions/UserFunctions.js'
+import Banner from '../Banner/Banner.js';
+import Axios from 'axios';
+import {getCartItems} from '../UserFunctions/UserFunctions.js';
 class Home extends React.Component{
-    state={searchItem:"",display:true,result:[],message:""};
+    state={searchItem:"",display:true,result:[],message:"",displaySearch:true,count:0};
     constructor(props){
         super(props);
         this.auth=new Auth(this.props.history);
     }
     logoutHandler=()=>{
-        this.auth.logout();
+        this.setState({count:0},()=>{this.auth.logout();})  
     }
     resetHandler=()=>{
         this.setState({result:[],message:""});
@@ -29,8 +31,15 @@ class Home extends React.Component{
 
     addToCartHandler=(id)=>{
         console.log(id);
-        console.log(this.props.history);
-        this.props.history.push('/shoppingcart');
+        Axios.post(`http://localhost:4000/cart/addBook?id=${id}&userName=${this.auth.getUserName()}`).then((res)=>{
+            console.log(res.data.message)    
+            if(res.data.message===true){
+                    this.props.history.push(`/shoppingcart`);               
+                }else{
+                    this.setState({message: `Unable to add to cart please try again later`});
+                    alert(this.state.message);
+                }
+            });
     }
 
     getSearchResult=async(event)=>{
@@ -47,16 +56,24 @@ class Home extends React.Component{
         }).catch(err=>{this.setState({message:"Could not find"})});
     }
 
+    componentDidMount(){
+        if(this.auth.getUserName()){
+            getCartItems(this.auth.getUserName()).then((res)=>{
+                this.setState({count:res.cartItems.length});
+            });
+        }
+    }
+
     render(){
         return(
             <Aux>
             <div className="container-fluid">
-                <Navbar {...this.props} logout={()=>{this.logoutHandler()}} search={(e)=>this.changeHandler(e)} click={(e)=>this.getSearchResult(e)} userName={this.auth.getUserName()}/>
+                <Navbar {...this.props} display={this.state.displaySearch} logout={()=>{this.logoutHandler()}} search={(e)=>this.changeHandler(e)} click={(e)=>this.getSearchResult(e)} userName={this.auth.getUserName()} count={this.state.count}/>
             </div>
             <div className="container">
                 <div className="row">
                     <div className="col-lg-12 col-md-12 col-sm-12 mb-2">
-                        {this.state.display&&<Carousel />}
+                        {this.state.display&&<Banner/>}
                     </div>
                 </div>
             </div>

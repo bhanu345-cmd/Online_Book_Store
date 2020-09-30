@@ -24,6 +24,9 @@
 }
 
 @media (max-width:600px){
+    .navbar-brand{
+        font-size:20px !important;
+    }
     .justify-content-center{
         justify-content:left !important;
     }
@@ -31,10 +34,32 @@
         margin-right:2px;
     }
     .col-sm-6{
-        width:250px !important
+        width:150px !important
+    }
+    .form-inline .btn{
+        font-size:15px !important;
+        margin:0px !important;
+        padding:5px !important;
+    }
+    .form-inline .form-control{
+        padding:5px !important;
     }
     .navbar-toggler{
         padding:2px !important
     }
     
 }
+.badge {
+    padding-left: 9px;
+    padding-right: 9px;
+    border-radius: 9px;
+    box-sizing: border-box;
+  }
+
+  #lblCartCount {
+      font-size: 12px;
+      background: #ff0000;
+      color: #fff;
+      padding: 0 5px;
+      vertical-align: top; 
+  }

@@ -1,21 +1,21 @@
-.card .card-text {
+.booksCard .card .card-text {
     line-height: 1em !important;
     font-size:12px !important ;
 }
 .container{
     padding:0 !important;
 }
-.card{
+.booksCard .card{
     padding:0 !important;
     font-family:sans-serif;
     transition: .2s ease-in-out ;
 }
-.card:hover{
+.booksCard .card:hover{
     box-shadow:5px 10px 8px #888888;
     transform:scale(1.1) ;   
 }
 
-.card-footer{
+.booksCard .card-footer{
     display:flex !important;
     justify-content: space-between;
     padding-right: 0px !important;
@@ -23,10 +23,10 @@
 }
 
 @media (max-width:780px){
-    .card-footer{
+    .booksCard .card-footer{
         flex-flow: column;
     }
-    .card-footer a{
+    .booksCard .card-footer a{
         margin-top: 5px;
     }
 }
