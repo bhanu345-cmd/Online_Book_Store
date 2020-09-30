@@ -89,8 +89,9 @@ class Cart extends React.Component{
             }
         });
     }
+    
     render(){
-        console.log(this.auth.isAuthenticated())
+        console.log(this.state.cartItems.length)
         return(
             <Aux>
             <Navbar {...this.props} logout={()=>{this.logoutHandler()}} search={(e)=>this.changeHandler(e)} click={(e)=>this.getSearchResult(e)}/>
@@ -135,7 +136,7 @@ class Cart extends React.Component{
               <div className="col-lg-4 col-md-4 col-sm-4">
               <div class="card w-75 m-5">  
                 <div class="card-body">
-                    <h5 class="card-title">Card Details</h5>
+                    <h5 class="card-title">Cart Details</h5>
                 </div>
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item">Total Cart Items: {this.state.cartItems.length}</li>
@@ -143,7 +144,46 @@ class Cart extends React.Component{
                     {/* <li class="list-group-item">Vestibulum at eros</li> */}
                 </ul>
                 <div class="card-body">
-                <button className="btn btn-success form-control" type="button">Place Order</button>
+                <button className="btn btn-success form-control" type="button" data-toggle="modal" data-target="#modalLoginForm" data-backdrop="false">Place Order</button>
+                <div class="modal fade" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                    <div class="modal-header text-center">
+                        <h4 class="modal-title w-100 font-weight-bold">Payment Details</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form>
+                    <div className="modal-body mx-3">
+                        <div className="row mb-2">
+                        <div className="input-group paymentinp">
+                            <input type="email" id="cardNumber" className="form-control validate" placeholder="Card Number" required/>
+                            <div className="input-group-append">
+                                <span className="input-group-text bg-light"><i className="fa fa-credit-card fa-lg"></i></span>
+                            </div>
+                            </div>
+                        </div>
+                        <div className="row mb-2">
+                            <div className="col-md-8 pt-0 pr-1 pb-0 pl-0 ">
+                            <input type="date" id="expiryDate" class="form-control validate" placeholder="mm/dd/yyyy" required/>
+                            </div>
+                            <div className="col-md-4 p-0">
+                            <input type="password" id="cvv" class="form-control validate" placeholder="CVV" required/>
+                            </div>
+                        </div>
+                        <div className="row mb-2">
+                        <input type="password" id="cardHolderName" class="form-control validate" placeholder="Card Holder Name" required/>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-success">Pay</button>
+                    </div>
+                    </form>
+                    </div>
+                </div>
+            </div>
                 </div>
                 </div>
               </div>

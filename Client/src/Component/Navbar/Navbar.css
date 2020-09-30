@@ -13,9 +13,6 @@
     padding: 0%;
     margin: 0%;
 }
-.badge{
-    margin-left: -10px;
-}
 .input-group{
     width:50% !important;
     vertical-align: center;
@@ -30,7 +27,16 @@
 }
 .modal-backdrop {
     z-index: -1;
-  }
+}
+.cartBadge{
+    font-size: 11px;
+    vertical-align: text-top;
+    background-color: #28a745;
+    color: white;
+    border-radius: 75%;
+    margin-left: -15px;
+    margin-top: -12px;
+}
 @media (max-width:600px){
     .justify-content-center{
         justify-content:left !important;

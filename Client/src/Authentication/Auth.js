@@ -66,7 +66,6 @@ export default class auth{
         let userName=localStorage.getItem('userName');
         return userName;
     }
-
     logout=()=>{
         localStorage.removeItem("access_token");
         localStorage.removeItem('userName');

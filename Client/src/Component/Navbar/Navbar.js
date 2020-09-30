@@ -17,7 +17,7 @@ class Navbar extends React.Component{
                 <nav className="navbar navbar-expand-lg navbar-light bg-light sticky-top" >
                    <div className="container-fluid">
                    {!this.auth.isAuthenticated()&&<Link className="navbar-brand" to={{pathname:`/`}}><strong>Book Store</strong></Link>}
-                    {this.auth.isAuthenticated()&&<Link className="navbar-brand" to={{pathname:`/Home/${this.props.userName}`}}><strong>Book Store</strong></Link>}
+                    {this.auth.isAuthenticated()&&<Link className="navbar-brand" to={{pathname:`/Home`}}><strong>Book Store</strong></Link>}
                     <div className="col-lg-8 col-md-6 col-sm-6">
                         <form className="form-inline justify-content-center">
                             <input className="form-control mr-sm-2 w-50"type="text" placeholder="Search" aria-label="Search" onChange={this.props.search}/>
@@ -39,28 +39,18 @@ class Navbar extends React.Component{
                             <>
                             <li>
                             <Profile {...this.props} auth={this.auth}/>
-                            </li>                           
-                            {/* <li>
-                            <a className="nav-link text-dark" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><i className="fa fa-user-circle-o"></i></a>
-                            <div className="dropdown-menu pull-right">
-                            <a className="dropdown-item" href="#">Hi!! {this.props.match.params.data}</a>
-                            <p className="dropdown-item">Welcome</p>
-                            </div>
-                            </li> */}
+                            </li>
                             </>
-                            }
+                            }  
                             <li className="nav-item">
-                               {this.auth.isAuthenticated() && <Link className="nav-link text-dark" to={{pathname:`/cart`}}><i className="fa fa-shopping-cart"></i></Link>}
-                               {!this.auth.isAuthenticated() && 
-                               <>
-                               <a className="nav-link text-dark" href="#" data-toggle="modal" data-target=".bd-example-modal-lg"><i className="fa fa-shopping-cart"></i></a>
-                               {/* <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-sm"><i className="fa fa-shopping-cart"></i></button> */}
-                                <div class="modal fade bd-example-modal-lg" data-backdrop="false" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-                                <div class="modal-dialog modal-lg">
-                                    <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title">You are not LoggedIn</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                               {this.auth.isAuthenticated() && <Link className="nav-link text-dark" to={{pathname:`/cart`}}><i className="fa fa-shopping-cart"></i><span class="badge cartBadge">4</span></Link>}
+                               {!this.auth.isAuthenticated() && <><a className="nav-link text-dark" data-toggle="modal" data-target=".bd-example-modal-lg"><i className="fa fa-shopping-cart"></i><span class="badge cartBadge">4</span></a>
+                               <div className="modal fade bd-example-modal-lg" data-backdrop="false" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                                <div className="modal-dialog modal-lg">
+                                    <div className="modal-content">
+                                    <div className="modal-header">
+                                        <h5 className="modal-title">You are not LoggedIn</h5>
+                                        <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
@@ -71,15 +61,13 @@ class Navbar extends React.Component{
                                         <li>Add a book to Cart or Buy a book</li>
                                         </ul>
                                     </div>
-                                    <div class="modal-footer">
+                                    <div className="modal-footer">
                                     <Link className="nav-link text-white btn btn-success" to="/login">LogIn</Link>
                                     </div>
                                     </div>
                                 </div>
                                 </div>
-                               </>
-                               }
-                                {/* <a className="nav-link text-dark" href="/cart"><i className="fa fa-shopping-cart"></i></a> */}
+                               </>}
                             </li>
                             {this.auth.isAuthenticated() && <li className="nav-item"><button className="btn btn-success" onClick={this.props.logout}>LogOut</button></li>}
                         </ul>
