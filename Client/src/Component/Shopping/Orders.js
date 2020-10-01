@@ -24,7 +24,7 @@ class Orders extends React.Component{
         const {errors} = this.state;    
         return(
             <Aux>
-            <Navbar {...this.props} userName={this.auth.getUserName()} display={this.state.displayCart} logout={()=>{this.logoutHandler()}} count={this.state.cartItems.length}/>
+            <Navbar {...this.props} userName={this.auth.getUserName()} display={this.state.displayCart} logout={()=>{this.logoutHandler()}}/>
                 {/* <div className="row">
                 <div className="col-lg-7 col-md-7 col-sm-7">
                     <h5 className="ml-3">Cart Items</h5>

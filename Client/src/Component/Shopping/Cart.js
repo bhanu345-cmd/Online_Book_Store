@@ -112,7 +112,7 @@ class Cart extends React.Component{
     }
     handlePayment=(event)=>{
         event.preventDefault();        
-        console.log("This is submit:"+this.state.cartItems);
+        this.props.history.push('/orders');
     }
     render(){
         const {errors} = this.state;    
