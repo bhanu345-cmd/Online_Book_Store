@@ -106,7 +106,7 @@ class Cart extends React.Component{
                 ? 'CVV should be of 3 digits length!'
                 :'';
         }this.setState(            
-            {errors,[id] : value}
+            {errors}
         );        
 
     }
