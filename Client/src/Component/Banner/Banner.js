@@ -24,6 +24,7 @@ class Banner extends React.Component{
                     </div>
                 </div>
             </div>
+            <hr />
             <div className="row">
                 <div className="col-lg-6 col-md-6 col-sm-6">
                     <div className="row">
@@ -63,7 +64,8 @@ class Banner extends React.Component{
                         </div>
                     </div>
                 </div>
-            </div>            
+            </div>
+            <hr />            
             </>
         )
     }

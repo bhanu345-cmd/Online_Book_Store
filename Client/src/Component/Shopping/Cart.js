@@ -6,6 +6,7 @@ import {search} from '../Search/SearchFunctions.js';
 import Navbar from '../Navbar/Navbar';
 import carousel1 from '../Images/carousel1.jpg';
 import './Cart.css';
+import {decrement,increment,deleteBook,getCartItems} from '../UserFunctions/UserFunctions.js';
 class Cart extends React.Component{
     state={searchItem:"",display:true,result:[],message:""};
     constructor(props){
@@ -13,16 +14,30 @@ class Cart extends React.Component{
         this.state={
             cartItems:[],
             message:"",
-            totalAmount: 0
+            totalAmount: 0,
+            errors:{
+                cardNumber: "",
+                cvv: ""
+            }
         };
         this.auth=new Auth(this.props.history);
     }
+    
     componentDidMount(){
-        Axios.get(`http://localhost:4000/cart/getCartItems?userName=${this.props.userName}`).then((res)=>{
-            if(res.data.message===true){
-                this.setState({cartItems:res.data.cartItems});
+        getCartItems(this.auth.getUserName()).then((res)=>{
+            if(res.message===true){
+                this.setState({cartItems:res.cartItems},()=>{
+                    let priceArray=this.state.cartItems.map((cartItem)=>{
+                        return cartItem.totalPrice;
+                    });
+                    let sum=priceArray.reduce((totalValue,currentValue)=>{
+                        console.log(currentValue);
+                        return totalValue+currentValue;
+                    },0);
+                    this.setState({totalAmount:sum});
+                });
             }else{
-                this.setState({message:res.data.message});
+                this.setState({message:"Your Cart is empty"});
             }
         });
     }
@@ -36,77 +51,86 @@ class Cart extends React.Component{
         event.preventDefault();
         this.setState({searchItem:event.target.value});
     }
-    getSearchResult=async(event)=>{
-        event.preventDefault();
-        this.resetHandler();
-        await this.setState({display:false});
-        search(this.state.searchItem).then((searchResult)=>
-                        {
-                            if(searchResult.length>0){
-                                this.setState({result:searchResult});
-                            }else{
-                                this.setState({message:`No book found with ${this.state.searchItem} name`});
-                            }
-        }).catch(err=>{this.setState({message:"Could not find"})});
-    }
     decrementHandler=(id)=>{
-        console.log(id);
-        Axios.post(`http://localhost:4000/cart/dec?id=${id}&userName=${this.props.userName}`).then((res)=>{
-        console.log(res.data.message)    
-        if(res.data.message===true){
+        decrement(id,this.auth.getUserName()).then((res)=>{
+            if(res.message===true){
                 this.setState({message:`decremented Successfully`});
                 window.location.reload();
             }else{
-                this.setState({message: `Unable to do the action please try again later`});
-                alert(this.state.message);
+                this.setState({message: `Unable to do the action please try again later`},()=>{
+                    alert(this.state.message);
+                });
+                
             }
-        });
+        }).catch((err=>this.setState({message:'Error in loading the cart'})));
 
     }
-    incrementHandler= (id)=>{
-        console.log(id);
-        Axios.post(`http://localhost:4000/cart/inc?id=${id}&userName=${this.props.userName}`).then((res)=>{
-        console.log(res.data.message)    
-        if(res.data.message===true){
-                this.setState({message:`increemented Successfully`});
+    incrementHandler= (event,id)=>{
+        increment(id,this.auth.getUserName()).then((res)=>{
+            if(res.message===true){
+                this.setState({message:`incremented Successfully`});
                 window.location.reload();
             }else{
-                this.setState({message: `Unable to do the action please try again later`});
-                alert(this.state.message);
+                this.setState({message: `Unable to do the action please try again later`},()=>{
+                    alert(this.state.message);
+                });
+                
             }
-        });
+        }).catch((err=>this.setState({message:'Error in loading the cart'})));
     }
     deletecartItem=(id)=>{
-        console.log(id);
-        Axios.post(`http://localhost:4000/cart/deleteBook?id=${id}&userName=${this.props.userName}`).then((res)=>{
-        console.log(res.data.message)    
-        if(res.data.message===true){
-                this.setState({message:`increemented Successfully`});
-                window.location.reload();
-            }else{
-                this.setState({message: `Unable to do the action please try again later`});
-                alert(this.state.message);
-            }
-        });
+        deleteBook(id,this.auth.getUserName()).then((res)=>{    
+            if(res.message===true){
+                    this.setState({message:`Deleted Successfully`});
+                    window.location.reload();
+                }else{
+                    this.setState({message: `Unable to do the action please try again later`});
+                    alert(this.state.message);
+                }
+            });
     }
-    
+    handleChange=(event)=>{
+        const {id,value}= event.target;
+        let errors = this.state.errors;
+        switch(id){
+            case 'cardNumber':
+                errors.cardNumber=
+                value.length < 16
+                  ? 'Card Number should be of 16 digits length!'
+                  : '';
+                 
+              break;
+            case 'cvv':
+                errors.cvv=
+                value.length < 3
+                ? 'CVV should be of 3 digits length!'
+                :'';
+        }this.setState(            
+            {errors,[id] : value}
+        );        
+
+    }
+    handlePayment=(event)=>{
+        event.preventDefault();        
+        console.log("This is submit:"+this.state.cartItems);
+    }
     render(){
-        console.log(this.state.cartItems.length)
+        const {errors} = this.state;    
         return(
             <Aux>
-            <Navbar {...this.props} logout={()=>{this.logoutHandler()}} search={(e)=>this.changeHandler(e)} click={(e)=>this.getSearchResult(e)}/>
+            <Navbar {...this.props} userName={this.auth.getUserName()} display={this.state.displayCart} logout={()=>{this.logoutHandler()}} count={this.state.cartItems.length}/>
                 <div className="row">
-                <div className="col-lg-8 col-md-8 col-sm-8">
+                <div className="col-lg-7 col-md-7 col-sm-7">
                     <h5 className="ml-3">Cart Items</h5>
                 {this.state.cartItems.map((cartItem,index)=>{
-                    this.state.totalAmount= this.state.totalAmount+cartItem.totalPrice;
+                    // this.state.totalAmount= this.state.totalAmount+cartItem.totalPrice;
                     return(
-                        <div className="card m-3 w-100" > 
+                        <div className="card mb-3 ml-5 cart-col1-Card" > 
                         <div className="row no-gutters">
                         <div class="col-md-4 cartimg">
                             <img src={carousel1} className="card-img cartimg" alt="..." height="290" />
                         </div>
-                        <div class="col-md-8">
+                        <div class="col-md-8 col-lg-8 col-sm-8">
                             <div class="card-body"  key={index}>
                             <p className="card-text font-weight-bolder"><span style={{fontSize:'15px'}}>{cartItem.book.bookName}</span></p>
                             <p className="card-text">Author:<span>{cartItem.book.author}</span></p>
@@ -115,11 +139,14 @@ class Cart extends React.Component{
                             <p className="card-text quantity">
                             <div class="input-group">
                             <div class="input-group-append ">
-                                <button className="btn btn-danger" type="button" onClick={()=>this.decrementHandler(cartItem.book._id)}>-</button>    
+                                {cartItem.quantity===1?
+                                <button className="btn btn-danger" disabled>-</button> : 
+                                <button className="btn btn-danger" type="button" onClick={()=>this.decrementHandler(cartItem.book._id)}>-</button>
+                                }   
                             </div>
                             <input type="text" className="form-control" value={cartItem.quantity} aria-label="Recipient's username" aria-describedby="basic-addon2"/>
                             <div class="input-group-append">
-                                <button className="btn btn-success" type="button" onClick={()=>this.incrementHandler(cartItem.book._id)}>+</button>                                
+                                <button className="btn btn-success" type="button" onClick={(e)=>this.incrementHandler(e,cartItem.book._id)}>+</button>                                
                             </div>
                             </div>
                             </p>
@@ -133,8 +160,8 @@ class Cart extends React.Component{
                 );
                 })}
               </div>
-              <div className="col-lg-4 col-md-4 col-sm-4">
-              <div class="card w-75 m-5">  
+              <div className="col-lg-5 col-md-5 col-sm-5">
+              <div class="card w-75 ml-0 m-5">  
                 <div class="card-body">
                     <h5 class="card-title">Cart Details</h5>
                 </div>
@@ -154,14 +181,18 @@ class Cart extends React.Component{
                         <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <form>
+                    <form onSubmit={this.handlePayment}>
                     <div className="modal-body mx-3">
                         <div className="row mb-2">
                         <div className="input-group paymentinp">
-                            <input type="email" id="cardNumber" className="form-control validate" placeholder="Card Number" required/>
+                            <input type="text" id="cardNumber" className="form-control validate" placeholder="xxxx xxxx xxxx xxxx" required onChange={this.handleChange}/>
                             <div className="input-group-append">
                                 <span className="input-group-text bg-light"><i className="fa fa-credit-card fa-lg"></i></span>
                             </div>
+                            </div>
+                            <div className="float-right error">
+                                {errors.cardNumber.length > 0 && 
+                                    <span className='error'>{errors.cardNumber}</span>}
                             </div>
                         </div>
                         <div className="row mb-2">
@@ -169,11 +200,15 @@ class Cart extends React.Component{
                             <input type="date" id="expiryDate" class="form-control validate" placeholder="mm/dd/yyyy" required/>
                             </div>
                             <div className="col-md-4 p-0">
-                            <input type="password" id="cvv" class="form-control validate" placeholder="CVV" required/>
+                            <input type="password" id="cvv" class="form-control validate" placeholder="CVV" required onChange={this.handleChange}/>
                             </div>
+                            <div className="float-right error">
+                                {errors.cvv.length > 0 && 
+                                    <span className='error'>{errors.cvv}</span>}
+                            </div>                            
                         </div>
                         <div className="row mb-2">
-                        <input type="password" id="cardHolderName" class="form-control validate" placeholder="Card Holder Name" required/>
+                        <input type="text" id="cardHolderName" class="form-control validate" placeholder="Card Holder Name" required/>
                         </div>
 
                     </div>

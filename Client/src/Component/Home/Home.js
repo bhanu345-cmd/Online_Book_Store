@@ -1,17 +1,17 @@
 import React from 'react';
 import Navbar from '../Navbar/Navbar';
-import Carousel from '../Carousel/Carousel';
 import LeftNavbar from '../Navbar/LeftNavbar';
 import Books from '../Books/Books';
 import Footer from '../Others/Footer';
 import Services from '../Others/Services';
 import Authors from '../Authors/Authors';
-import {search} from '../Search/SearchFunctions.js';
+import {search} from '../UserFunctions/UserFunctions.js';
 import Banner from '../Banner/Banner';
 import './Home.css';
 import Auth from '../../Authentication/Auth.js';
 import Aux from '../../hoc/Auxiliary.js';
 import Axios from 'axios';
+import {getCartItems} from '../UserFunctions/UserFunctions.js';
 class Home extends React.Component{
     state={searchItem:"",display:true,result:[],message:""};
     constructor(props){
@@ -41,6 +41,16 @@ class Home extends React.Component{
                             }
         }).catch(err=>{this.setState({message:"Could not find"})});
     }
+    componentDidMount(){
+        if(this.auth.getUserName()){
+            getCartItems(this.auth.getUserName()).then((res)=>{
+                this.setState({count:res.cartItems.length});
+            });
+        }
+        else{
+            this.setState({count:0});
+        }
+    }
     render(){
         console.log(this.props);
         
@@ -48,13 +58,12 @@ class Home extends React.Component{
             <Aux>
                 
             {/* <div className=" sticky-top"> */}
-                <Navbar {...this.props} logout={()=>{this.logoutHandler()}} search={(e)=>this.changeHandler(e)} click={(e)=>this.getSearchResult(e)} userName={this.auth.getUserName()}/>
+                <Navbar {...this.props} logout={()=>{this.logoutHandler()}} search={(e)=>this.changeHandler(e)} click={(e)=>this.getSearchResult(e)} userName={this.auth.getUserName()} count={this.state.count}/>
             {/* </div> */}
             <div className="container">
                 <div className="row">
                     <div className="col-lg-12 col-md-12 col-sm-12">
                     {this.state.display&&<Banner />}
-                        {/* {this.state.display&&<Carousel />} */}
                     </div>
                 </div>
             </div>

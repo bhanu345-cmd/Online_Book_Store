@@ -65,12 +65,10 @@ export default class Books extends React.Component{
                         }
                         {this.auth.isAuthenticated() &&
                         <>
-                        <button className="btn btn-danger btn-sm">Buy</button>
+                        <button className="btn btn-danger btn-sm" onClick={()=>this.addToCartHandler(book._id)}>Buy</button>
                         <button className="btn btn-success btn-sm float-right" onClick={()=>this.addToCartHandler(book._id)}>Add to Cart</button>
                         </>
                         }
-                        {/* <a href="#" className="btn btn-danger btn-sm">Buy</a>
-                        <a href="#" className="btn btn-success btn-sm float-right" onClick={()=>this.addToCartHandler(book._id)}>Add to Cart</a> */}
                         </div>
                         </div>
                         </div>
@@ -95,7 +93,7 @@ export default class Books extends React.Component{
                                         }
                                         {this.auth.isAuthenticated() &&
                                         <>
-                                        <button className="btn btn-danger btn-sm">Buy</button>
+                                        <button className="btn btn-danger btn-sm" onClick={()=>this.addToCartHandler(book._id)}>Buy</button>
                                         <button className="btn btn-success btn-sm float-right" onClick={()=>this.addToCartHandler(book._id)}>Add to Cart</button>
                                         </>
                                         }

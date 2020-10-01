@@ -11,3 +11,8 @@
     padding-left: 0px !important;
     border-radius: 200px;
 }
+@media (max-width:600px){
+    .bannercard .card-img-top{
+        width:100% !important;
+    }
+}
