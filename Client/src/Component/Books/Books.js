@@ -1,6 +1,6 @@
 import React from 'react';
 import './Books.css';
-import carousel1 from '../Images/carousel1.jpg';
+import carousel1 from '../BookImages/sample.jpg';
 import Axios from 'axios';
 import {Link} from 'react-router-dom';
 import Aux from '../../hoc/Auxiliary.js';

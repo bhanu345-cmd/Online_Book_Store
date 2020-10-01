@@ -4,7 +4,7 @@ import Aux from '../../hoc/Auxiliary.js';
 import Axios from 'axios';
 import {search} from '../Search/SearchFunctions.js';
 import Navbar from '../Navbar/Navbar';
-import carousel1 from '../Images/carousel1.jpg';
+import carousel1 from '../BookImages/sample.jpg';
 import './Cart.css';
 import {decrement,increment,deleteBook,getCartItems} from '../UserFunctions/UserFunctions.js';
 class Cart extends React.Component{
@@ -127,7 +127,7 @@ class Cart extends React.Component{
                     return(
                         <div className="card mb-3 ml-5 cart-col1-Card" > 
                         <div className="row no-gutters">
-                        <div class="col-md-4 cartimg">
+                        <div class="col-md-4 col-lg-4 col-sm-4 cartimg">
                             <img src={carousel1} className="card-img cartimg" alt="..." height="290" />
                         </div>
                         <div class="col-md-8 col-lg-8 col-sm-8">

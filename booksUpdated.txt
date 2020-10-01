@@ -1,0 +1,42 @@
+[
+        {
+	    //img 24
+            "bookName": "Like it Happened Yesterday",
+            "author": "Ravinder Singh",
+            "price": 250,
+            "category": "Romantic",
+            "publishedDate": "2020-09-25T00:00:00.000Z"
+        },
+        {           
+	    //img 5
+	    "bookName": "MongoDB",
+            "author": "Kristina Chodorow",
+            "price": 350,
+            "category": "Computers",
+            "publishedDate": "2020-09-25T00:00:00.000Z"
+        },
+        {
+            //img 11
+	    "bookName": "Death on the Nile",
+            "author": "Agatha Christie",
+            "price": 500,
+            "category": "Mystery",
+            "publishedDate": "2020-09-25T00:00:00.000Z"
+        },
+        {
+            //img 16
+	    "bookName": "The Alchemist",
+            "author": "Paulo Coelho",
+            "price": 500,
+            "category": "Drama",
+            "publishedDate": "2020-09-25T00:00:00.000Z"
+        },
+        {
+            //img 18
+            "bookName": "Harry Potter",
+            "author": "JK Rowling",
+            "price": 500,
+            "category": "Fiction Thriller",
+            "publishedDate": "2020-09-25T00:00:00.000Z"
+        }
+    ]
