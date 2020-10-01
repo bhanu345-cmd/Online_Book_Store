@@ -3,23 +3,10 @@ import './Books.css';
 import carousel1 from '../Images/carousel1.jpg';
 import Axios from 'axios';
 export default class Books extends React.Component{
-    state={
-        books:[],
-        message:""
-    };
-    componentDidMount(){
-        Axios.get("http://localhost:4000/book/getBook").then((res)=>{
-            if(res.data.message===true){
-                this.setState({books:res.data.books});
-            }else{
-                this.setState({message:res.data.message});
-            }
-        });
-    }
     render(){
         return(
                 <div className="row">
-                    {this.props.display? this.state.books.map((book,index)=>{
+                    {this.props.display? this.props.books.map((book,index)=>{
                       return( 
                         <div className="col-xl-3 col-lg-4 col-md-5 col-sm-6 col-xs-7 booksCard" key={book._id}>
                             <div className="card mt-4">
@@ -55,10 +42,9 @@ export default class Books extends React.Component{
                                 </div>
                           </div>
                         )})}
-                        {this.props.message&&<div className="col-lg-12">
-                        <h1>{this.props.message}</h1>
+                        {this.props.message &&<div className="col-lg-12">
+                        <h5 className="mt-4">{this.props.message }</h5>
                         </div>}
-                    
                     </div>
         
         );

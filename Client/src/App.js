@@ -5,6 +5,7 @@ import Login from './Component/Login/Login';
 import Home from './Component/Home/Home';
 import Auth from './Authentication/Auth.js';
 import Cart from './Component/shoppingCart/Cart.js';
+import Orders from './Component/shoppingCart/Order.js';
 export default class App extends React.Component {
   constructor(props){
     super(props);
@@ -19,6 +20,7 @@ export default class App extends React.Component {
         <Route path="/" exact component={Home}/>
         <Route path="/Home" render={(props)=>this.auth.isAuthenticated()?<Home {...props}/>:<Redirect to='/'/>}/>
         <Route path="/shoppingCart" render={(props)=>this.auth.isAuthenticated()?<Cart {...props}/>:<Redirect to='/login'/>}/>
+        <Route path="/orders" render={(props)=>this.auth.isAuthenticated()?<Orders {...props}/>:<Redirect to='/login'/>}/>
       </Switch>
     </div>
   );

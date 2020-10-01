@@ -17,7 +17,11 @@ router.get('/getBook',(req,res)=>{
         });
     }else{
         books.find({}).then((books)=>{
-            return res.send({message:true,books:books});
+            if(books.length>0){
+                return res.send({message:true,books:books});
+            }else{
+                return res.send({message:false});
+            }
         }).catch((err)=>res.send({message:err}));
     }
 });

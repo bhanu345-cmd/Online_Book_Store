@@ -13,7 +13,7 @@ import Banner from '../Banner/Banner.js';
 import Axios from 'axios';
 import {getCartItems} from '../UserFunctions/UserFunctions.js';
 class Home extends React.Component{
-    state={searchItem:"",display:true,result:[],message:"",displaySearch:true,count:0};
+    state={searchItem:"",books:[],display:true,result:[],message:"",displaySearch:true,count:0};
     constructor(props){
         super(props);
         this.auth=new Auth(this.props.history);
@@ -53,14 +53,24 @@ class Home extends React.Component{
                             }else{
                                 this.setState({message:`No book found with ${this.state.searchItem} name`});
                             }
-        }).catch(err=>{this.setState({message:"Could not find"})});
+        }).catch(err=>{this.setState({message:"404 error"})});
     }
 
     componentDidMount(){
+        Axios.get("http://localhost:4000/book/getBook").then((res)=>{
+            if(res.data.message===true){
+                this.setState({books:res.data.books});
+            }else{ 
+                this.setState({message:"No books Found"});
+            }
+        }).catch(err=>this.setState({message:"404 error"}));
+
         if(this.auth.getUserName()){
             getCartItems(this.auth.getUserName()).then((res)=>{
-                this.setState({count:res.cartItems.length});
-            });
+                if(res.cartItems){
+                    this.setState({count:res.cartItems.length});
+                }
+            }).catch(err=>{this.setState({message:"404 error"})});
         }
     }
 
@@ -84,7 +94,7 @@ class Home extends React.Component{
                     </div>
                     <div className="col-lg-9 col-md-8 col-sm-7 ">
                         {this.state.display&&<Authors/>}
-                        <Books {...this.props} searchResult={this.state.result} message={this.state.message} display={this.state.display} addToCart={this.addToCartHandler}/>
+                        <Books {...this.props} books={this.state.books} searchResult={this.state.result} message={this.state.message} display={this.state.display} addToCart={this.addToCartHandler}/>
                     </div>
                 </div>
             </div>

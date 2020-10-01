@@ -117,6 +117,7 @@ class Register extends React.Component{
         
         if(this.state.isValid === true){
             alert("Please enter all the fields correctly");
+            return false;
         }
         else{
             this.auth.registration(data).then((res)=>{
