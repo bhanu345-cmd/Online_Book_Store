@@ -27,3 +27,13 @@ export const deleteBook=(id,userName)=>{
         return res.data;  
     }).catch((err)=>{return {message:err}});
 }
+export const placeOrder=(orderItems)=>{
+    return Axios.post(`http://localhost:4000/order/placeOrder`,orderItems).then((res)=>{
+         return res.data;  
+     }).catch((err)=>{return {message:err}});
+ }
+ export const orders=(userName)=>{
+    return Axios.get(`http://localhost:4000/order/orderedItems?userName=${userName}`).then((res)=>{
+         return res.data;  
+     }).catch((err)=>{return {message:err}});
+ }

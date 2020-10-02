@@ -1,13 +1,13 @@
 import React from 'react';
 import Auth from '../../Authentication/Auth.js';
 import Aux from '../../hoc/Auxiliary.js';
-import Axios from 'axios';
-import {search} from '../Search/SearchFunctions.js';
 import Navbar from '../Navbar/Navbar';
+import './Orders.css';
+import {orders,getCartItems} from '../UserFunctions/UserFunctions';
 import carousel1 from '../Images/carousel1.jpg';
-import './Cart.css';
-class Orders extends React.Component{
-    state={searchItem:"",display:true,result:[],message:""};
+// import {getCartItems} from '../UserFunctions/UserFunctions.js';
+export default class Orders extends React.Component{
+    state={displayCart:false,result:[],message:"",count:0};
     constructor(props){
         super(props);
         this.auth=new Auth(this.props.history);
@@ -19,41 +19,94 @@ class Orders extends React.Component{
     resetHandler=()=>{
         this.setState({result:[],message:""});
     }
-    
-    render(){
-        const {errors} = this.state;    
+    componentDidMount(){
+        orders(this.auth.getUserName()).then((res)=>{
+            if(res.message==true){
+                this.setState({result:res.orders});
+            }else{
+                this.setState({message:"Place orders to view order list"});
+            }
+            
+        }).catch(err=>this.setState({message:"404 error"}));
+        if(this.auth.getUserName()){
+            getCartItems(this.auth.getUserName()).then((res)=>{
+                if(res.cartItems){
+                    this.setState({count:res.cartItems.length});
+                }
+            }).catch(err=>{this.setState({message:"404 error"})});
+        }
+
+    }
+    render(){    
         return(
             <Aux>
-            <Navbar {...this.props} userName={this.auth.getUserName()} display={this.state.displayCart} logout={()=>{this.logoutHandler()}}/>
-                {/* <div className="row">
-                <div className="col-lg-7 col-md-7 col-sm-7">
-                    <h5 className="ml-3">Cart Items</h5>
-                {this.state.cartItems.map((cartItem,index)=>{
-                    // this.state.totalAmount= this.state.totalAmount+cartItem.totalPrice;
+            <div className="container-fluid">
+                <Navbar {...this.props} userName={this.auth.getUserName()} display={this.state.displayCart} logout={()=>{this.logoutHandler()}} count={this.state.count}/>
+            </div>
+            <div className="container-fluid">
+             <div className="row tablerow">
+                <div className="col">
+                    <table className="table-striped orderTable">
+                        <thead className="text-center">
+                            <th>
+                            <h5 className="card-title text-dark"><span >My Orders</span></h5>
+                            </th>
+                            <th className="collapselink">
+                            <a href="#" data-toggle="collapse" data-target="#bookdetails" aria-expanded="true" aria-controls="bookdetails">
+                                <h4 className="text-dark"><span >Show Details</span></h4>
+                            </a>
+                            </th>
+                        </thead>
+                        <hr className="orderHr"/>
+                        <tbody>
+                            {this.state.result.map((cartItem,index)=>{
+                                return(<>
+                                    <tr key={index} style={{paddingLeft:"20px"}}>
+                                        <td className="imgTd">
+                                            <img src={carousel1} className="img-thumbnail orderimg" alt="..." height="200px" />
+                                        </td>
+                                        <td className="detalisBook">
+                                            <h5 className="card-title text-dark"><span >{cartItem.book.bookName}</span></h5>
+                                            <div id="bookdetails" className="collapse">
+                                                <p className="card-text"><span className="text-muted small">-by {cartItem.book.author}</span></p>
+                                                {/* <p className="card-text">Price(per copy):{' '}<i className="fa fa-inr" style={{fontSize:"12px"}}></i><span className="text-primary font-weight-bold price">{cartItem.book.price}</span></p> */}
+                                                <p className="card-text">Quantity:<span>{cartItem.quantity}</span></p>
+                                                <p className="card-text pb-0 mt-2">
+                                                    Cost :<i className="fa fa-inr"style={{fontSize:"12px"}}></i><span className="text-primary font-weight-bold">{cartItem.totalPrice}</span>
+                                                </p> 
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <hr className="orderHr"/></>
+                                );
+                            })}
+                        </tbody>
+                    </table>
+{/*                     
+                    {this.state.result.map((cartItem,index)=>{
                     return(
-                        <div className="card mb-3 ml-5 cart-col1-Card" > 
-                        <div className="row no-gutters">
-                        <div class="col-md-4 cartimg">
-                            <img src={carousel1} className="card-img cartimg" alt="..." height="290" />
+                        <div className="card flex-row w-50 mt-3" key={index}> 
+                        <img src={carousel1} className="card-img cartimg" alt="..." height="200px" />
+                        <div className="card-body">
+                                <h5 className="card-title text-dark"><span >{cartItem.book.bookName}</span></h5>
+                                <div id="bookdetails">
+                                <p className="card-text">Author:<span>{cartItem.book.author}</span></p>
+                                <p className="card-text">Price(per copy):{' '}<i className="fa fa-inr" style={{fontSize:"12px"}}></i><span className="text-primary font-weight-bold price">{cartItem.book.price}</span></p>
+                                <p className="card-text">Quantity:<span>{cartItem.quantity}</span></p>
+                                <p className="card-text pb-0 mt-2">
+                                    Total Amount:<i className="fa fa-inr"style={{fontSize:"12px"}}></i><span className="text-primary font-weight-bold">{cartItem.totalPrice}</span>
+                                </p> 
+                                </div>   
                         </div>
-                        <div class="col-md-8 col-lg-8 col-sm-8">
-                            <div class="card-body"  key={index}>
-                            <p className="card-text font-weight-bolder"><span style={{fontSize:'15px'}}>{cartItem.book.bookName}</span></p>
-                            <p className="card-text">Author:<span>{cartItem.book.author}</span></p>
-                            <p className="card-text">Category:<span>{cartItem.book.category}</span></p>
-                            <p className="card-text">Price(per copy):{' '}<i className="fa fa-inr"></i><span className="text-primary font-weight-bold price">{cartItem.book.price}</span></p>
-                            </div>
-                        </div>
-                        </div>
-                </div> 
-                );
-                })}
+                    </div> 
+);
+                })} */}
               </div>
-              </div>         */}
-              <h1>This is my cart</h1>
+              </div>
+              </div>
+              
             </Aux>
         )
     }
 
 }
-export default Orders;

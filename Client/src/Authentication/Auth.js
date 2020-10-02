@@ -69,7 +69,7 @@ export default class auth{
     logout=()=>{
         localStorage.removeItem("access_token");
         localStorage.removeItem('userName');
-        this.history.go(0);
+        // this.history.go(0);
         return this.history.replace('/');
     }
 

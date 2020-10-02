@@ -25,7 +25,7 @@ class Profile extends React.Component{
         console.log(data);
         return(
             <>              
-            <a type="button"  data-toggle="modal" data-target="#profileModal" data-backdrop="false">
+            <a type="nav-link button"  data-toggle="modal" data-target="#profileModal" data-backdrop="false">
             <i className="fa fa-user-circle-o" style={{fontSize: '30px',paddingTop: '2px'}}></i>
             </a>
             <div className="modal" id="profileModal" tabindex="-1" role="dialog" aria-labelledby="profileModal" aria-hidden="true" style={{paddingRight: '0px !important',overflow: 'inherit'}}>

@@ -1,0 +1,25 @@
+.orderimg{
+    width: 100px;
+    height: 100px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+.orderTable{
+    table-layout: auto;
+    margin-left: 50px;
+}
+.detalisBook{
+    padding-left: 8px;
+    width: 500px;
+}
+.orderHr{
+    width: 600%;
+}
+.collapselink a{
+    text-decoration: none;
+    text-shadow: 2px 2px 4px #888888; 
+    
+}
+.tablerow{
+    padding-top: 20px;
+}
