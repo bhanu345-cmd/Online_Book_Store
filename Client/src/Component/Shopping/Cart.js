@@ -127,10 +127,10 @@ class Cart extends React.Component{
                     return(
                         <div className="card mb-3 ml-5 cart-col1-Card" > 
                         <div className="row no-gutters">
-                        <div class="col-md-4 col-lg-4 col-sm-4 cartimg">
-                            <img src={carousel1} className="card-img cartimg" alt="..." height="290" />
+                        <div class="col-md-4 col-lg-4 col-sm-4 cartimg mr-0">
+                            <img src={carousel1} className="card-img cartimg pl-3" alt="..." height="290" />
                         </div>
-                        <div class="col-md-8 col-lg-8 col-sm-8">
+                        <div class="col-md-8 col-lg-8 col-sm-8 ml-0">
                             <div class="card-body"  key={index}>
                             <p className="card-text font-weight-bolder"><span style={{fontSize:'15px'}}>{cartItem.book.bookName}</span></p>
                             <p className="card-text">Author:<span>{cartItem.book.author}</span></p>

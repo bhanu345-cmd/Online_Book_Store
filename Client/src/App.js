@@ -6,7 +6,7 @@ import Home from './Component/Home/Home';
 import Cart from './Component/Shopping/Cart';
 import Orders from './Component/Shopping/Orders';
 import Auth from './Authentication/Auth.js';
-import BooksOnSearch from './Component/Search/BooksOnSearch';
+import Admin from './Component/Admin/Admin';
 class App extends React.Component {
   constructor(props){
     super(props);
@@ -24,7 +24,8 @@ class App extends React.Component {
         <Route path="/" exact component={Home}/>
         <Route path="/Home" render={(props)=>this.auth.isAuthenticated()?<Home {...props}/>:<Redirect to='/'/>}/>
         <Route path="/cart" render={(props)=>this.auth.isAuthenticated()?<Cart {...props} userName={this.auth.getUserName()}/>:<Redirect to='/login'/>}/>
-        <Route path="/orders" component={Orders} />
+        <Route path="/orders" render={(props)=>this.auth.isAuthenticated()?<Orders {...props}/>:<Redirect to='/login'/>}/>
+        <Route path="/admin" component={Admin} />
       </Switch>
     </Router>
     

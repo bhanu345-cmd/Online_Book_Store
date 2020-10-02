@@ -2,7 +2,6 @@ import React from 'react';
 import './Books.css';
 import carousel1 from '../BookImages/sample.jpg';
 import Axios from 'axios';
-import {Link} from 'react-router-dom';
 import Aux from '../../hoc/Auxiliary.js';
 import Auth from '../../Authentication/Auth.js';
 export default class Books extends React.Component{
@@ -50,7 +49,7 @@ export default class Books extends React.Component{
                       return( 
                         <div className="col-lg-3 col-md-4 col-sm-6" >
                         <div className="card mt-4">
-                            <img src={carousel1} className="card-img-top" alt="..."/>
+                            <img src={carousel1} className="card-img-top bookimg" alt="..."/>
                         <div className="card-body" key={index}>
                         <p className="card-text font-weight-bolder"><span style={{fontSize:'15px'}}>{book.bookName}</span></p>
                         <p className="card-text">Author:<span>{book.author}</span></p>
