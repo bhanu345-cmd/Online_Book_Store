@@ -2,6 +2,8 @@ import React from 'react';
 import Auth from '../../Authentication/Auth.js';
 import Aux from '../../hoc/Auxiliary.js';
 import Navbar from '../Navbar/Navbar';
+import Services from '../Others/Services.js';
+import Footer from '../Others/Footer';
 import './Orders.css';
 import {orders,getCartItems} from '../UserFunctions/UserFunctions';
 import carousel1 from '../Images/carousel1.jpg';
@@ -104,7 +106,7 @@ export default class Orders extends React.Component{
               </div>
               </div>
               </div>
-              
+            <Services /> <Footer />
             </Aux>
         )
     }

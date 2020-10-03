@@ -1,10 +1,21 @@
-import React from 'react'
+import React from 'react';
+import AdminNav from './AdminNav';
+import Banner from '../Banner/Banner';
+import Services from '../Others/Services';
+import Footer from '../Others/Footer';
 class Admin extends React.Component{
     render(){
         return(
             <>
-            <marquee><h2>Hello</h2></marquee>
-            <h1>This is Admin Home</h1>
+            <div className="container-relative">
+            <AdminNav />
+            </div>
+            <marquee><h2>This is Admin Home</h2></marquee>
+            <Banner />
+            <div className="container-fluid">
+                <Services />
+                <Footer /> 
+            </div>
             </>
         )
     }

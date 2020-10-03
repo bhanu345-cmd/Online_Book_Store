@@ -3,6 +3,8 @@ import Auth from '../../Authentication/Auth.js';
 import Aux from '../../hoc/Auxiliary.js';
 import Navbar from '../Navbar/Navbar';
 import carousel1 from '../Images/carousel1.jpg';
+import Services from '../Others/Services.js';
+import Footer from '../Others/Footer';
 import './Cart.css';
 import {decrement,increment,deleteBook,getCartItems,placeOrder } from '../UserFunctions/UserFunctions.js';
 export default class Cart extends React.Component{
@@ -234,7 +236,8 @@ export default class Cart extends React.Component{
     </div>
 </div>
 </div>  
-</div>     
+</div>
+<Services /><Footer />    
 </Aux>
         )
     }

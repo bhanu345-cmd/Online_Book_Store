@@ -34,7 +34,7 @@ class Home extends React.Component{
         Axios.post(`http://localhost:4000/cart/addBook?id=${id}&userName=${this.auth.getUserName()}`).then((res)=>{
             console.log(res.data.message)    
             if(res.data.message===true){
-                    this.props.history.push(`/shoppingcart`);               
+                    this.props.history.push(`/cart`);           
                 }else{
                     this.setState({message: `Unable to add to cart please try again later`});
                     alert(this.state.message);

@@ -7,6 +7,9 @@ import Cart from './Component/Shopping/Cart';
 import Orders from './Component/Shopping/Orders';
 import Auth from './Authentication/Auth.js';
 import Admin from './Component/Admin/Admin';
+import AddBook from './Component/AdminBooks/AddBook';
+import AddAuthor from './Component/AdminAuthor/AddAuthor';
+import AddCategory from './Component/AdminCategory/AddCategory';
 class App extends React.Component {
   constructor(props){
     super(props);
@@ -23,9 +26,12 @@ class App extends React.Component {
         <Route path="/register" component={Register} />
         <Route path="/" exact component={Home}/>
         <Route path="/Home" render={(props)=>this.auth.isAuthenticated()?<Home {...props}/>:<Redirect to='/'/>}/>
-        <Route path="/cart" render={(props)=>this.auth.isAuthenticated()?<Cart {...props} userName={this.auth.getUserName()}/>:<Redirect to='/login'/>}/>
+        <Route path="/cart" render={(props)=>this.auth.isAuthenticated() && <Cart {...props} userName={this.auth.getUserName()}/>}/>
         <Route path="/orders" render={(props)=>this.auth.isAuthenticated()?<Orders {...props}/>:<Redirect to='/login'/>}/>
         <Route path="/admin" component={Admin} />
+        <Route path="/addbook" component={AddBook} />
+        <Route path="/addauthor" component={AddAuthor} />
+        <Route path="/addcategory" component={AddCategory} />
       </Switch>
     </Router>
     

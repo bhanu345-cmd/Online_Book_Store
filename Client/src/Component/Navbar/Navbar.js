@@ -4,7 +4,6 @@ import {Link,NavLink} from 'react-router-dom';
 import Profile from './Profile';
 import Auth from '../../Authentication/Auth.js';
 import Aux from '../../hoc/Auxiliary.js';
-import Orders from '../Shopping/Orders';
 class Navbar extends React.Component{
     constructor(props){
         super(props);
