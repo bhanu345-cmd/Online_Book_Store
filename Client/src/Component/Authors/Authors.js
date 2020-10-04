@@ -1,6 +1,6 @@
 import React from 'react';
 import './Authors.css';
-import Aux from '../hoc/Auxiliary.js';
+import Aux from '../../hoc/Auxiliary.js';
 export default class Authors extends React.Component{
     render(){
         return(

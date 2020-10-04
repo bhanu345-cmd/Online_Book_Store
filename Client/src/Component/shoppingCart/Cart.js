@@ -115,7 +115,7 @@ export default class Cart extends React.Component{
 
             }
         }
-        if(this.state.isValid==true){
+        if(this.state.isValid===true){
             alert("Valid card details");
             return false;
         }

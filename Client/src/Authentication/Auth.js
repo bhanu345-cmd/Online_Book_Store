@@ -57,11 +57,19 @@ export default class auth{
         localStorage.setItem("access_token", token);
         localStorage.setItem("userName",userName);
     };
-
+    adminSetSession=()=>{
+        localStorage.setItem("admin_token","admin123");
+    }
     isAuthenticated() {
         let storeItem = localStorage.getItem("access_token");
         return storeItem && storeItem.length > 0;
     }
+
+    isAdminAuthenticated=()=>{
+        let storeItem=localStorage.getItem("admin_token");
+        return storeItem&&storeItem.length>0;
+    }
+
     getUserName(){
         let userName=localStorage.getItem('userName');
         return userName;
@@ -70,6 +78,10 @@ export default class auth{
     logout=()=>{
         localStorage.removeItem("access_token");
         localStorage.removeItem('userName');
+        return this.history.replace('/');
+    }
+    adminLogout=()=>{
+        localStorage.removeItem("admin_token");
         return this.history.replace('/');
     }
 

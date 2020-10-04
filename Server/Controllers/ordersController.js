@@ -19,9 +19,9 @@ router.post('/placeOrder',(req,res)=>{
 
 });
 router.get('/orderedItems',(req,res)=>{
-    orders.findOne({userName:req.query.userName}).then((orderedItemList)=>{
+    orders.find({userName:req.query.userName}).then((orderedItemList)=>{
         if(orderedItemList){
-            res.send({message:true,orders:orderedItemList.orderedItems});
+            res.send({message:true,orders:orderedItemList});
         }else{
             res.send({message:false});
         }
