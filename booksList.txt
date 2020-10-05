@@ -1,0 +1,72 @@
+--------------1
+URL:https://images.springer.com/sgw/books/medium/9781484241516.jpg
+BookName: The Full Stack Developer
+Author: Chris Northwood
+Category: Programming
+Price: 1500
+Description: Your Essential Guide to the Everyday Skills Expected of a Modern Full Stack Web Developer.
+You will learn the principles of the topics needed to help a developer new to agile or full stack working—UX, project management, QA, product management, and more— all from the point of view of a developer.
+----------------2
+URL:https://images-na.ssl-images-amazon.com/images/I/917447iD0KL.jpg
+BookName: The Science Book
+Author:  DK
+Category: Biography
+Price: 889
+Description: All the big ideas in science, simply explained Part of the popular Big Ideas series, The Science Book explores the history of science, how scientists have sought to explain our incredible universe and how amazing scientific discoveries have been made. 
+----------------3
+URL:https://images-na.ssl-images-amazon.com/images/I/719Y86+6UBL.jpg
+BookName:Bossypants
+Author:  Tina Fey
+Category: Humor
+Price: 432
+Description: At last, Tina Fey's story can be told. From her youthful days as a vicious nerd to her tour of duty on Saturday Night Live; from her passionately halfhearted pursuit of physical beauty to her life as a mother eating things off the floor; from her one-sided college romance to her nearly fatal honeymoon - from the beginning of this paragraph to this final sentence.
+---------------4
+URL:https://images-na.ssl-images-amazon.com/images/I/61Iz2yy2CKL.jpg
+BookName: The MonK Who sold his Ferrari
+Author: Robin Sharma
+Category: Fiction
+Price: 999
+Description:This inspiring tale is based on the author's own search for life's true purpose, providing a step-by-step approach to living with greater courage, balance, abundance and joy.It tells the story of Julian Mantle, a lawyer forced to confront the spiritual crisis of his out-of-balance life: following a heart attack, he decides to sell all his beloved possesions and trek to India. On a life-changing odyssey to an ancient culture, he meets Himalayan gurus who offer powerful, wise and practical lessons that teach us.
+----------------5
+URL:https://images-eu.ssl-images-amazon.com/images/I/51btCZ-13mL._SY445_QL70_ML2_.jpg
+BookName: One Indian Girl
+Author:Chetan Bhagat
+Category: Romance
+Price: 499
+Description:Hi, I'm Radhika Mehta and I'm getting married this week. I work at Goldman Sachs, an investment bank. Thank you for reading my story. However, let me warn you. You may not like me too much. One, I make a lot of money. Two, I have an opinion on everything. Three, I have had a boyfriend before. Ok, maybe two. Bestselling author Chetan Bhagat, writing for the first time in a female voice, brings to you One Indian Girl, the heart-warming story of a modern Indian girl. Now if all this was the case with a guy, one might be cool with it. But since I am a girl these three things I mentioned don't really make me too likeable, do they?
+----------------6
+URL:https://images-na.ssl-images-amazon.com/images/I/81zHwTa288L.jpg
+BookName:The Immortals of Meluha
+Author:Amish Tripathi
+Category: Mythology
+Price: 449
+Description:This once proud empire and its Suryavanshi rulers face severe perils as its primary river, the revered Saraswathi, is slowly drying to extinction. They also face devasting terrorist attacks from the east, the land of the Chandravanshis. To make matters worse, the Chandravanshis appear to have allied with the Nagas, an ostracised and sinister race of deformed humans with astonishing martial skills. 
+--------------------7
+URL:https://images-na.ssl-images-amazon.com/images/I/91VokXkn8hL.jpg
+BookName: Rich Dad Poor Dad
+Author:Robert Kiyosaki
+Category: Inspirational
+Price: 310
+Description:Kiyosaki lays out his philosophy by: exploding the myth that you need to earn a high income to be rich; challenging the belief that your house is an asset; showing parents why they can't rely on schools to teach their children about money; defining once and for all an asset versus a liability; and explaining what to teach your children about money for their future financial success.
+---------------------8
+URL:https://images-na.ssl-images-amazon.com/images/I/51CeJ+XZOBL.jpg
+BookName: Twilight
+Author: Stephenie Meyer
+Category: Vampire
+Price:599
+Description:When 17 year old Isabella Swan moves to Forks, Washington to live with her father she expects that her new life will be as dull as the town.But in spite of her awkward manner and low expectations, she finds that her new classmates are drawn to this pale, dark-haired new girl in town. But not, it seems, the Cullen family. These five adopted brothers and sisters obviously prefer their own company and will make no exception for Bella.
+---------------------9
+URL:https://m.media-amazon.com/images/I/5126hLd7jsL.jpg
+BookName: Dracula
+Author: Bram Stoker
+Category: Horror
+Price: 599
+Description:Dracula is an 1897 Gothic horror novel by Irish author Bram Stoker. It introduced the character of Count Dracula and established many conventions of subsequent vampire fantasy. He novel tells the story of Dracula's attempt to move from Transylvania to England so that he may find new blood and spread the undead curse, and of the battle between Dracula and a small group of people led by Professor Abraham Van Helsing.
+--------------------10
+URL:https://rukminim1.flixcart.com/image/352/352/jp4d4sw0/regionalbooks/d/k/8/wings-of-fire-an-autobiography-of-apj-abdul-kalam-original-imafbcc97zjzdkhy.jpeg?q=70
+BookName: Wings of Fire
+Author:A. P. J. Abdul Kalam
+Category:Autobiography
+Price: 735
+Description:Avul Pakir Jainulabdeen Abdul Kalam, this Is The Story Of Kalam`S Rise From Obscurity And His Personal And Professional Struggles, As Well As The Story Of Agni, Prithvi, Akash, Trishul And Nag--Missiles That Have Become Household Names In India And That Have Raised The Nation To The Level Of A Missile Power Of International Reckoning
+-----------------------
