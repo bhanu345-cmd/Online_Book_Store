@@ -29,10 +29,10 @@ class LeftNavbar extends React.Component{
             <nav className="navbar">
                 {this.state.message}
                     <ul className="navbar-nav w-100 category-size">
-                        {this.state.categories.map((category)=>{
+                        {this.state.categories.map((category,index)=>{
                             return(
-                                <li className="nav-item text-center">
-                                <Link className="nav-link text-dark" to="/#" onClick={()=>this.props.getBookByCategory(category.name)}>{category.name}</Link>
+                                <li className="nav-item pl-3" key={index}>
+                                <Link className="nav-link text-dark" to="/#" onClick={()=>this.props.getBookByCategory(category.name)}>{category.name.toUpperCase()}</Link>
                                 </li>
                             );
                         })}
@@ -44,10 +44,10 @@ class LeftNavbar extends React.Component{
             <h1 className="fontstyle text-dark">Authors</h1>
             <nav className="navbar">
                     <ul className="navbar-nav w-100 author-size">
-                    {this.state.authors.map((author)=>{
+                    {this.state.authors.map((author,index)=>{
                             return(
-                                <li className="nav-item text-center">
-                                <Link className="nav-link text-dark" to="/#" onClick={()=>this.props.getBookByAuthor(author.name)}>{author.name}</Link>
+                                <li className="nav-item pl-3" key={index}>
+                                <Link className="nav-link text-dark" to="/#" onClick={()=>this.props.getBookByAuthor(author.name)}>{author.name.toUpperCase()}</Link>
                                 </li>
                             );
                         })}

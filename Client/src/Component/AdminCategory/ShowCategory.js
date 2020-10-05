@@ -7,6 +7,8 @@ import Aux from '../../hoc/Auxiliary';
 import {deleteCategory} from '../UserFunctions/UserFunctions';
 import './ShowCategory.css';
 import Auth from '../../Authentication/Auth';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 export default class ShowCategories extends React.Component{
     state={categories:[],message:''};
     constructor(props){
@@ -21,23 +23,56 @@ export default class ShowCategories extends React.Component{
             if(res.message===true){
                 this.setState({categories:res.categories});
             }else{
-                alert(res.message);
+                toast.error(res.message, {
+                    position: toast.POSITION.TOP_CENTER,
+                    autoClose: false,
+                    onClose:() =>window.location.reload()
+                  }
+                  );
+                // alert(res.message);
             }
-        }).catch(err=>{if(err) alert("404 error")});
+        }).catch(err=>{if(err) 
+            toast.error("404 error !", {
+                position: toast.POSITION.TOP_CENTER,
+                autoClose: false,
+                onClose:() =>window.location.reload()
+              }
+              );
+            // alert("404 error")
+        });
     }
     deleteHandler=(id)=>{
         deleteCategory(id).then((res)=>{
             if(res.message===true){
-                alert("Deleted Successfully");
-                window.location.reload();
+                toast.info("Deleted Successfully !", {
+                    position: toast.POSITION.TOP_CENTER,
+                    autoClose: false,
+                    onClose:() =>window.location.reload()
+                  }
+                  );
             }else{
-               alert(res.message);
+                toast.error(res.message, {
+                    position: toast.POSITION.TOP_CENTER,
+                    autoClose: false,
+                    onClose:() =>window.location.reload()
+                  }
+                  );
+            //    alert(res.message);
             }
-        }).catch(err=>{if(err) alert("404 error")});
+        }).catch(err=>{if(err) 
+            toast.error("404 error !", {
+                position: toast.POSITION.TOP_CENTER,
+                autoClose: false,
+                onClose:() =>window.location.reload()
+              }
+              );
+            // alert("404 error")
+        });
     }
     render(){
         return(
             <Aux>
+                <ToastContainer />           
                 <div className="container-fluid">
                     <AdminNav logoutHandler={this.logoutHandler}/>
                 </div>
@@ -73,7 +108,7 @@ export default class ShowCategories extends React.Component{
                     
                 </div>
                 <div className="container-fluid">
-                <hr />
+                <hr className="hrtag"/>
                     <Services/>
                     <Footer/>
                 </div>

@@ -2,7 +2,12 @@ import React from 'react';
 import './AdminNav.css';
 import Aux from '../../hoc/Auxiliary.js';
 import {Link } from 'react-router-dom';
+import Auth from '../../Authentication/Auth.js';
 class AdminNav extends React.Component{
+    constructor(props){
+        super(props);
+        this.auth=new Auth(this.props.history);
+    }
     render(){
         return(
             <Aux>
@@ -15,7 +20,7 @@ class AdminNav extends React.Component{
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav ml-auto">
                         <li class="nav-item dropdown">
-                            <Link class="nav-link dropdown-toggle" to="#" id="bookDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <Link class="nav-link dropdown-toggle text-dark" to="#" id="bookDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="fa fa-book" aria-hidden="true"></i>Books
                             </Link>
                             <div class="dropdown-menu" aria-labelledby="bookDropdown">
@@ -25,7 +30,7 @@ class AdminNav extends React.Component{
                             </div>
                         </li>
                         <li class="nav-item dropdown">
-                            <Link className="nav-link dropdown-toggle" to="#" id="categoryDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <Link className="nav-link dropdown-toggle text-dark" to="#" id="categoryDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="fa fa-list" aria-hidden="true"></i>Category
                             </Link>
                             <div className="dropdown-menu" aria-labelledby="categoryDropdown">
@@ -35,7 +40,7 @@ class AdminNav extends React.Component{
                             </div>
                         </li>
                         <li className="nav-item dropdown">
-                            <Link className="nav-link dropdown-toggle" to="#" id="authorDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <Link className="nav-link dropdown-toggle text-dark" to="#" id="authorDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i className="fa fa-user" aria-hidden="true"></i>Author
                             </Link>
                             <div className="dropdown-menu" aria-labelledby="authorDropdown">
@@ -44,9 +49,10 @@ class AdminNav extends React.Component{
                             <Link className="dropdown-item" to="/showAuthors">View Authors</Link>
                             </div>
                         </li>
-                        <li className="nav-item">
+                        {this.auth.isAdminAuthenticated() && <li className="nav-item"><button className="btn btn-success" onClick={this.props.logoutHandler}>LogOut</button></li>}
+                        {/* <li className="nav-item">
                             <button className="btn btn-sm btn-success" onClick={this.props.logoutHandler}>Logout</button>
-                        </li>
+                        </li> */}
                         </ul>
                     </div>
                 </nav>

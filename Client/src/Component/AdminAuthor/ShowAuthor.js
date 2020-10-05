@@ -6,6 +6,8 @@ import Services from '../Others/Services';
 import Aux from '../../hoc/Auxiliary';
 import Auth from '../../Authentication/Auth';
 import './ShowAuthor.css';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 export default class ShowAuthors extends React.Component{
     state={authors:[],message:''};
     componentDidMount(){
@@ -13,9 +15,23 @@ export default class ShowAuthors extends React.Component{
             if(res.message===true){
                 this.setState({authors:res.authors});
             }else{
-                alert(res.message);
+                toast.error(res.message, {
+                    position: toast.POSITION.TOP_CENTER,
+                    autoClose: false,
+                    onClose:() =>window.location.reload()
+                  }
+                  );
+                // alert(res.message);
             }
-        }).catch(err=>{if(err) alert("404 error")});
+        }).catch(err=>{if(err) 
+            toast.error("404 error !", {
+                position: toast.POSITION.TOP_CENTER,
+                autoClose: false,
+                onClose:() =>window.location.reload()
+              }
+              );
+            // alert("404 error")
+        });
     }
     constructor(props){
         super(props);
@@ -27,16 +43,37 @@ export default class ShowAuthors extends React.Component{
     deleteHandler=(id)=>{
         deleteAuthor(id).then((res)=>{
             if(res.message===true){
-                alert("Deleted Successfully");
-                window.location.reload();
+                toast.info("Deleted Successfully !", {
+                    position: toast.POSITION.TOP_CENTER,
+                    autoClose: false,
+                    onClose:() =>window.location.reload()
+                  }
+                  );
+                // alert("Deleted Successfully");
+                // window.location.reload();
             }else{
-               alert(res.message);
+                toast.error(res.message, {
+                    position: toast.POSITION.TOP_CENTER,
+                    autoClose: false,
+                    onClose:() =>window.location.reload()
+                  }
+                  );
+            //    alert(res.message);
             }
-        }).catch(err=>{if(err) alert("404 error")});
+        }).catch(err=>{if(err) 
+            toast.error("404 error !", {
+                position: toast.POSITION.TOP_CENTER,
+                autoClose: false,
+                onClose:() =>window.location.reload()
+              }
+              );
+            // alert("404 error")
+        });
     }
     render(){
         return(
             <Aux>
+                <ToastContainer />
                 <div className="container-fluid">
                     <AdminNav logoutHandler={this.logoutHandler}/>
                 </div>
@@ -78,7 +115,7 @@ export default class ShowAuthors extends React.Component{
                     
                 </div>
                 <div className="container-fluid">
-                <hr />
+                <hr className="hrtag"/>
                     <Services/>
                     <Footer/>
                 </div>

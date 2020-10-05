@@ -14,21 +14,24 @@ class Profile extends React.Component{
             }else{
                 this.setState({message:res.data.message});
             }
-        });
-        
+        });        
+    }
+    handleEdit =(id)=>{
+        this.props.history.push('/editDetails');
+        console.log(id);
     }
     render(){
-        console.log(this.props.auth.isAuthenticated())
+        //console.log(this.props.auth.isAuthenticated())
         // console.log(this.props.match.params.data)
-        console.log(this.state.details)
+       // console.log(this.state.details)
         let data=Array(this.state.details);
-        console.log(data);
+        //console.log(data);
         return(
             <>              
-            <a type="nav-link button"  data-toggle="modal" data-target="#profileModal" data-backdrop="false">
-            <i className="fa fa-user-circle-o" style={{fontSize: '30px',paddingTop: '2px'}}></i>
+            <a type="nav-link button" href=""  data-toggle="modal" data-target="#profileModal" data-backdrop="false">
+            <i className="fa fa-user-circle-o" style={{fontSize: '30px',paddingTop: '2px',color: 'black'}}></i>
             </a>
-            <div className="modal" id="profileModal" tabindex="-1" role="dialog" aria-labelledby="profileModal" aria-hidden="true" style={{paddingRight: '0px !important',overflow: 'inherit'}}>
+            <div className="modal" id="profileModal" tabIndex="-1" role="dialog" aria-labelledby="profileModal" aria-hidden="true" style={{paddingRight: '0px !important',overflow: 'inherit'}}>
                 <div className="modal-dialog modal-dialog-centered" role="document">
                     <div className="modal-content">
                     <div className="modal-header">
@@ -40,11 +43,12 @@ class Profile extends React.Component{
                     <div className="modal-body">
                         <p>Name: {data[0].firstName}{' '}{data[0].lastName}</p>
                         <p>User Name: {data[0].userName}</p>
-                        <p>Phone Number: {data[0].phoneNumber}</p>
+                        <p>Phone Number: {data[0].phnNo}</p>
                         <p>Address: {data[0].address}{','}{data[0].state}{','}{data[0].city}{'.'}</p>
                         
                     </div>
                     <div className="modal-footer">
+                    <button type="button" className="btn btn-success " onClick={()=>this.handleEdit(data[0]._id)}>Edit Details</button>
                         <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
                     </div>
                     </div>

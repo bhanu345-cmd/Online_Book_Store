@@ -50,10 +50,10 @@ router.post('/login',(req,res)=>{
                     return res.send({message:true,accessToken:token});
   
                 }else{
-                   return res.send({message:"Invalid password",accessToken:null});
+                   return res.send({message:"Invalid userName/password",accessToken:null});
                 }
         }else{
-               return res.send({message:"Invalid userName"});
+               return res.send({message:"Invalid userName/password"});
         }
         
     }).catch((err)=>res.send({message:"Error in finding the user "}));
@@ -65,4 +65,28 @@ router.get('/getUser/:name',(req,res)=>{
         res.send(err);
     });
 });
+router.put('/updateDetails',(req,res)=>{
+    userReg.findOne({userName:req.body.userName},(err,user)=>{
+        if(err){
+            res.send({success:false,message:"Not a valid user"});
+        }
+        else{
+            user.firstName=req.body.firstName;
+            user.lastName=req.body.lastName;
+            user.phnNo=req.body.phnNo;
+            user.address=req.body.address;
+            user.state=req.body.state;
+            user.city=req.body.city;
+            user.pincode=req.body.pincode;
+            user.save((err)=>{
+                if(err){
+                    res.send({success:false,message:"Unable to update"});
+                }
+                else{
+                    res.send({success:true,message:"Updated Successfully"});
+                }
+            })
+        }
+    })
+})
 module.exports=router;

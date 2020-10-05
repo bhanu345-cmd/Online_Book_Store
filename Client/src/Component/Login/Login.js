@@ -2,6 +2,8 @@ import React from 'react';
 import './Login.css'
 import Auth from '../../Authentication/Auth';
 import {Link} from 'react-router-dom';
+import { ToastContainer,toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 class Login extends React.Component{
 
     constructor(props){
@@ -56,6 +58,7 @@ class Login extends React.Component{
         };
         
         if(userName === "admin@login.com" && password === "admin123"){
+            this.auth.adminSetSession();
             this.props.history.push("/admin");
         }
         else{
@@ -66,7 +69,13 @@ class Login extends React.Component{
         }
         
         if(this.state.isValid === true){
-            alert("Enter field values correctly");
+            toast.error("Please enter field values correctly", {
+                position: toast.POSITION.TOP_CENTER,
+                autoClose: false,
+                // onClose:() =>window.location.reload()
+              }
+              );
+            // alert("Enter field values correctly");
             return false;
         }
         else{
@@ -75,6 +84,12 @@ class Login extends React.Component{
                     this.props.history.push(`/Home`);
                 }else{
                     this.setState({message:res.message});
+                    toast.error(this.state.message, {
+                        position: toast.POSITION.TOP_CENTER,
+                        autoClose: false,
+                        // onClose:() =>window.location.reload()
+                      }
+                      );
                 }
             });
         
@@ -87,6 +102,7 @@ class Login extends React.Component{
         const {errors,message} = this.state;    
     return(
         <div className="container text-center">
+            <ToastContainer />
             <div className="projName text-center">
                 <Link to="/"><strong>Book Store</strong></Link>
             </div>
@@ -119,7 +135,7 @@ class Login extends React.Component{
                 </div>                
             </div>
             <h6><small>New to Book Store?</small></h6>
-            <Link href="/register" className="btn btn-success form-control sign">SignUp</Link>
+            <Link to="/register" className="btn btn-success form-control sign">SignUp</Link>
         </div>
     );
 }

@@ -15,9 +15,13 @@ export default class Books extends React.Component{
                       return( 
                         <div className="col-xl-3 col-lg-4 col-md-5 col-sm-6 col-xs-7 booksCard cardcontainer" key={book._id}>
                             <div className="card mt-4 ">
-                                <img src={carousel1} className="card-img-top" alt="..."/>
+                            <a data-toggle="collapse" href="#collapse-example" aria-expanded="true" aria-controls="collapse-example" id="heading-example" class="d-block">
+                                <img src={carousel1} className="card-img-top" alt="..."/></a>
                                 <div className="card-body" key={index}>
                                     <h5 className="card-title">{book.bookName}</h5>
+                                    <div id="collapse-example" className="collapse mb-3" aria-labelledby="heading-example">
+                                    <p className="card-text">This is the book of your choice</p>
+                                    </div>
                                     <p className="card-text authorName">Author:<span>{book.author}</span></p>
                                     <p className="card-text">Category:<span>{book.category}</span></p>
                                     <p className="card-text">Price:{' '}<i className="fa fa-inr"style={{fontSize:"12px"}}></i><span className="text-primary font-weight-bold">{book.price}</span></p>
@@ -32,6 +36,7 @@ export default class Books extends React.Component{
                                        </>}
                                     </div>
                                 </div>
+                                
                             </div>
                         </div>
                       );

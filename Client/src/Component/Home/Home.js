@@ -12,6 +12,8 @@ import {search} from '../UserFunctions/UserFunctions.js'
 import Banner from '../Banner/Banner.js';
 import Axios from 'axios';
 import {getCartItems,getBookByCategory,getBookByAuthor} from '../UserFunctions/UserFunctions.js';
+import { ToastContainer,toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 class Home extends React.Component{
     state={searchItem:"",books:[],display:true,result:[],message:"",displaySearch:true,count:0};
     constructor(props){
@@ -37,7 +39,13 @@ class Home extends React.Component{
                     this.props.history.push(`/cart`);           
                 }else{
                     this.setState({message: `Unable to add to cart please try again later`});
-                    alert(this.state.message);
+                    toast.error(this.state.message, {
+                        position: toast.POSITION.TOP_CENTER,
+                        autoClose: false,
+                        onClose:() =>window.location.reload()
+                      }
+                      );
+                    // alert(this.state.message);
                 }
             });
     }
@@ -101,7 +109,8 @@ class Home extends React.Component{
     render(){
         return(
             <Aux>
-            <div className="container-fluid">
+                <ToastContainer />
+            <div className="container">
                 <Navbar {...this.props} display={this.state.displaySearch} logout={()=>{this.logoutHandler()}} search={(e)=>this.changeHandler(e)} click={(e)=>this.getSearchResult(e)} userName={this.auth.getUserName()} count={this.state.count}/>
             </div>
             <div className="container">
@@ -123,7 +132,7 @@ class Home extends React.Component{
                 </div>
             </div>
             <div className="container-fluid">
-                <hr />
+            <hr className="hrtag"/>
                 <Services />
                 <Footer /> 
             </div>  

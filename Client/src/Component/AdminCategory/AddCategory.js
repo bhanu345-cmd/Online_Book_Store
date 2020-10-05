@@ -25,7 +25,7 @@ import Auth from '../../Authentication/Auth';
      }
      submit=(event)=>{
          event.preventDefault();
-          axios.post(`http://localhost:4000/book/addCategory/${this.state.Category.toUpperCase()}`)
+          axios.post(`http://localhost:4000/book/addCategory/${this.state.Category}`)
           .then((res) => {
             this.resetUserInputs();
              if(res.data.message===true){
@@ -79,6 +79,7 @@ render(){
         </div>
         </div>
         <div className="container-fluid">
+        <hr className="hrtag"/>
                 <Services />
                 <Footer /> 
         </div> 

@@ -50,6 +50,7 @@ class Services extends React.Component{
                     </div>
                 </div>
             </div>
+            <hr className="hrtag"/>
         </div>        
     )
     }

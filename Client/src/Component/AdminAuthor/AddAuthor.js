@@ -131,6 +131,7 @@ return(
     </div>
     </div>
     <div className="container-fluid">
+    <hr className="hrtag"/>
             <Services />
             <Footer /> 
     </div> 

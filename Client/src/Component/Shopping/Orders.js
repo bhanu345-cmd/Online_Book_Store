@@ -6,18 +6,14 @@ import {orders} from '../UserFunctions/UserFunctions';
 import carousel1 from '../Images/carousel1.jpg';
 import {Link} from 'react-router-dom';
 import './Orders.css';
+import Services from '../Others/Services.js';
+import Footer from '../Others/Footer';
+import {getCartItems} from '../UserFunctions/UserFunctions.js';
 export default class Orders extends React.Component{
-    state={displayCart:false,result:[],message:""};
+    state={displayCart:false,result:[],message:"",count: 0};
     constructor(props){
         super(props);
         this.auth=new Auth(this.props.history);
-    }
-    
-    logoutHandler=()=>{
-        this.auth.logout();
-    }
-    resetHandler=()=>{
-        this.setState({result:[],message:""});
     }
     componentDidMount(){
         orders(this.auth.getUserName()).then((res)=>{
@@ -36,18 +32,33 @@ export default class Orders extends React.Component{
             }
             
         }).catch(err=>this.setState({message:"404 error"}));
-
+        if(this.auth.getUserName()){
+            getCartItems(this.auth.getUserName()).then((res)=>{
+                if(res.cartItems){
+                    this.setState({count:res.cartItems.length});
+                }
+            }).catch(err=>{this.setState({message:"404 error"})});
+        }
     }
-    render(){    
+    logoutHandler=()=>{
+        this.auth.logout();
+    }
+    resetHandler=()=>{
+        this.setState({result:[],message:""});
+    }
+    
+    render(){ 
+        console.log(this.state.result)   
         return(
             <Aux>
-            <div className="container-fluid">
-                <Navbar {...this.props} userName={this.auth.getUserName()} display={this.state.displayCart} logout={()=>{this.logoutHandler()}}/>
-            </div>
             <div className="container">
+                <Navbar {...this.props} userName={this.auth.getUserName()} display={this.state.displayCart} logout={()=>{this.logoutHandler()}} count={this.state.count}/>
+            </div>
+            <div className="container-fluid">
                 <div className="mt-5">
                 <h3 className="text-dark"><span >My Orders</span></h3>
                                 {this.state.result.map((cartItem,index)=>{
+                                    
                                     return(
                                     <>
                                     <div className="row mt-3 font-custom-style" style={{border: "1px #ddd solid"}}>
@@ -117,7 +128,12 @@ export default class Orders extends React.Component{
                                 );
                             })}
                     </div>
-                </div>    
+                </div>
+                <div className="container-fluid">
+<hr className="hrtag"/>
+                <Services />
+                <Footer /> 
+</div>    
             </Aux>
         )
     }

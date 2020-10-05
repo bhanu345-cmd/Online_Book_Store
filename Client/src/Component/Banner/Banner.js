@@ -15,7 +15,7 @@ class Banner extends React.Component{
             <div className="row">
                 <div className="col-lg-6 col-md-6 col-sm-6 p-1">
                     <div className="card bannercard">
-                        <img className="card-img-top cover" src={sofaBook} alt="Card image cap" height="200" width="117"/>            
+                        <img className="card-img-top cover" src={sofaBook} alt="Card_image_cap" height="200" width="117"/>            
                     </div>
                 </div>
                 <div className="col-lg-6 col-md-6 c0l-sm-6 p-1">

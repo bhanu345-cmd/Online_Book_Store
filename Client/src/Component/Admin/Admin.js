@@ -13,14 +13,16 @@ class Admin extends React.Component{
         this.auth.adminLogout();
       }
     render(){
+        console.log(this.auth.isAdminAuthenticated())
         return(
             <>
             <div className="container-relative">
             <AdminNav logoutHandler={this.logoutHandler} />
             </div>
-            <marquee><h2>This is Admin Home</h2></marquee>
             <Banner />
+            {/* <marquee><h2>This is Admin Home</h2></marquee> */}
             <div className="container-fluid">
+            <hr className="hrtag"/>
                 <Services />
                 <Footer /> 
             </div>

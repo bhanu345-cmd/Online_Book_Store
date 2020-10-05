@@ -1,7 +1,7 @@
-import React,{useHistory} from 'react';
+import React from 'react';
 import './Navbar.css';
-import {Link,NavLink} from 'react-router-dom';
-import Profile from './Profile';
+import {Link} from 'react-router-dom';
+import Profile from '../Profile/Profile';
 import Auth from '../../Authentication/Auth.js';
 import Aux from '../../hoc/Auxiliary.js';
 class Navbar extends React.Component{
@@ -76,7 +76,7 @@ class Navbar extends React.Component{
                                {this.auth.isAuthenticated() &&
                                <Link className="nav-link text-dark" to={{pathname:`/cart`}}><i className="fa fa-shopping-cart"></i><span className="badge cartBadge">{this.props.count}</span></Link>
                                }
-                               {!this.auth.isAuthenticated() && <><a className="nav-link text-dark" data-toggle="modal" data-target=".bd-example-modal-lg"><i className="fa fa-shopping-cart"></i><span class="badge cartBadge">{this.props.count}</span></a>
+                               {!this.auth.isAuthenticated() && <><a className="nav-link text-dark" data-toggle="modal" data-target=".bd-example-modal-lg"><i className="fa fa-shopping-cart"></i><span className="badge cartBadge">{this.props.count}</span></a>
                                <div className="modal fade bd-example-modal-lg" data-backdrop="false" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
                                 <div className="modal-dialog modal-lg">
                                     <div className="modal-content">

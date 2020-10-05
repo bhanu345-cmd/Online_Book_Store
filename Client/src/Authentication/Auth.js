@@ -1,4 +1,6 @@
 import Axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 export default class auth{
 
     constructor(history){
@@ -21,7 +23,7 @@ export default class auth{
         return Axios.post('http://localhost:4000/user/reg',data)
             .then((res)=>{ 
                 if(res.data.message===true){
-                    alert('Data entered to db');
+                    // alert('Data entered to db');
                     return {message:res.data.message};
                 }else{
                     return {message:res.data.message};
