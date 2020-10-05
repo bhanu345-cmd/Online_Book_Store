@@ -11,7 +11,7 @@ import Footer from '../Others/Footer';
 import {search} from '../UserFunctions/UserFunctions.js'
 import Banner from '../Banner/Banner.js';
 import Axios from 'axios';
-import {getCartItems} from '../UserFunctions/UserFunctions.js';
+import {getCartItems,getBookByCategory,getBookByAuthor} from '../UserFunctions/UserFunctions.js';
 class Home extends React.Component{
     state={searchItem:"",books:[],display:true,result:[],message:"",displaySearch:true,count:0};
     constructor(props){
@@ -55,7 +55,31 @@ class Home extends React.Component{
                             }
         }).catch(err=>{this.setState({message:"404 error"})});
     }
+    getBooksByCategory=async(category)=>{
+        this.setState({display:false});
+        console.log(category);
+        getBookByCategory(category).then((res)=>{
+            console.log(res);
+            if(res.message===true){
+                this.setState({result:res.books});
+            }else{
+                this.setState({message:res.message});
+            }
+        }).catch(err=>this.setState({message:"404 Error"}));
 
+    }
+    getBooksByAuthor=async(author)=>{
+        this.setState({display:false});
+        console.log(author);
+        getBookByAuthor(author).then((res)=>{
+            if(res.message===true){
+                this.setState({result:res.books});
+            }else{
+                this.setState({message:res.message});
+            }
+        }).catch(err=>this.setState({message:"404 Error"}));
+
+    }
     componentDidMount(){
         Axios.get("http://localhost:4000/book/getBook").then((res)=>{
             if(res.data.message===true){
@@ -90,7 +114,7 @@ class Home extends React.Component{
             <div className="container">
                 <div className="row">
                     <div className=" col-lg-2 col-md-3 col-sm-4 bg-white ml-lg-2 ml-md-0">
-                        <LeftNavbar />                    
+                    <LeftNavbar {...this.props} getBookByCategory={this.getBooksByCategory} getBookByAuthor={this.getBooksByAuthor}/>
                     </div>
                     <div className="col-lg-9 col-md-8 col-sm-7 ">
                         {this.state.display&&<Authors/>}
@@ -99,6 +123,7 @@ class Home extends React.Component{
                 </div>
             </div>
             <div className="container-fluid">
+                <hr />
                 <Services />
                 <Footer /> 
             </div>  

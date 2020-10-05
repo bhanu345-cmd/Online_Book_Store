@@ -2,14 +2,12 @@ import React from 'react';
 import Auth from '../../Authentication/Auth.js';
 import Aux from '../../hoc/Auxiliary.js';
 import Navbar from '../Navbar/Navbar';
-import Services from '../Others/Services.js';
-import Footer from '../Others/Footer';
-import './Orders.css';
-import {orders,getCartItems} from '../UserFunctions/UserFunctions';
+import {orders} from '../UserFunctions/UserFunctions';
 import carousel1 from '../Images/carousel1.jpg';
-// import {getCartItems} from '../UserFunctions/UserFunctions.js';
+import {Link} from 'react-router-dom';
+import './Orders.css';
 export default class Orders extends React.Component{
-    state={displayCart:false,result:[],message:"",count:0};
+    state={displayCart:false,result:[],message:""};
     constructor(props){
         super(props);
         this.auth=new Auth(this.props.history);
@@ -23,90 +21,103 @@ export default class Orders extends React.Component{
     }
     componentDidMount(){
         orders(this.auth.getUserName()).then((res)=>{
-            if(res.message==true){
-                this.setState({result:res.orders});
+            if(res.message===true){
+                let orders=[];
+                res.orders.map((order)=>{
+                    order.orderedItems.map((orderedItem)=>{
+                        orders.push(orderedItem);
+                        return 0;
+                    });
+                    return 0;
+                });
+                this.setState({result:orders});
             }else{
                 this.setState({message:"Place orders to view order list"});
             }
             
         }).catch(err=>this.setState({message:"404 error"}));
-        if(this.auth.getUserName()){
-            getCartItems(this.auth.getUserName()).then((res)=>{
-                if(res.cartItems){
-                    this.setState({count:res.cartItems.length});
-                }
-            }).catch(err=>{this.setState({message:"404 error"})});
-        }
 
     }
     render(){    
         return(
             <Aux>
             <div className="container-fluid">
-                <Navbar {...this.props} userName={this.auth.getUserName()} display={this.state.displayCart} logout={()=>{this.logoutHandler()}} count={this.state.count}/>
+                <Navbar {...this.props} userName={this.auth.getUserName()} display={this.state.displayCart} logout={()=>{this.logoutHandler()}}/>
             </div>
-            <div className="container-fluid">
-             <div className="row tablerow">
-                <div className="col">
-                    <table className="table-striped orderTable">
-                        <thead className="text-center">
-                            <th>
-                            <h5 className="card-title text-dark"><span >My Orders</span></h5>
-                            </th>
-                            <th className="collapselink">
-                            <a href="#" data-toggle="collapse" data-target="#bookdetails" aria-expanded="true" aria-controls="bookdetails">
-                                <h4 className="text-dark"><span >Show Details</span></h4>
-                            </a>
-                            </th>
-                        </thead>
-                        <hr className="orderHr"/>
-                        <tbody>
-                            {this.state.result.map((cartItem,index)=>{
-                                return(<>
-                                    <tr key={index} style={{paddingLeft:"20px"}}>
-                                        <td className="imgTd">
-                                            <img src={carousel1} className="img-thumbnail orderimg" alt="..." height="200px" />
-                                        </td>
-                                        <td className="detalisBook">
-                                            <h5 className="card-title text-dark"><span >{cartItem.book.bookName}</span></h5>
-                                            <div id="bookdetails" className="collapse">
-                                                <p className="card-text"><span className="text-muted small">-by {cartItem.book.author}</span></p>
-                                                {/* <p className="card-text">Price(per copy):{' '}<i className="fa fa-inr" style={{fontSize:"12px"}}></i><span className="text-primary font-weight-bold price">{cartItem.book.price}</span></p> */}
-                                                <p className="card-text">Quantity:<span>{cartItem.quantity}</span></p>
-                                                <p className="card-text pb-0 mt-2">
-                                                    Cost :<i className="fa fa-inr"style={{fontSize:"12px"}}></i><span className="text-primary font-weight-bold">{cartItem.totalPrice}</span>
-                                                </p> 
+            <div className="container">
+                <div className="mt-5">
+                <h3 className="text-dark"><span >My Orders</span></h3>
+                                {this.state.result.map((cartItem,index)=>{
+                                    return(
+                                    <>
+                                    <div className="row mt-3 font-custom-style" style={{border: "1px #ddd solid"}}>
+                                        <div className="col-12">
+                                            <div className="row  row-header-color">
+                                                <div className="col">
+                                                    <ul className="list-group list-group-horizontal">
+                                                        <li className="list-group-item"><div className="row">ORDER PLACED</div>
+                                                            <div className="row">Date</div>
+                                                        </li>
+                                                    <li className="list-group-item">
+                                                        <div className="row">TOTAL</div>
+                                                        <div className="row">{cartItem.totalPrice}</div>
+                                                    </li>
+                                                    <li className="list-group-item">
+                                                        <div className="row">SHIP TO </div>
+                                                        <div className="row"><span className="userName-color">{this.auth.getUserName()}</span></div>
+                                                    </li>
+                                                    </ul>
+                                                </div>
+                                            </div> 
+                                        </div>
+                                        <div className="col-12">
+                                        <div className="row">
+                                            <div className="col-12 p-3">
+                                                <h1 style={{fontSize:"20px"}}>Order Placed</h1>
+                                                    <div className="row">
+                                                    <div className="col-12">
+                                                        <p className="m-0 para-style">Package will be handed directly to the customer.</p>
+                                                    </div>
+                                                    </div>
+                                            
+                                                    <div className="row">
+                                                    <div className="col-12">
+                                                        <p className="m-0 para-style">Signed by:{this.auth.getUserName()}</p>
+                                                    </div>
+                                                    </div>
+                                                
+                                                <div className="row m-3 bookDetails">
+                                                    <div className="col-lg-7 col-md-7 col-sm-7">
+                                                        <div className="d-flex justify-content-start">
+                                                            <img src={carousel1} alt="..." height="100px" width="100px" className="border-secondary m-0"/>
+                                                            <div className="ml-3 bookDetails">
+                                                                <h5>{cartItem.book.bookName}</h5>
+                                                                <p>Author:<span className="author-color">{cartItem.book.author}</span></p>
+                                                                <p>Category:{cartItem.book.category}</p>
+                                                                <p>Price:<span className="price-color">{cartItem.book.price}</span></p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div className="col-lg-5 col-md-5 col-sm-5">
+                                                        <div className="row">
+                                                            <span className="btn-color"><Link to="#" role="button" className="m-3">Write Product Review</Link></span>
+                                                        </div>
+                                                        <div className="row">
+                                                            <span className="btn-color"><Link to="#" role="button" className="m-3">Rate Product</Link></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
-                                        </td>
-                                    </tr>
-                                    <hr className="orderHr"/></>
+                                            
+                                        </div>
+                                        </div>    
+                                           
+                                    </div>   
+                                    </>
                                 );
                             })}
-                        </tbody>
-                    </table>
-{/*                     
-                    {this.state.result.map((cartItem,index)=>{
-                    return(
-                        <div className="card flex-row w-50 mt-3" key={index}> 
-                        <img src={carousel1} className="card-img cartimg" alt="..." height="200px" />
-                        <div className="card-body">
-                                <h5 className="card-title text-dark"><span >{cartItem.book.bookName}</span></h5>
-                                <div id="bookdetails">
-                                <p className="card-text">Author:<span>{cartItem.book.author}</span></p>
-                                <p className="card-text">Price(per copy):{' '}<i className="fa fa-inr" style={{fontSize:"12px"}}></i><span className="text-primary font-weight-bold price">{cartItem.book.price}</span></p>
-                                <p className="card-text">Quantity:<span>{cartItem.quantity}</span></p>
-                                <p className="card-text pb-0 mt-2">
-                                    Total Amount:<i className="fa fa-inr"style={{fontSize:"12px"}}></i><span className="text-primary font-weight-bold">{cartItem.totalPrice}</span>
-                                </p> 
-                                </div>   
-                        </div>
-                    </div> 
-);
-                })} */}
-              </div>
-              </div>
-              </div>
-            <Services /> <Footer />
+                    </div>
+                </div>    
             </Aux>
         )
     }

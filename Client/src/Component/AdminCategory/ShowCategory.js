@@ -1,22 +1,14 @@
 import React from 'react';
-import {getAuthors,deleteAuthor} from '../UserFunctions/UserFunctions';
+import {getCategories} from '../UserFunctions/UserFunctions';
 import AdminNav from '../Admin/AdminNav';
 import Footer from '../Others/Footer';
 import Services from '../Others/Services';
 import Aux from '../../hoc/Auxiliary';
+import {deleteCategory} from '../UserFunctions/UserFunctions';
+import './ShowCategory.css';
 import Auth from '../../Authentication/Auth';
-import './ShowAuthor.css';
-export default class ShowAuthors extends React.Component{
-    state={authors:[],message:''};
-    componentDidMount(){
-        getAuthors().then((res)=>{
-            if(res.message===true){
-                this.setState({authors:res.authors});
-            }else{
-                alert(res.message);
-            }
-        }).catch(err=>{if(err) alert("404 error")});
-    }
+export default class ShowCategories extends React.Component{
+    state={categories:[],message:''};
     constructor(props){
         super(props);
         this.auth=new Auth(this.props.history);
@@ -24,8 +16,17 @@ export default class ShowAuthors extends React.Component{
       logoutHandler=()=>{
         this.auth.adminLogout();
       }
+    componentDidMount(){
+        getCategories().then((res)=>{
+            if(res.message===true){
+                this.setState({categories:res.categories});
+            }else{
+                alert(res.message);
+            }
+        }).catch(err=>{if(err) alert("404 error")});
+    }
     deleteHandler=(id)=>{
-        deleteAuthor(id).then((res)=>{
+        deleteCategory(id).then((res)=>{
             if(res.message===true){
                 alert("Deleted Successfully");
                 window.location.reload();
@@ -42,30 +43,24 @@ export default class ShowAuthors extends React.Component{
                 </div>
                 <div className="container">
                     <div className="jumbotron w-75  mt-4 mb-4 border-0">
-                    <h1 style={{fontSize:"25px"}}>List of Authors</h1>
-                    <table className="table showAuthors">
-                    {this.state.authors.length>0 &&
+                    <h1 style={{fontSize:"25px"}}>List of Categories</h1>
+                    <table className="table showCategories">
+                    {this.state.categories.length>0 &&
                         <Aux> 
                         <thead>
                         <tr>
                         <th scope="col">id</th>
-                        <th scope="col">Name</th>
-                        <th scope="col">Email</th>
-                        <th scope="col">ContactNo</th>
-                        <th scope="col">Address</th>
+                        <th scope="col">Category</th>
                         <th scope="col">Action</th>
                         </tr>
                         </thead>
                         <tbody>
-                        {this.state.authors.map((author)=>{
+                        {this.state.categories.map((category)=>{
                             return(
                                 <tr>
-                                    <td >{author._id}</td>
-                                    <td>{author.name}</td>
-                                    <td>{author.emailId}</td>
-                                    <td>{author.contactNo}</td>
-                                    <td>{author.address}</td>
-                                    <td><i type="button" className="fa fa-trash text-danger" aria-hidden="true" style={{margin:"0px", fontSize:"15px"}} onClick={()=>this.deleteHandler(author._id)}></i> </td>
+                                    <td >{category._id}</td>
+                                    <td>{category.name}</td>
+                                    <td><i type="button" className="fa fa-trash text-danger" aria-hidden="true" style={{margin:"0px", fontSize:"15px"}} onClick={()=>this.deleteHandler(category._id)}></i> </td>
                                 </tr>
                             )
                         })}

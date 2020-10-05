@@ -20,7 +20,7 @@ export default class Books extends React.Component{
                                     <h5 className="card-title">{book.bookName}</h5>
                                     <p className="card-text authorName">Author:<span>{book.author}</span></p>
                                     <p className="card-text">Category:<span>{book.category}</span></p>
-                                    <p className="card-text">Price:$<span className="text-primary font-weight-bold">{book.price}</span></p>
+                                    <p className="card-text">Price:{' '}<i className="fa fa-inr"style={{fontSize:"12px"}}></i><span className="text-primary font-weight-bold">{book.price}</span></p>
                                     <div className="card-footer">
                                        {!this.auth.isAuthenticated()?
                                        <>
@@ -29,8 +29,7 @@ export default class Books extends React.Component{
                                        </>:<>
                                        <button  className="btn btn-danger btn-sm" onClick={()=>this.props.addToCart(book._id)}>Buy</button>
                                        <button className="btn btn-success btn-sm" onClick={()=>this.props.addToCart(book._id)}>Add to Cart</button>    
-                                       </>} 
-                                            
+                                       </>}
                                     </div>
                                 </div>
                             </div>
@@ -45,7 +44,7 @@ export default class Books extends React.Component{
                                         <h5 className="card-title">{book.bookName}</h5>
                                         <p className="card-text authorName">Author:<span>{book.author}</span></p>
                                         <p className="card-text">Category:<span>{book.category}</span></p>
-                                        <p className="card-text">Price:$<span className="text-primary font-weight-bold">{book.price}</span></p>
+                                        <p className="card-text">Price:{' '}<i className="fa fa-inr"style={{fontSize:"12px"}}></i><span className="text-primary font-weight-bold">{book.price}</span></p>
                                         <div className="card-footer">
                                         {!this.auth.isAuthenticated()?
                                        <>

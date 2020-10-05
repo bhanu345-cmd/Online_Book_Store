@@ -182,7 +182,7 @@ export default class Cart extends React.Component{
                 </div>
                 <ul className="list-group list-group-flush">
                     <li className="list-group-item">Total Cart Items: {this.state.cartItems.length}</li>
-                    <li className="list-group-item">Total Cart Amount: {this.state.totalAmount}</li>
+                    <li className="list-group-item">Total Cart Amount:{' '}<i className="fa fa-inr" style={{fontSize:"12px"}}></i><span className="text-primary font-weight-bold">{this.state.totalAmount}</span></li>
                     {/* <li class="list-group-item">Vestibulum at eros</li> */}
                 </ul>
                 <div className="card-body">
