@@ -13,7 +13,6 @@ class Admin extends React.Component{
         this.auth.adminLogout();
       }
     render(){
-        console.log(this.auth.isAdminAuthenticated())
         return(
             <>
             <div className="container-relative">

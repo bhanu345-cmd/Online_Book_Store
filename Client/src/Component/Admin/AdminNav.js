@@ -24,9 +24,9 @@ class AdminNav extends React.Component{
                             <i class="fa fa-book" aria-hidden="true"></i>Books
                             </Link>
                             <div class="dropdown-menu" aria-labelledby="bookDropdown">
-                            <Link className="dropdown-item" to="addBook">Add Book</Link>
+                            <Link className="dropdown-item" to="/addBook">Add Book</Link>
                             <div className="dropdown-divider"></div>
-                            <Link className="dropdown-item" to="#">View Book</Link>
+                            <Link className="dropdown-item" to="/showBooks">View Book</Link>
                             </div>
                         </li>
                         <li class="nav-item dropdown">
@@ -34,7 +34,7 @@ class AdminNav extends React.Component{
                             <i class="fa fa-list" aria-hidden="true"></i>Category
                             </Link>
                             <div className="dropdown-menu" aria-labelledby="categoryDropdown">
-                            <Link className="dropdown-item" to="addCategory">Add Category</Link>
+                            <Link className="dropdown-item" to="/addCategory">Add Category</Link>
                             <div className="dropdown-divider"></div>
                             <Link className="dropdown-item" to="/showCategories">View Categories</Link>
                             </div>
@@ -44,7 +44,7 @@ class AdminNav extends React.Component{
                             <i className="fa fa-user" aria-hidden="true"></i>Author
                             </Link>
                             <div className="dropdown-menu" aria-labelledby="authorDropdown">
-                            <Link className="dropdown-item" to="addAuthor">Add Author</Link>
+                            <Link className="dropdown-item" to="/addAuthor">Add Author</Link>
                             <div className="dropdown-divider"></div>
                             <Link className="dropdown-item" to="/showAuthors">View Authors</Link>
                             </div>

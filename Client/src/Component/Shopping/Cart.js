@@ -90,8 +90,7 @@ export default class Cart extends React.Component{
     }
     confimationHandler = (id) =>{
         toast(
-            <>
-            
+            <>            
             <p className="text-dark pt-3">Do you want to delete it?</p>
             <div className="pull-right pt-0 mt-0">
             <button className="btn btn-success btn-sm mr-2" onClick={()=>this.deletecartItem(id)}>Yes</button>

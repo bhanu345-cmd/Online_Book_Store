@@ -18,13 +18,9 @@ export default class Books extends React.Component{
                           
                         <div className="col-xl-3 col-lg-4 col-md-5 col-sm-6 col-xs-7 booksCard cardcontainer" key={book._id}>
                             <div className="card mt-4 " key={index}>
-                            <a data-toggle="collapse" href={`#`+bname.replace(/\s+/g, '')} aria-expanded="true" aria-controls={bname.replace(/\s+/g, '')} id="heading-example" class="d-block">
-                                <img  height="200" width="100" src={sample} className="card-img-top" alt="..."/></a>
+                                <img  height="150px" src={book.imageURL} className="card-img-top" alt="..."/>
                                 <div className="card-body" key={index}>
                                     <h5 className="card-title bookname">{book.bookName}</h5>
-                                    <div id={bname.replace(/\s+/g, '')} className="collapse mb-3" aria-labelledby="heading-example">
-                                    <p className="card-text">This is the book of your choice</p>
-                                    </div>
                                     <p className="card-text authorName">Author:<span>{book.author}</span></p>
                                     <p className="card-text">Category:<span>{book.category}</span></p>
                                     <p className="card-text">Price:{' '}<i className="fa fa-inr"style={{fontSize:"12px"}}></i><span className="text-primary font-weight-bold">{book.price}</span></p>
@@ -49,7 +45,7 @@ export default class Books extends React.Component{
                         return( 
                           <div className="col-xl-3 col-lg-4 col-md-5 col-sm-6 col-xs-7 booksCard cardcontainer">
                                 <div className="card mt-4">
-                                    <img src={carousel1} className="card-img-top" alt="..."/>
+                                    <img src={book.imageURL} className="card-img-top" alt="..."/>
                                     <div className="card-body" key={index}>
                                         <h5 className="card-title">{book.bookName}</h5>
                                         <p className="card-text authorName">Author:<span>{book.author}</span></p>

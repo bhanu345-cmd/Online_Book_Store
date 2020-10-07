@@ -89,7 +89,7 @@ class Home extends React.Component{
 
     }
     componentDidMount(){
-        Axios.get("http://localhost:4000/book/getBook").then((res)=>{
+        Axios.get("http://localhost:4000/book/getBooks").then((res)=>{
             if(res.data.message===true){
                 this.setState({books:res.data.books});
             }else{ 
