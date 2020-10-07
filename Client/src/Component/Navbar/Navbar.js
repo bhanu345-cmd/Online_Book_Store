@@ -3,7 +3,7 @@ import './Navbar.css';
 import {Link} from 'react-router-dom';
 import Auth from '../../Authentication/Auth.js';
 import Aux from '../../hoc/Auxiliary.js';
-import Profile from './Profile.js';
+import Profile from '../Profile/Profile.js';
 class Navbar extends React.Component{
     constructor(props){
         super(props);
@@ -33,7 +33,7 @@ class Navbar extends React.Component{
                             {!this.auth.isAuthenticated()&&<li className="nav-item">
                                 <Link className="nav-link text-dark" to="/register">SignUp</Link>
                             </li>}
-                            {this.auth.isAuthenticated()&& <li className="nav-item"><Profile userName={this.props.userName}/></li>}
+                            {this.auth.isAuthenticated()&& <li className="nav-item"><Profile {...this.props} userName={this.props.userName}/></li>}
                             <li className="nav-item">
                                 <Link className="nav-link text-dark" to='/shoppingCart'><i className="fa fa-shopping-cart"><span className='badge badge-warning' id='lblCartCount'>{this.props.count}</span></i></Link>
                             </li>

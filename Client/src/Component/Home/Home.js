@@ -28,11 +28,10 @@ class Home extends React.Component{
         event.preventDefault();
         this.setState({searchItem:event.target.value});
     }
-
+    
     addToCartHandler=(id)=>{
         console.log(id);
-        Axios.post(`http://localhost:4000/cart/addBook?id=${id}&userName=${this.auth.getUserName()}`).then((res)=>{
-            console.log(res.data.message)    
+        Axios.post(`http://localhost:4000/cart/addBook?id=${id}&userName=${this.auth.getUserName()}`).then((res)=>{    
             if(res.data.message===true){
                     this.props.history.push(`/shoppingcart`);               
                 }else{
@@ -56,10 +55,9 @@ class Home extends React.Component{
         }).catch(err=>{this.setState({message:"404 error"})});
     }
     getBooksByCategory=async(category)=>{
-        this.setState({display:false});
-        console.log(category);
+        await this.setState({display:false});
+        this.resetHandler();
         getBookByCategory(category).then((res)=>{
-            console.log(res);
             if(res.message===true){
                 this.setState({result:res.books});
             }else{
@@ -69,8 +67,8 @@ class Home extends React.Component{
 
     }
     getBooksByAuthor=async(author)=>{
-        this.setState({display:false});
-        console.log(author);
+        await this.setState({display:false});
+        this.resetHandler();
         getBookByAuthor(author).then((res)=>{
             if(res.message===true){
                 this.setState({result:res.books});
@@ -81,20 +79,20 @@ class Home extends React.Component{
 
     }
     componentDidMount(){
-        Axios.get("http://localhost:4000/book/getBook").then((res)=>{
+        Axios.get("http://localhost:4000/book/getBooks").then((res)=>{
             if(res.data.message===true){
                 this.setState({books:res.data.books});
             }else{ 
                 this.setState({message:"No books Found"});
             }
-        }).catch(err=>this.setState({message:"404 error"}));
+        }).catch(err=>this.setState({message:err.message}));
 
         if(this.auth.getUserName()){
             getCartItems(this.auth.getUserName()).then((res)=>{
                 if(res.cartItems){
                     this.setState({count:res.cartItems.length});
                 }
-            }).catch(err=>{this.setState({message:"404 error"})});
+            }).catch(err=>{this.setState({message:err.message})});
         }
     }
 

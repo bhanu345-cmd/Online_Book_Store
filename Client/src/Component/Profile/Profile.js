@@ -9,15 +9,18 @@ class Profile extends React.Component{
         message:""
     };
     componentDidMount(){
-        /*Axios.get(`http://localhost:4000/user/getUser/${this.props.userName}`).then((res)=>{
+        Axios.get(`http://localhost:4000/user/getUser/${this.props.userName}`).then((res)=>{
             console.log(res.data)
             if(res.data){
                 this.setState({details:res.data[0]});
             }else{
                 this.setState({message:res.data.message});
             }
-        });*/
-        
+        });       
+    }
+    handleEdit =(id)=>{
+        this.props.history.push('/editDetails');
+      
     }
     render(){
         let data=Array(this.state.details);
@@ -43,6 +46,7 @@ class Profile extends React.Component{
                         
                     </div>
                     <div className="modal-footer">
+                    <button type="button" className="btn btn-success " onClick={()=>this.handleEdit(data[0]._id)}>Edit Details</button>
                         <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
                     </div>
                     </div>

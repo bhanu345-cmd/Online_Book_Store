@@ -21,7 +21,7 @@ class AdminNav extends React.Component{
                             <div class="dropdown-menu" aria-labelledby="bookDropdown">
                             <Link className="dropdown-item" to="addBook">Add Book</Link>
                             <div className="dropdown-divider"></div>
-                            <Link className="dropdown-item" to="#">View Book</Link>
+                            <Link className="dropdown-item" to="/viewBooks">View Books</Link>
                             </div>
                         </li>
                         <li class="nav-item dropdown">

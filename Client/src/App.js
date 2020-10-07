@@ -12,6 +12,8 @@ import AddCategory from './Component/AdminCategory/AddCategory.js';
 import AddBook from './Component/AdminBooks/AddBook.js';
 import ShowAuthors from './Component/AdminAuthor/ShowAuthor';
 import ShowCategories from './Component/AdminCategory/showCategory';
+import EditProfile from './Component/Profile/EditProfile';
+import ViewBooks from './Component/AdminBooks/ViewBooks';
 export default class App extends React.Component {
   constructor(props){
     super(props);
@@ -23,16 +25,19 @@ export default class App extends React.Component {
       <Switch>
         <Route path="/login" component={Login} />
         <Route path="/register"  component={Register} />
-        <Route path="/" exact component={Home}/>
         <Route path="/admin" component={Admin} />
+        <Route path="/" exact component={Home}/>
         <Route path="/Home" render={(props)=>this.auth.isAuthenticated()?<Home {...props}/>:<Redirect to='/'/>}/>
         <Route path="/shoppingCart" render={(props)=>this.auth.isAuthenticated()?<Cart {...props}/>:<Redirect to='/login'/>}/>
         <Route path="/orders" render={(props)=>this.auth.isAuthenticated()?<Orders {...props}/>:<Redirect to='/login'/>}/>
+        <Route path="/editDetails" render={(props)=>this.auth.isAuthenticated() && <EditProfile {...props} userName={this.auth.getUserName()}/>}/>
         <Route path="/addAuthor" render={(props)=>this.auth.isAdminAuthenticated()?<AddAuthor {...props}/>:<Redirect to='/login'/>}/>
         <Route path="/addCategory" render={(props)=>this.auth.isAdminAuthenticated()?<AddCategory {...props}/>:<Redirect to='/login'/>}/>
         <Route path="/addBook" render={(props)=>this.auth.isAdminAuthenticated()?<AddBook {...props}/>:<Redirect to='/login'/>}/>
+        <Route path="/viewBooks" render={(props)=>this.auth.isAdminAuthenticated()?<ViewBooks {...props}/>:<Redirect to='/login'/>}/>
         <Route path="/showCategories" render={(props)=>this.auth.isAdminAuthenticated()?<ShowCategories {...props}/>:<Redirect to='/login'/>}/>
         <Route path="/showAuthors" render={(props)=>this.auth.isAdminAuthenticated()?<ShowAuthors {...props}/>:<Redirect to='/login'/>}/>
+        <Route render={()=><h1>Page not found</h1>}/>
       </Switch>
     </div>
   );

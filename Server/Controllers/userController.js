@@ -58,5 +58,37 @@ router.post('/login',(req,res)=>{
         
     }).catch((err)=>res.send({message:"Error in finding the user "}));
 });
-
+router.get('/getUser/:name',(req,res)=>{
+    userReg.find({userName:req.params.name}).then((result)=>{
+            res.send(result);
+    }).catch((err)=>{
+        res.send(err);
+    });
+});
+router.put('/updateDetails',(req,res)=>{
+    userReg.findOne({userName:req.body.userName},(err,user)=>{
+        if(err){
+            res.send({success:false,message:"Not a valid user"});
+        }
+        else{
+            user.firstName=req.body.firstName;
+            user.lastName=req.body.lastName;
+            user.phnNo=req.body.phnNo;
+            user.address=req.body.address;
+            user.state=req.body.state;
+            user.city=req.body.city;
+            user.pincode=req.body.pincode;
+            user.save((err)=>{
+                if(err){
+                    res.send({success:false,message:"Unable to update"});
+                }
+                else{
+                    res.send({success:true,message:"Updated Successfully"});
+                }
+            })
+        }
+    })
+})
 module.exports=router;
+
+

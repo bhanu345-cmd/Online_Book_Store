@@ -6,26 +6,14 @@ var author=require('../Models/author');
 var router=express.Router();
 router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({extended:false}));
-router.get('/getBook',(req,res)=>{
-    if(req.query.name&&req.query.category){
-        books.find({$and:[{author:req.query.name},{category:req.query.category}]},function(err,book){
-                if(err){
-                    res.send("Error in finding the book");
-                }else if(book){
-                    res.send(book);
-                }else{
-                    res.send("Book not found");
-                }
-        });
-    }else{
+router.get('/getBooks',(req,res)=>{
         books.find({}).then((books)=>{
             if(books.length>0){
                 return res.send({message:true,books:books});
             }else{
-                return res.send({message:false});
+                return res.send({message:"Could not find books"});
             }
-        }).catch((err)=>res.send({message:err}));
-    }
+        }).catch((err)=>res.send({message:err.message}));
 });
 
 router.get('/getBook/:name',(req,res)=>{
@@ -40,7 +28,6 @@ router.get('/getBook/:name',(req,res)=>{
 
 
 router.get('/getBookByCategory/:category',(req,res)=>{
-    console.log(req.params.category);
     books.find({category:req.params.category}).then((books)=>{
         if(books.length>0){
             res.send({message:true,books:books});
@@ -68,18 +55,24 @@ router.post('/addBook',(req,res)=>{
         author:req.body.author,
         price:req.body.price,
         category:req.body.category,
+        imageURL:req.body.imageURL,
+        description:req.body.description,
         publishedDate:req.body.date
     });
    
-    newBook.save(function(err,result){
-        if(err){
-            throw err;
+    newBook.save().then((result)=>{
+        if(result){
+            res.send({message:true})
         }else{
-            res.send(result);
+            res.send({message:"couldnot save"});
         }
-    })
+    }).catch(err=>res.send({message:"404 error"}));
 });
-
+router.post('/deleteBook/:id',(req,res)=>{
+    books.findByIdAndRemove({_id:req.params.id}).then(()=>{
+        res.send({message:true});
+    }).catch(err=>res.send({message:err.message}));
+});
 router.post('/addCategory/:category',(req,res)=>{
     category.findOne({name:req.params.category}).then((result)=>{
         if(result){

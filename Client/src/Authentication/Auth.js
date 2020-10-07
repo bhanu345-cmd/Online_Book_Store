@@ -61,6 +61,7 @@ export default class auth{
         localStorage.setItem("admin_token","admin123");
     }
     isAuthenticated() {
+        
         let storeItem = localStorage.getItem("access_token");
         return storeItem && storeItem.length > 0;
     }

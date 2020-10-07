@@ -14,7 +14,7 @@ td{
     font-size: 18px !important;
     font-weight: 500;
 }
-.list-group-item{
+.row-header .list-group-item{
     background:  #e7e9ec !important;
     border:none !important;
     margin:5px 25px !important;
@@ -40,7 +40,7 @@ td{
     font-size: 16px;
     font-weight: bolder;
 }
-.row-header-color{
+.row-header{
     background:  #e7e9ec;
 }
 .btn-color{

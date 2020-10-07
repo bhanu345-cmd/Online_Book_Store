@@ -55,6 +55,7 @@ class Login extends React.Component{
             password:password
         };
         if(userName === "admin@login.com" && password === "admin123"){
+            this.auth.adminSetSession();
             this.props.history.push("/admin");
         }else{
         for(const key in this.state.errors){
@@ -70,7 +71,6 @@ class Login extends React.Component{
         else{
             this.auth.login(data).then((res)=>{
                 if(res.message===true){
-                    console.log("hi");
                     this.props.history.push('/Home');
                 }else{
                     this.setState({message:res.message});

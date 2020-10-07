@@ -30,6 +30,7 @@ export default class Orders extends React.Component{
                     });
                     return 0;
                 });
+                console.log(orders);
                 this.setState({result:orders});
             }else{
                 this.setState({message:"Place orders to view order list"});
@@ -52,7 +53,7 @@ export default class Orders extends React.Component{
                                     <>
                                     <div className="row mt-3 font-custom-style" style={{border: "1px #ddd solid"}}>
                                         <div className="col-12">
-                                            <div className="row  row-header-color">
+                                            <div className="row  row-header">
                                                 <div className="col">
                                                     <ul className="list-group list-group-horizontal">
                                                         <li className="list-group-item"><div className="row">ORDER PLACED</div>

@@ -68,3 +68,21 @@ export const deleteAuthor=(id)=>{
         return res.data;
     }).catch((err)=>{return {message:err.message}});
 }
+
+export const addBook=(book)=>{
+    return Axios.post(`http://localhost:4000/book/addBook/`,book).then((res)=>{
+        return res.data;
+    }).catch((err)=>{return {message:err.message}});
+}
+
+export const getBooks=()=>{
+    return Axios.get(`http://localhost:4000/book/getBooks`).then((res)=>{
+        return res.data;
+    }).catch((err)=>{return {message:err.message}});
+}
+
+export const deleteBookById=(id)=>{
+    return Axios.post(`http://localhost:4000/book/deleteBook/${id}`).then((res)=>{
+        return res.data;
+    }).catch((err)=>{return {message:err.message}});
+}

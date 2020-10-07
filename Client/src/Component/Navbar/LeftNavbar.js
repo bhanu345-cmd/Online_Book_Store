@@ -43,6 +43,7 @@ class LeftNavbar extends React.Component{
             <div className="authors mb-2">
             <h1 className="fontstyle text-dark">Authors</h1>
             <nav className="navbar">
+            {this.state.message}
                     <ul className="navbar-nav w-100 author-size">
                     {this.state.authors.map((author)=>{
                             return(
