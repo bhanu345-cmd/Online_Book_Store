@@ -188,7 +188,9 @@ class EditProfile extends React.Component{
             console.log(this.state.State);
         }      
     }
-
+    logoutHandler=()=>{
+        this.setState({count:0},()=>{this.auth.logout();})  
+    }
     render(){
         const {errors} = this.state;
         console.log(this.state.State);

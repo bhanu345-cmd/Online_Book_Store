@@ -31,12 +31,12 @@
 .container{
     padding:0 !important;
 }
-.bookimg{
-    height: 210px;
+/* .bookimg{ */
+    /* height: 210px; */
     /* width: 150px; */
-    align-items: center;
+    /* align-items: center; */
     
-}
+/* } */
 .authorName,.bookname{
     white-space: nowrap;
       overflow: hidden;

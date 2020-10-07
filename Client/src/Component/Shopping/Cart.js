@@ -51,7 +51,7 @@ export default class Cart extends React.Component{
     decrementHandler=(id)=>{
         decrement(id,this.auth.getUserName()).then((res)=>{
             if(res.message===true){
-                this.setState({message:`decremented Successfully`});
+                // this.setState({message:`decremented Successfully`});
                 window.location.reload();
             }else{
                 this.setState({message: `Unable to do the action please try again later`},()=>{
@@ -71,7 +71,7 @@ export default class Cart extends React.Component{
     incrementHandler= (event,id)=>{
         increment(id,this.auth.getUserName()).then((res)=>{
             if(res.message===true){
-                this.setState({message:`incremented Successfully`});
+                // this.setState({message:`incremented Successfully`});
                 window.location.reload();
             }else{
                 this.setState({message: `Unable to do the action please try again later`},()=>{
@@ -88,10 +88,26 @@ export default class Cart extends React.Component{
         }).catch((err=>this.setState({message:'Error in loading the cart'})));
 
     }
+    confimationHandler = (id) =>{
+        toast(
+            <>
+            
+            <p className="text-dark pt-3">Do you want to delete it?</p>
+            <div className="pull-right pt-0 mt-0">
+            <button className="btn btn-success btn-sm mr-2" onClick={()=>this.deletecartItem(id)}>Yes</button>
+            <button className="btn btn-danger btn-sm">No</button>
+            </div>
+            </>, {
+            position: toast.POSITION.TOP_CENTER,
+            autoClose: false,
+            // onClose:() =>window.location.reload()
+          }
+          );
+    }
     deletecartItem=(id)=>{
        deleteBook(id,this.auth.getUserName()).then((res)=>{    
         if(res.message===true){
-                this.setState({message:`increemented Successfully`});
+                // this.setState({message:`increemented Successfully`});
                 window.location.reload();
             }else{
                 this.setState({message: `Unable to do the action please try again later`});
@@ -177,11 +193,11 @@ export default class Cart extends React.Component{
             <div className="container">
                 <div className="row">
                     <div className="col-lg-8 col-md-8 col-sm-8 cart-col1-Card">
-                        <h5 className="mt-3">Cart Items</h5>
-                        <h5 className="mt-3">{this.state.message}</h5>
+                        <h5 className="mt-3 ml-1">Cart Items</h5>
+                        <h5 className="mt-3 ml-2">{this.state.message}</h5>
                         {this.state.cartItems.map((cartItem,index)=>{
                             return(
-                                <div className="card flex-row w-75" key={index}> 
+                                <div className="card flex-row w-100 mt-1 ml-2" key={index}> 
                                     <img src={carousel1} className="card-img cartimg" alt="..." height="200px" />
                                     <div className="card-body">
                                             <h5 className="card-title"><span>{cartItem.book.bookName}</span></h5>
@@ -201,7 +217,7 @@ export default class Cart extends React.Component{
                                                     <p className="card-text pb-0 mt-2">
                                                         Total Amount:<i className="fa fa-inr"style={{fontSize:"12px"}}></i><span className="text-primary font-weight-bold">{cartItem.totalPrice}</span>
                                                     </p> 
-                                                    <button className="btn btn-danger btn-sm ml-auto" type="button" onClick={()=>this.deletecartItem(cartItem.book._id)}><i className="fa fa-trash" aria-hidden="true" style={{margin:"0px", fontSize:"15px"}}></i></button> 
+                                                    <button className="btn btn-danger btn-sm ml-auto" type="button" onClick={()=>this.confimationHandler(cartItem.book._id)}><i className="fa fa-trash" aria-hidden="true" style={{margin:"0px", fontSize:"15px"}}></i></button> 
                                                 </div>
                                     </div>
                                 </div> 

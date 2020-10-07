@@ -29,7 +29,7 @@ class Profile extends React.Component{
         return(
             <>              
             <a type="nav-link button" href=""  data-toggle="modal" data-target="#profileModal" data-backdrop="false">
-            <i className="fa fa-user-circle-o" style={{fontSize: '30px',paddingTop: '2px',color: 'black'}}></i>
+            <i className="fa fa-user-circle-o text-dark" style={{fontSize: '30px',paddingTop: '2px'}}></i>
             </a>
             <div className="modal" id="profileModal" tabIndex="-1" role="dialog" aria-labelledby="profileModal" aria-hidden="true" style={{paddingRight: '0px !important',overflow: 'inherit'}}>
                 <div className="modal-dialog modal-dialog-centered" role="document">

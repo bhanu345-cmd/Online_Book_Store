@@ -1,6 +1,7 @@
 import React from 'react';
 import './Books.css';
 import carousel1 from '../Images/carousel1.jpg';
+import sample from '../BookImages/sample.jpg';
 import Axios from 'axios';
 import Auth from '../../Authentication/Auth.js';
 export default class Books extends React.Component{
@@ -12,28 +13,32 @@ export default class Books extends React.Component{
         return(
                 <div className="row">
                     {this.props.display? this.props.books.map((book,index)=>{
-                      return( 
+                        let bname= book.bookName;
+                      return(
+                          
                         <div className="col-xl-3 col-lg-4 col-md-5 col-sm-6 col-xs-7 booksCard cardcontainer" key={book._id}>
-                            <div className="card mt-4 ">
-                            <a data-toggle="collapse" href={`#`+book.bookName} aria-expanded="true" aria-controls={book.bookName} id="heading-example" class="d-block">
-                                <img src={carousel1} className="card-img-top" alt="..."/></a>
+                            <div className="card mt-4 " key={index}>
+                            <a data-toggle="collapse" href={`#`+bname.replace(/\s+/g, '')} aria-expanded="true" aria-controls={bname.replace(/\s+/g, '')} id="heading-example" class="d-block">
+                                <img  height="200" width="100" src={sample} className="card-img-top" alt="..."/></a>
                                 <div className="card-body" key={index}>
                                     <h5 className="card-title bookname">{book.bookName}</h5>
-                                    <div id={book.bookName} className="collapse mb-3" aria-labelledby="heading-example">
+                                    <div id={bname.replace(/\s+/g, '')} className="collapse mb-3" aria-labelledby="heading-example">
                                     <p className="card-text">This is the book of your choice</p>
                                     </div>
                                     <p className="card-text authorName">Author:<span>{book.author}</span></p>
                                     <p className="card-text">Category:<span>{book.category}</span></p>
                                     <p className="card-text">Price:{' '}<i className="fa fa-inr"style={{fontSize:"12px"}}></i><span className="text-primary font-weight-bold">{book.price}</span></p>
                                     <div className="card-footer">
-                                       {!this.auth.isAuthenticated()?
+                                       <button  className="btn btn-danger btn-sm" onClick={()=>this.props.addToCart(book._id)}>Buy</button>
+                                       <button className="btn btn-success btn-sm" onClick={()=>this.props.addToCart(book._id)}>Add to Cart</button>
+                                       {/* {!this.auth.isAuthenticated()?
                                        <>
                                        <button  className="btn btn-danger btn-sm" data-toggle="modal" data-target=".bd-example-modal-lg" >Buy</button>
                                        <button className="btn btn-success btn-sm" data-toggle="modal" data-target=".bd-example-modal-lg">Add to Cart</button>    
                                        </>:<>
                                        <button  className="btn btn-danger btn-sm" onClick={()=>this.props.addToCart(book._id)}>Buy</button>
                                        <button className="btn btn-success btn-sm" onClick={()=>this.props.addToCart(book._id)}>Add to Cart</button>    
-                                       </>}
+                                       </>} */}
                                     </div>
                                 </div>
                                 
@@ -51,14 +56,16 @@ export default class Books extends React.Component{
                                         <p className="card-text">Category:<span>{book.category}</span></p>
                                         <p className="card-text">Price:{' '}<i className="fa fa-inr"style={{fontSize:"12px"}}></i><span className="text-primary font-weight-bold">{book.price}</span></p>
                                         <div className="card-footer">
-                                        {!this.auth.isAuthenticated()?
+                                        <button  className="btn btn-danger btn-sm" onClick={()=>this.props.addToCart(book._id)}>Buy</button>
+                                       <button className="btn btn-success btn-sm" onClick={()=>this.props.addToCart(book._id)}>Add to Cart</button>
+                                        {/* {!this.auth.isAuthenticated()?
                                        <>
                                        <button  className="btn btn-danger btn-sm" data-toggle="modal" data-target=".bd-example-modal-lg" >Buy</button>
                                         <button className="btn btn-success btn-sm" data-toggle="modal" data-target=".bd-example-modal-lg">Add to Cart</button>    
                                        </>:<>
                                        <button  className="btn btn-danger btn-sm" onClick={()=>this.props.addToCart(book._id)}>Buy</button>
                                        <button className="btn btn-success btn-sm" onClick={()=>this.props.addToCart(book._id)}>Add to Cart</button>    
-                                       </>} 
+                                       </>}  */}
                                         </div>
                                     </div>
                                 </div>

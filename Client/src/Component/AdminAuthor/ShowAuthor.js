@@ -39,7 +39,22 @@ export default class ShowAuthors extends React.Component{
       }
       logoutHandler=()=>{
         this.auth.adminLogout();
-      }
+    }
+    confimationHandler = (id) =>{
+        toast(
+            <>            
+            <p className="text-dark pt-3">Do you want to delete it?</p>
+            <div className="pull-right pt-0 mt-0">
+            <button className="btn btn-success btn-sm mr-2" onClick={()=>this.deleteHandler(id)}>Yes</button>
+            <button className="btn btn-danger btn-sm">No</button>
+            </div>
+            </>, {
+            position: toast.POSITION.TOP_CENTER,
+            autoClose: false,
+            // onClose:() =>window.location.reload()
+          }
+          );
+    }
     deleteHandler=(id)=>{
         deleteAuthor(id).then((res)=>{
             if(res.message===true){
@@ -102,7 +117,7 @@ export default class ShowAuthors extends React.Component{
                                     <td>{author.emailId}</td>
                                     <td>{author.contactNo}</td>
                                     <td>{author.address}</td>
-                                    <td><i type="button" className="fa fa-trash text-danger" aria-hidden="true" style={{margin:"0px", fontSize:"15px"}} onClick={()=>this.deleteHandler(author._id)}></i> </td>
+                                    <td><i type="button" className="fa fa-trash text-danger" aria-hidden="true" style={{margin:"0px", fontSize:"15px"}} onClick={()=>this.confimationHandler(author._id)}></i> </td>
                                 </tr>
                             )
                         })}

@@ -41,6 +41,21 @@ export default class ShowCategories extends React.Component{
             // alert("404 error")
         });
     }
+    confimationHandler = (id) =>{
+        toast(
+            <>            
+            <p className="text-dark pt-3">Do you want to delete it?</p>
+            <div className="pull-right pt-0 mt-0">
+            <button className="btn btn-success btn-sm mr-2" onClick={()=>this.deleteHandler(id)}>Yes</button>
+            <button className="btn btn-danger btn-sm">No</button>
+            </div>
+            </>, {
+            position: toast.POSITION.TOP_CENTER,
+            autoClose: false,
+            // onClose:() =>window.location.reload()
+          }
+          );
+    }
     deleteHandler=(id)=>{
         deleteCategory(id).then((res)=>{
             if(res.message===true){
@@ -95,7 +110,7 @@ export default class ShowCategories extends React.Component{
                                 <tr>
                                     <td >{category._id}</td>
                                     <td>{category.name}</td>
-                                    <td><i type="button" className="fa fa-trash text-danger" aria-hidden="true" style={{margin:"0px", fontSize:"15px"}} onClick={()=>this.deleteHandler(category._id)}></i> </td>
+                                    <td><i type="button" className="fa fa-trash text-danger" aria-hidden="true" style={{margin:"0px", fontSize:"15px"}} onClick={()=>this.confimationHandler(category._id)}></i> </td>
                                 </tr>
                             )
                         })}
