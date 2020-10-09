@@ -9,24 +9,25 @@ import './ShowAuthor.css';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 export default class ShowAuthors extends React.Component{
-    state={authors:[],message:''};
+    state={authors:[],message:'',count:0};
     componentDidMount(){
         getAuthors().then((res)=>{
             if(res.message===true){
                 this.setState({authors:res.authors});
             }else{
+                this.setState({message: res.message})
                 toast.error(res.message, {
                     position: toast.POSITION.TOP_CENTER,
-                    autoClose: false,
-                    onClose:() =>window.location.reload()
+                    autoClose: true,
                   }
                   );
+                //   this.setState({message: res.message})
                 // alert(res.message);
             }
         }).catch(err=>{if(err) 
             toast.error("404 error !", {
                 position: toast.POSITION.TOP_CENTER,
-                autoClose: false,
+                autoClose: true,
                 onClose:() =>window.location.reload()
               }
               );
@@ -60,7 +61,7 @@ export default class ShowAuthors extends React.Component{
             if(res.message===true){
                 toast.info("Deleted Successfully !", {
                     position: toast.POSITION.TOP_CENTER,
-                    autoClose: false,
+                    autoClose: true,
                     onClose:() =>window.location.reload()
                   }
                   );
@@ -69,7 +70,7 @@ export default class ShowAuthors extends React.Component{
             }else{
                 toast.error(res.message, {
                     position: toast.POSITION.TOP_CENTER,
-                    autoClose: false,
+                    autoClose: true,
                     onClose:() =>window.location.reload()
                   }
                   );
@@ -78,7 +79,7 @@ export default class ShowAuthors extends React.Component{
         }).catch(err=>{if(err) 
             toast.error("404 error !", {
                 position: toast.POSITION.TOP_CENTER,
-                autoClose: false,
+                autoClose: true,
                 onClose:() =>window.location.reload()
               }
               );
@@ -96,11 +97,13 @@ export default class ShowAuthors extends React.Component{
                     <div className="jumbotron w-75  mt-4 mb-4 border-0">
                     <h1 style={{fontSize:"25px"}}>List of Authors</h1>
                     <table className="table showAuthors">
+                    <h4 className="text-center">{this.state.message}</h4>
                     {this.state.authors.length>0 &&
                         <Aux> 
                         <thead>
                         <tr>
-                        <th scope="col">id</th>
+                        <th scope="col">SNo</th>
+                        {/* <th scope="col">id</th> */}
                         <th scope="col">Name</th>
                         <th scope="col">Email</th>
                         <th scope="col">ContactNo</th>
@@ -112,7 +115,8 @@ export default class ShowAuthors extends React.Component{
                         {this.state.authors.map((author)=>{
                             return(
                                 <tr>
-                                    <td >{author._id}</td>
+                                    <td>{this.state.count=this.state.count+1}</td>
+                                    {/* <td >{author._id}</td> */}
                                     <td>{author.name}</td>
                                     <td>{author.emailId}</td>
                                     <td>{author.contactNo}</td>

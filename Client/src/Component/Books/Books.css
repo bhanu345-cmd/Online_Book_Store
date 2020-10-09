@@ -37,6 +37,13 @@
     /* align-items: center; */
     
 /* } */
+.myModal .modal-backdrop{
+    opacity: 0.5;
+}
+.hrtagbooks{
+    padding-bottom: 0%;
+    margin-bottom: 0%;
+}
 .authorName,.bookname{
     white-space: nowrap;
       overflow: hidden;

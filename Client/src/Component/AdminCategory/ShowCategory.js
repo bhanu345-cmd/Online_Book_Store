@@ -10,7 +10,7 @@ import Auth from '../../Authentication/Auth';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 export default class ShowCategories extends React.Component{
-    state={categories:[],message:''};
+    state={categories:[],message:'',count:0};
     constructor(props){
         super(props);
         this.auth=new Auth(this.props.history);
@@ -23,10 +23,11 @@ export default class ShowCategories extends React.Component{
             if(res.message===true){
                 this.setState({categories:res.categories});
             }else{
+                this.setState({message: res.message})
                 toast.error(res.message, {
                     position: toast.POSITION.TOP_CENTER,
-                    autoClose: false,
-                    onClose:() =>window.location.reload()
+                    autoClose: true,
+                    // onClose:() =>window.location.reload()
                   }
                   );
                 // alert(res.message);
@@ -34,7 +35,7 @@ export default class ShowCategories extends React.Component{
         }).catch(err=>{if(err) 
             toast.error("404 error !", {
                 position: toast.POSITION.TOP_CENTER,
-                autoClose: false,
+                autoClose: true,
                 onClose:() =>window.location.reload()
               }
               );
@@ -61,14 +62,14 @@ export default class ShowCategories extends React.Component{
             if(res.message===true){
                 toast.info("Deleted Successfully !", {
                     position: toast.POSITION.TOP_CENTER,
-                    autoClose: false,
+                    autoClose: true,
                     onClose:() =>window.location.reload()
                   }
                   );
             }else{
                 toast.error(res.message, {
                     position: toast.POSITION.TOP_CENTER,
-                    autoClose: false,
+                    autoClose: true,
                     onClose:() =>window.location.reload()
                   }
                   );
@@ -77,7 +78,7 @@ export default class ShowCategories extends React.Component{
         }).catch(err=>{if(err) 
             toast.error("404 error !", {
                 position: toast.POSITION.TOP_CENTER,
-                autoClose: false,
+                autoClose: true,
                 onClose:() =>window.location.reload()
               }
               );
@@ -94,12 +95,14 @@ export default class ShowCategories extends React.Component{
                 <div className="container">
                     <div className="jumbotron w-75  mt-4 mb-4 border-0">
                     <h1 style={{fontSize:"25px"}}>List of Categories</h1>
+                    <h4 className="text-center">{this.state.message}</h4>
                     <table className="table showCategories">
                     {this.state.categories.length>0 &&
                         <Aux> 
                         <thead>
                         <tr>
-                        <th scope="col">id</th>
+                        <th scope="col">SNo</th>
+                        {/* <th scope="col">id</th> */}
                         <th scope="col">Category</th>
                         <th scope="col">Action</th>
                         </tr>
@@ -108,7 +111,8 @@ export default class ShowCategories extends React.Component{
                         {this.state.categories.map((category)=>{
                             return(
                                 <tr>
-                                    <td >{category._id}</td>
+                                    <td >{this.state.count=this.state.count+1}</td>
+                                    {/* <td >{category._id}</td> */}
                                     <td>{category.name}</td>
                                     <td><i type="button" className="fa fa-trash text-danger" aria-hidden="true" style={{margin:"0px", fontSize:"15px"}} onClick={()=>this.confimationHandler(category._id)}></i> </td>
                                 </tr>

@@ -3,7 +3,6 @@ import Auth from '../../Authentication/Auth.js';
 import Aux from '../../hoc/Auxiliary.js';
 import Navbar from '../Navbar/Navbar';
 import {orders} from '../UserFunctions/UserFunctions';
-import carousel1 from '../Images/carousel1.jpg';
 import {Link} from 'react-router-dom';
 import './Orders.css';
 import Services from '../Others/Services.js';
@@ -100,12 +99,12 @@ export default class Orders extends React.Component{
                                                 <div className="row m-3 bookDetails">
                                                     <div className="col-lg-7 col-md-7 col-sm-7">
                                                         <div className="d-flex justify-content-start">
-                                                            <img src={carousel1} alt="..." height="100px" width="100px" className="border-secondary m-0"/>
+                                                            <img src={cartItem.book.imageURL} alt="..." height="100px" width="100px" className="border-secondary m-0"/>
                                                             <div className="ml-3 bookDetails">
                                                                 <h5>{cartItem.book.bookName}</h5>
-                                                                <p>Author:<span className="author-color">{cartItem.book.author}</span></p>
-                                                                <p>Category:{cartItem.book.category}</p>
-                                                                <p>Price:<span className="price-color">{cartItem.book.price}</span></p>
+                                                                <p>Author: <span className="author-color">{cartItem.book.author}</span></p>
+                                                                <p>Category: {cartItem.book.category}</p>
+                                                                <p>Price: <i className="fa fa-inr" style={{fontSize:"12px"}}></i><span className="price-color">{cartItem.book.price}</span></p>
                                                             </div>
                                                         </div>
                                                     </div>

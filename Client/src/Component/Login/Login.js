@@ -86,7 +86,7 @@ class Login extends React.Component{
                     this.setState({message:res.message});
                     toast.error(this.state.message, {
                         position: toast.POSITION.TOP_CENTER,
-                        autoClose: false,
+                        autoClose: true,
                         // onClose:() =>window.location.reload()
                       }
                       );

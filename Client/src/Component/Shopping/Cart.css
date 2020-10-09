@@ -11,8 +11,9 @@
     line-height: 1em !important;
     font-size:14px !important ;
 }
-.card-img{
+.cartimg{
     width:150px !important;
+    margin-left: 12px;
     padding-top: 20px;
     padding-bottom: 15px;
     /* margin-left: 100px; */

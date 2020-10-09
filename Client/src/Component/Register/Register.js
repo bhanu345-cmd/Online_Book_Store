@@ -132,7 +132,7 @@ class Register extends React.Component{
                     console.log("this is reg inside");
                     toast.info("Registered Successfully", {
                         position: toast.POSITION.TOP_CENTER,
-                        autoClose: false,
+                        autoClose: true,
                         onClose:() =>this.props.history.push('/login')
                     }
                     );
@@ -140,7 +140,7 @@ class Register extends React.Component{
                 }else{
                     toast.error(res.message, {
                         position: toast.POSITION.TOP_CENTER,
-                        autoClose: false,
+                        autoClose: true,
                         // onClose:() =>window.location.reload()
                       }
                       );

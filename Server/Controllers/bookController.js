@@ -11,7 +11,7 @@ router.get('/getBooks',(req,res)=>{
             if(books.length>0){
                 return res.send({message:true,books:books});
             }else{
-                return res.send({message:"Could not find books"});
+                return res.send({message:"No books to display"});
             }
         }).catch((err)=>res.send({message:err.message}));
 });
@@ -38,6 +38,36 @@ router.get('/getBookByCategory/:category',(req,res)=>{
         
     
 });
+router.get('/getBookById/:id',(req,res)=>{
+    books.find({_id:req.params.id}).then((book)=>{
+        if(books.length>0){
+            res.send({message:true,books:book});
+        }else{
+           res.send({message:"No book found"}); 
+        }
+    }).catch((err)=>res.send({message:err.message}));
+});
+router.put('/updateBook',(req,res)=>{
+    books.findOne({_id:req.body._id},(err,book)=>{
+        if(err){
+            res.send({message:"not a valid book"})
+        }
+        else{
+            book.bookName=req.body.bookName;
+            book.price=req.body.price;
+            book.imageURL=req.body.imageURL;
+            book.description=req.body.description;
+            book.save((err)=>{
+                if(err){
+                    res.send({success:false,message:"Unable to Update"});
+                }
+                else{
+                    res.send({success:true,message:"Updated Successfully"});
+                }
+            })
+        }
+    })
+})
 router.get('/getBookByAuthor/:author',(req,res)=>{
     books.find({author:req.params.author}).then((books)=>{
         if(books.length>0){

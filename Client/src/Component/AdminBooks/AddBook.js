@@ -4,7 +4,6 @@ import './AddBook.css';
 import AdminNav from '../Admin/AdminNav';
 import Services from '../Others/Services';
 import Footer from '../Others/Footer';
-
 import {addBook,getCategories,getAuthors} from '../UserFunctions/UserFunctions';
 import Auth from '../../Authentication/Auth';
 class AddBook extends React.Component{
@@ -49,6 +48,7 @@ class AddBook extends React.Component{
         addBook(payload).then((res)=>{
             if(res.message===true){
               this.setState({message:"Added"})
+              window.location.reload()
             }else{
               this.setState({message:res.message});
             }
@@ -175,7 +175,7 @@ render(){
               >
                 Add
               </button>
-              <h5 className="mt-2" style={{fontSize:"16px",color:'red'}}>{this.state.message}</h5>
+                <h5 className="mt-2" style={{fontSize:"16px",color:'red'}}>{this.state.message}</h5>
             </form>
           </div>
         </div>

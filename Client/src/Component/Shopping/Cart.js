@@ -197,7 +197,7 @@ export default class Cart extends React.Component{
                         {this.state.cartItems.map((cartItem,index)=>{
                             return(
                                 <div className="card flex-row w-100 mt-1 ml-2" key={index}> 
-                                    <img src={carousel1} className="card-img cartimg" alt="..." height="200px" />
+                                    <img src={cartItem.book.imageURL} className="card-img cartimg" alt="..." height="200px" />
                                     <div className="card-body">
                                             <h5 className="card-title"><span>{cartItem.book.bookName}</span></h5>
                                             <p className="card-text">Author:<span>{cartItem.book.author}</span></p>

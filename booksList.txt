@@ -15,7 +15,7 @@ Price: 889
 Description: All the big ideas in science, simply explained Part of the popular Big Ideas series, The Science Book explores the history of science, how scientists have sought to explain our incredible universe and how amazing scientific discoveries have been made. 
 ----------------3
 URL:https://images-na.ssl-images-amazon.com/images/I/719Y86+6UBL.jpg
-BookName:Bossypants
+BookName: Bossypants
 Author:  Tina Fey
 Category: Humor
 Price: 432
@@ -66,7 +66,7 @@ Description:Dracula is an 1897 Gothic horror novel by Irish author Bram Stoker. 
 URL:https://rukminim1.flixcart.com/image/352/352/jp4d4sw0/regionalbooks/d/k/8/wings-of-fire-an-autobiography-of-apj-abdul-kalam-original-imafbcc97zjzdkhy.jpeg?q=70
 BookName: Wings of Fire
 Author:A. P. J. Abdul Kalam
-Category:Autobiography
+Category: Autobiography
 Price: 735
 Description:Avul Pakir Jainulabdeen Abdul Kalam, this Is The Story Of Kalam`S Rise From Obscurity And His Personal And Professional Struggles, As Well As The Story Of Agni, Prithvi, Akash, Trishul And Nag--Missiles That Have Become Household Names In India And That Have Raised The Nation To The Level Of A Missile Power Of International Reckoning
 -----------------------

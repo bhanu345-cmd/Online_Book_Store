@@ -1,5 +1,6 @@
 import React from 'react';
 import './Books.css';
+import {Link} from 'react-router-dom';
 import carousel1 from '../Images/carousel1.jpg';
 import sample from '../BookImages/sample.jpg';
 import Axios from 'axios';
@@ -10,15 +11,23 @@ export default class Books extends React.Component{
         this.auth=new Auth(this.props.history);
     }
     render(){
-        return(
+        return(<>
+                {this.props.display?
+                <>
+                <hr/>
+                <div className="col-12"><h4>Most Popular Books...</h4></div>
+                <hr className="hrtagbooks"/>
+                </>
+                :
+                    ''}
                 <div className="row">
-                    {this.props.display? this.props.books.map((book,index)=>{
-                        let bname= book.bookName;
-                      return(
-                          
+                    {this.props.display?this.props.books.map((book,index)=>{
+                      return(                          
                         <div className="col-xl-3 col-lg-4 col-md-5 col-sm-6 col-xs-7 booksCard cardcontainer" key={book._id}>
                             <div className="card mt-4 " key={index}>
-                                <img  height="150px" src={book.imageURL} className="card-img-top" alt="..."/>
+                                {/* <a className="btn" onClick={()=>this.getBook(book._id)} > */}
+                                <img  height="250px" src={book.imageURL} className="card-img-top" alt="..."/>
+                                {/* </a> */}
                                 <div className="card-body" key={index}>
                                     <h5 className="card-title bookname">{book.bookName}</h5>
                                     <p className="card-text authorName">Author:<span>{book.author}</span></p>
@@ -43,9 +52,10 @@ export default class Books extends React.Component{
                       );
                     }): this.props.searchResult.map((book,index)=>{
                         return( 
+                          <>
                           <div className="col-xl-3 col-lg-4 col-md-5 col-sm-6 col-xs-7 booksCard cardcontainer">
                                 <div className="card mt-4">
-                                    <img src={book.imageURL} className="card-img-top" alt="..."/>
+                                    <img height="250px" src={book.imageURL} className="card-img-top" alt="..."/>
                                     <div className="card-body" key={index}>
                                         <h5 className="card-title">{book.bookName}</h5>
                                         <p className="card-text authorName">Author:<span>{book.author}</span></p>
@@ -66,11 +76,19 @@ export default class Books extends React.Component{
                                     </div>
                                 </div>
                           </div>
+                          
+                          </>
                         )})}
+                        
                         {this.props.message &&<div className="col-lg-12">
                         <h5 className="mt-4">{this.props.message }</h5>
-                        </div>}
+                        </div>}                        
                     </div>
+                    {this.props.display? '':
+                    <div className="pt-2 float-right">
+                    <button className="btn btn-success btn-small" onClick={()=>{window.location.reload()}}>Go Back</button>
+                </div>}
+                </>
         
         );
     }

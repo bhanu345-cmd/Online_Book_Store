@@ -1,5 +1,5 @@
 import React from 'react';
-import {Route, BrowserRouter as Router,Switch ,Redirect} from 'react-router-dom';
+import {Route, BrowserRouter as Router,Switch ,Redirect,Link} from 'react-router-dom';
 import Register from './Component/Register/Register';
 import Login from './Component/Login/Login';
 import Home from './Component/Home/Home';
@@ -14,6 +14,7 @@ import ShowBooks from './Component/AdminBooks/ShowBooks';
 import ShowAuthors from './Component/AdminAuthor/ShowAuthor';
 import ShowCategories from './Component/AdminCategory/ShowCategory';
 import EditProfile from './Component/Profile/EditProfile';
+import BookUpdate from './Component/AdminBooks/BookUpdate';
 import NotFound from './Component/NotFound';
 class App extends React.Component {
   constructor(props){
@@ -28,7 +29,9 @@ class App extends React.Component {
     <Router>
       <Switch>
         <Route path="/login" component={Login} />
-        <Route path="/register" component={Register} />
+        {/* <Route path="/login" render={(props)=>(this.auth.isAuthenticated())?<Redirect to="/Home" />:<Login />}/> */}
+        {/* <Route path="/register" component={Register} /> */}
+        <Route path="/register" render={(props)=>this.auth.isAuthenticated()?<Redirect to="/Home" />:<Register />}/>
         <Route path="/" exact component={Home}/>
         {/* <Route path="/admin" component={Admin} /> */}
         <Route path="/admin" render={(props)=>this.auth.isAdminAuthenticated()?<Admin {...props}/>:<Redirect to='/login'/>}/>
@@ -42,6 +45,7 @@ class App extends React.Component {
         <Route path="/showCategories" render={(props)=>this.auth.isAdminAuthenticated()?<ShowCategories {...props}/>:<Redirect to='/login'/>}/>
         <Route path="/showAuthors" render={(props)=>this.auth.isAdminAuthenticated()?<ShowAuthors {...props}/>:<Redirect to='/login'/>}/>
         <Route path="/showBooks" render={(props)=>this.auth.isAdminAuthenticated()?<ShowBooks {...props}/>:<Redirect to='/login'/>}/>
+        <Route path="/bookUpdate" render={(props)=>this.auth.isAdminAuthenticated()?<BookUpdate {...props}/>:<Redirect to='/login'/>}/>
         <Route component={NotFound} />
       </Switch>
     </Router>
