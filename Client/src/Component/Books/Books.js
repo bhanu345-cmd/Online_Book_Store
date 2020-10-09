@@ -8,7 +8,7 @@ export default class Books extends React.Component{
     }
     render(){
         return(<>
-                {this.props.display?
+                {!this.props.status?
                 <>
                 <hr/>
                 <div className="col-12"><h4>Most Popular Books...</h4></div>
@@ -20,12 +20,12 @@ export default class Books extends React.Component{
                     {this.props.display?this.props.books.map((book,index)=>{
                       return(                          
                         <div className="col-xl-3 col-lg-4 col-md-5 col-sm-6 col-xs-7 booksCard cardcontainer" key={book._id}>
-                            <div className="card mt-4 " key={index} id="card">
+                            <div className="card mt-4 " key={index} id="card" onClick={()=>{this.props.bookDescriptionHandler(book._id)}}>
                                 {/* <a className="btn" onClick={()=>this.getBook(book._id)} > */}
                                 <img  height="250px" src={book.imageURL} className="card-img-top" alt="..."/>
                                 {/* </a> */}
                                 <div className="card-body" key={index}>
-                                    <h5 className="card-title bookname" onClick={()=>{this.props.bookDescriptionHandler(book._id)}}>{book.bookName}</h5>
+                                    <h5 className="card-title bookname" >{book.bookName}</h5>
                                     <p className="card-text authorName">Author:<span>{book.author}</span></p>
                                     <p className="card-text">Category:<span>{book.category}</span></p>
                                     <p className="card-text">Price:{' '}<i className="fa fa-inr"style={{fontSize:"12px"}}></i><span className="text-primary font-weight-bold">{book.price}</span></p>
@@ -46,11 +46,11 @@ export default class Books extends React.Component{
                             </div>
                         </div>
                       );
-                    }): this.props.searchResult.map((book,index)=>{
+                    }):this.props.searchResult.map((book,index)=>{                        
                         return( 
                           <>
                           <div className="col-xl-3 col-lg-4 col-md-5 col-sm-6 col-xs-7 booksCard cardcontainer">
-                                <div className="card mt-4">
+                                <div className="card mt-4" id="card" onClick={()=>{this.props.bookDescriptionHandler(book._id)}}>
                                     <img height="250px" src={book.imageURL} className="card-img-top" alt="..."/>
                                     <div className="card-body" key={index}>
                                         <h5 className="card-title">{book.bookName}</h5>
@@ -75,7 +75,6 @@ export default class Books extends React.Component{
                           
                           </>
                         )})}
-                        
                         {this.props.message &&<div className="col-lg-12">
                         <h5 className="mt-4">{this.props.message }</h5>
                         </div>}                        

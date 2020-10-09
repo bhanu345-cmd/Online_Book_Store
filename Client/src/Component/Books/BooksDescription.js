@@ -117,12 +117,12 @@ bookdetailid: localStorage.getItem("bookdetailId")};
                                 <h5>About Item:</h5>
                                 <p>{this.state.bookById.description}</p>
                                 <div className="d-flex">
-                                    <button className="btn btn-danger mr-2" onClick={()=>this.addToCartHandler(this.state.bookById._id)}>Add to cart</button>
-                                    <button className="btn btn-success mr-2" onClick={()=>this.addToCartHandler(this.state.bookById._id)}>Buy Now</button>
+                                    <button className="btn btn-danger mr-2" onClick={()=>this.addToCartHandler(this.state.bookById._id)}>Buy Now</button>
+                                    <button className="btn btn-success mr-2" onClick={()=>this.addToCartHandler(this.state.bookById._id)}>Add to cart</button>
                                 </div>
                             </div>
                         </div>)}
-                        <Books {...this.props} books={this.state.books} searchResult={this.state.result} message={this.state.message} display={this.state.display} addToCart={this.addToCartHandler}/>
+                        <Books {...this.props} books={this.state.books} searchResult={this.state.result} message={this.state.message} display={this.state.display} addToCart={this.addToCartHandler} status={true}/>
 
                     </div>
                 </div>

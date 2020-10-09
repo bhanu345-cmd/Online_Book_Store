@@ -132,7 +132,7 @@ class Home extends React.Component{
                     </div>
                     <div className="col-lg-9 col-md-8 col-sm-7 ">
                         {this.state.display&&<Authors/>}
-                        <Books {...this.props} books={this.state.books} searchResult={this.state.result} message={this.state.message} display={this.state.display} addToCart={this.addToCartHandler} bookDescriptionHandler={this.bookDescriptionHandler}/>
+                        <Books {...this.props} books={this.state.books} searchResult={this.state.result} message={this.state.message} display={this.state.display} addToCart={this.addToCartHandler} bookDescriptionHandler={this.bookDescriptionHandler} status={false}/>
                     </div>
                 </div>
             </div>

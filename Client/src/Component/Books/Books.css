@@ -31,6 +31,9 @@
 .container{
     padding:0 !important;
 }
+#card{
+    cursor: pointer;
+}
 /* .bookimg{ */
     /* height: 210px; */
     /* width: 150px; */
