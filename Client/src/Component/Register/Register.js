@@ -2,6 +2,8 @@ import React from 'react';
 import './Register.css';
 import Auth from '../../Authentication/Auth';
 import {Link} from 'react-router-dom';
+import { ToastContainer,toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 class Register extends React.Component{
     constructor(props){
         super(props)
@@ -116,15 +118,33 @@ class Register extends React.Component{
         }
         
         if(this.state.isValid === true){
-            alert("Please enter all the fields correctly");
+            toast.error("Please enter field values correctly", {
+                position: toast.POSITION.TOP_CENTER,
+                autoClose: false,
+                // onClose:() =>window.location.reload()
+              }
+              );
+            //alert("Please enter all the fields correctly");
             return false;
         }
         else{
             this.auth.registration(data).then((res)=>{
                 if(res.message===true){
-                    this.props.history.push('/login');
+                    toast.info("Registered Successfully", {
+                        position: toast.POSITION.TOP_CENTER,
+                        autoClose: true,
+                        onClose:() =>this.props.history.push('/login')
+                    }
+                    );
+                    
                 }else{
-                    alert(res.message);
+                    toast.error(res.message, {
+                        position: toast.POSITION.TOP_CENTER,
+                        autoClose: true,
+                        // onClose:() =>window.location.reload()
+                      }
+                      );
+                    //alert(res.message);
                 }
             });
         }

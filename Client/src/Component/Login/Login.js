@@ -2,6 +2,8 @@ import React from 'react';
 import './Login.css'
 import Auth from '../../Authentication/Auth';
 import {Link} from 'react-router-dom';
+import { ToastContainer,toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 class Login extends React.Component{
 
     constructor(props){
@@ -65,7 +67,13 @@ class Login extends React.Component{
         }
         
         if(this.state.isValid === true){
-            alert("Enter field values correctly");
+            toast.error("Please enter field values correctly", {
+                position: toast.POSITION.TOP_CENTER,
+                autoClose: false,
+                // onClose:() =>window.location.reload()
+              }
+              );
+            //alert("Enter field values correctly");
             return false;
         }
         else{
@@ -73,7 +81,12 @@ class Login extends React.Component{
                 if(res.message===true){
                     this.props.history.push('/Home');
                 }else{
-                    this.setState({message:res.message});
+                    toast.error(res.message, {
+                        position: toast.POSITION.TOP_CENTER,
+                        autoClose: true,
+                        // onClose:() =>window.location.reload()
+                      }
+                      );
                 }
             });
         }
@@ -85,6 +98,7 @@ class Login extends React.Component{
         const {errors,message} = this.state;    
     return(
         <div className="container text-center">
+            <ToastContainer />
             <div className="projName text-center">
                 <a href="/#"><strong>Book Store</strong></a>
             </div>

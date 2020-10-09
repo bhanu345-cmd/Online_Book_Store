@@ -6,6 +6,8 @@ import Aux from '../../hoc/Auxiliary';
 import {deleteBookById,getBooks} from '../UserFunctions/UserFunctions';
 import './ViewBook.css';
 import Auth from '../../Authentication/Auth';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 export default class ViewBooks extends React.Component{
     state={books:[],message:''};
     constructor(props){
@@ -15,28 +17,79 @@ export default class ViewBooks extends React.Component{
       logoutHandler=()=>{
         this.auth.adminLogout();
       }
-    componentDidMount(){
+      componentDidMount(){
         getBooks().then((res)=>{
             if(res.message===true){
                 this.setState({books:res.books});
             }else{
-                alert(res.message);
+                this.setState({message: res.message})
+                toast.error(res.message, {
+                    position: toast.POSITION.TOP_CENTER,
+                    autoClose: true,
+                    // onClose:() =>window.location.reload()
+                  }
+                  );
+                // alert(res.message);
             }
-        }).catch(err=>{if(err) alert("404 error")});
+        }).catch(err=>{if(err) 
+            toast.error("404 error !", {
+            position: toast.POSITION.TOP_CENTER,
+            autoClose: true,
+            onClose:() =>window.location.reload()
+          }
+          );
+        // alert("404 error")
+    });
+    }
+    updateHandler =(id) =>{
+        this.props.history.push('/bookUpdate');
+        localStorage.setItem("bookId",id);
+    }
+    confimationHandler = (id) =>{
+        toast(
+            <>            
+            <p className="text-dark pt-3 text-center">Do you want to delete it?</p>
+            <div className="pull-right pt-0 mt-0">
+            <button className="btn btn-success btn-sm mr-2" onClick={()=>this.deleteHandler(id)}>Yes</button>
+            <button className="btn btn-danger btn-sm">No</button>
+            </div>
+            </>, {
+            position: toast.POSITION.TOP_CENTER,
+            autoClose: false,
+            // onClose:() =>window.location.reload()
+          }
+          );
     }
     deleteHandler=(id)=>{
         deleteBookById(id).then((res)=>{
             if(res.message===true){
-                alert("Deleted Successfully");
-                window.location.reload();
+                toast.info("Deleted Successfully !", {
+                    position: toast.POSITION.TOP_CENTER,
+                    autoClose: true,
+                    onClose:() =>window.location.reload()
+                  }
+                  );
             }else{
-               alert(res.message);
+                toast.error(res.message, {
+                    position: toast.POSITION.TOP_CENTER,
+                    autoClose: true,
+                    onClose:() =>window.location.reload()
+                  }
+                  );
             }
-        }).catch(err=>{if(err) alert("404 error")});
-    }
+        }).catch(err=>{if(err) 
+            toast.error("404 error !", {
+                position: toast.POSITION.TOP_CENTER,
+                autoClose: true,
+                onClose:() =>window.location.reload()
+              }
+              );
+        });
+    }    
     render(){
         return(
             <Aux>
+                <ToastContainer/>
                 <div className="container-fluid">
                     <AdminNav logoutHandler={this.logoutHandler}/>
                 </div>
@@ -63,7 +116,7 @@ export default class ViewBooks extends React.Component{
                                     <td>{book.category}</td>
                                     <td>{book.author}</td>
                                     <td>{book.price}</td>
-                                    <td><i type="button" className="fa fa-trash text-danger" aria-hidden="true" style={{margin:"0px", fontSize:"15px"}} onClick={()=>this.deleteHandler(book._id)}></i> </td>
+                                    <td><i type="button" className="fa fa-trash text-danger" aria-hidden="true" style={{margin:"0px", fontSize:"15px"}} onClick={()=>this.confimationHandler(book._id)}></i> </td>
                                 </tr>
                             )
                         })}
