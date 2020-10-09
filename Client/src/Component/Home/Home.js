@@ -11,7 +11,7 @@ import Footer from '../Others/Footer';
 import {search} from '../UserFunctions/UserFunctions.js'
 import Banner from '../Banner/Banner.js';
 import Axios from 'axios';
-import {getCartItems,getBookByCategory,getBookByAuthor} from '../UserFunctions/UserFunctions.js';
+import {getCartItems,getBookByCategory,getBookByAuthor,getBookById} from '../UserFunctions/UserFunctions.js';
 import { ToastContainer,toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 class Home extends React.Component{
@@ -88,6 +88,11 @@ class Home extends React.Component{
         }).catch(err=>this.setState({message:"404 Error"}));
 
     }
+    bookDescriptionHandler=(id)=>{        
+        this.props.history.push(`/bookDescription`)
+        localStorage.setItem("bookdetailId",id);
+
+    }
     componentDidMount(){
         Axios.get("http://localhost:4000/book/getBooks").then((res)=>{
             if(res.data.message===true){
@@ -127,7 +132,7 @@ class Home extends React.Component{
                     </div>
                     <div className="col-lg-9 col-md-8 col-sm-7 ">
                         {this.state.display&&<Authors/>}
-                        <Books {...this.props} books={this.state.books} searchResult={this.state.result} message={this.state.message} display={this.state.display} addToCart={this.addToCartHandler}/>
+                        <Books {...this.props} books={this.state.books} searchResult={this.state.result} message={this.state.message} display={this.state.display} addToCart={this.addToCartHandler} bookDescriptionHandler={this.bookDescriptionHandler}/>
                     </div>
                 </div>
             </div>

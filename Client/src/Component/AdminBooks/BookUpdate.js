@@ -83,17 +83,17 @@ class BookUpdate extends React.Component{
          getBookById(this.state.bookID).then((res)=>{
              console.log(res.message);
              console.log(res)
-             console.log(res.books[0].publishedDate);
+             console.log(res.book[0].publishedDate);
              if(res.message===true){
-                 let date= res.books[0].publishedDate;
+                 let date= res.book[0].publishedDate;
                  this.setState({
-                    BookTitle: res.books[0].bookName,
-                    AuthorName: res.books[0].author,
-                    Category: res.books[0].category,
-                    Price: res.books[0].price,
+                    BookTitle: res.book[0].bookName,
+                    AuthorName: res.book[0].author,
+                    Category: res.book[0].category,
+                    Price: res.book[0].price,
                     PublishedDate:date.slice(0,10),
-                    ImageURL:res.books[0].imageURL,
-                    description:res.books[0].description,
+                    ImageURL:res.book[0].imageURL,
+                    description:res.book[0].description,
                  })
              }else{
                 this.setState({message: res.message})}

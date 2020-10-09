@@ -15,6 +15,7 @@ import ShowAuthors from './Component/AdminAuthor/ShowAuthor';
 import ShowCategories from './Component/AdminCategory/ShowCategory';
 import EditProfile from './Component/Profile/EditProfile';
 import BookUpdate from './Component/AdminBooks/BookUpdate';
+import BookDescription from './Component/Books/BooksDescription';
 import NotFound from './Component/NotFound';
 class App extends React.Component {
   constructor(props){
@@ -29,11 +30,8 @@ class App extends React.Component {
     <Router>
       <Switch>
         <Route path="/login" component={Login} />
-        {/* <Route path="/login" render={(props)=>(this.auth.isAuthenticated())?<Redirect to="/Home" />:<Login />}/> */}
-        {/* <Route path="/register" component={Register} /> */}
-        <Route path="/register" render={(props)=>this.auth.isAuthenticated()?<Redirect to="/Home" />:<Register />}/>
+        <Route path="/register" component={Register}/>
         <Route path="/" exact component={Home}/>
-        {/* <Route path="/admin" component={Admin} /> */}
         <Route path="/admin" render={(props)=>this.auth.isAdminAuthenticated()?<Admin {...props}/>:<Redirect to='/login'/>}/>
         <Route path="/Home" render={(props)=>this.auth.isAuthenticated()?<Home {...props}/>:<Redirect to='/'/>}/>
         <Route path="/cart" render={(props)=>this.auth.isAuthenticated()?<Cart {...props} userName={this.auth.getUserName()}/>:<Redirect to='/login'/>}/>
@@ -46,6 +44,7 @@ class App extends React.Component {
         <Route path="/showAuthors" render={(props)=>this.auth.isAdminAuthenticated()?<ShowAuthors {...props}/>:<Redirect to='/login'/>}/>
         <Route path="/showBooks" render={(props)=>this.auth.isAdminAuthenticated()?<ShowBooks {...props}/>:<Redirect to='/login'/>}/>
         <Route path="/bookUpdate" render={(props)=>this.auth.isAdminAuthenticated()?<BookUpdate {...props}/>:<Redirect to='/login'/>}/>
+        <Route path="/bookDescription" component={BookDescription}/>
         <Route component={NotFound} />
       </Switch>
     </Router>

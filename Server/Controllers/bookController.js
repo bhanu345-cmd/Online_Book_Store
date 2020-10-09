@@ -41,7 +41,7 @@ router.get('/getBookByCategory/:category',(req,res)=>{
 router.get('/getBookById/:id',(req,res)=>{
     books.find({_id:req.params.id}).then((book)=>{
         if(books.length>0){
-            res.send({message:true,books:book});
+            res.send({message:true,book:book});
         }else{
            res.send({message:"No book found"}); 
         }
