@@ -11,7 +11,7 @@ export default class Books extends React.Component{
                             <div className="card mt-4" id="card">
                                 <img src={book.imageURL} className="card-img-top" alt="..." height="150px"/>
                                 <div className="card-body" key={index}>
-                                    <h5 className="card-title">{book.bookName}</h5>
+                                    <h5 className="card-title" onClick={()=>{this.props.bookDescriptionHandler(book._id)}}>{book.bookName}</h5>
                                     <p className="card-text">Author:<span>{book.author}</span></p>
                                     <p className="card-text">Category:<span>{book.category}</span></p>
                                     <p className="card-text">Price:$<span className="text-primary font-weight-bold">{book.price}</span></p>

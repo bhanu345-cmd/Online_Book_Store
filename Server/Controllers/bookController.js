@@ -25,6 +25,15 @@ router.get('/getBook/:name',(req,res)=>{
         }
     })
 });
+router.get('/getBookById/:id',(req,res)=>{
+    books.findOne({_id:req.params.id}).then((book)=>{
+        if(book){
+            res.send({message:true,book:book});
+        }else{
+            res.send({message:"No book found"});
+        }
+    }).catch((err)=>{res.send({message:"404 error"})});
+});
 
 
 router.get('/getBookByCategory/:category',(req,res)=>{

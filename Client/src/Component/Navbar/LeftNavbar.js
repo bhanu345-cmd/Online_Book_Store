@@ -32,7 +32,7 @@ class LeftNavbar extends React.Component{
                         {this.state.categories.map((category)=>{
                             return(
                                 <li className="nav-item text-center">
-                                <Link className="nav-link text-dark" to="/#" onClick={()=>this.props.getBookByCategory(category.name)}>{category.name}</Link>
+                                <Link className="nav-link text-dark" to="#" onClick={()=>this.props.getBookByCategory(category.name)}>{category.name}</Link>
                                 </li>
                             );
                         })}
@@ -48,7 +48,7 @@ class LeftNavbar extends React.Component{
                     {this.state.authors.map((author)=>{
                             return(
                                 <li className="nav-item text-center">
-                                <Link className="nav-link text-dark" to="/#" onClick={()=>this.props.getBookByAuthor(author.name)}>{author.name}</Link>
+                                <Link className="nav-link text-dark" to="#" onClick={()=>this.props.getBookByAuthor(author.name)}>{author.name}</Link>
                                 </li>
                             );
                         })}

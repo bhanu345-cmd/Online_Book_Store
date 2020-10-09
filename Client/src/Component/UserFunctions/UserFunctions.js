@@ -86,3 +86,9 @@ export const deleteBookById=(id)=>{
         return res.data;
     }).catch((err)=>{return {message:err.message}});
 }
+
+export const getBookById=(id)=>{
+    return Axios.get(`http://localhost:4000/book/getBookById/${id}`).then((res)=>{
+        return res.data;
+    }).catch((err)=>{return {message:err.message}});
+}

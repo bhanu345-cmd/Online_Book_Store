@@ -139,7 +139,7 @@ render(){
                   type="text"
                   className="form-control"
                   name="PublishedDate"
-                  placeholder="PublishedDate"
+                  placeholder="YYYY-MM-DD"
                   value={this.state.PublishedDate}
                   onChange={this.handleChange}
                   required
