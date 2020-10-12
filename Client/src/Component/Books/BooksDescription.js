@@ -75,6 +75,10 @@ bookdetailid: localStorage.getItem("bookdetailId")};
         }).catch(err=>this.setState({message:"404 Error"}));
 
     }
+    formatData=(date)=>{
+        console.log(date);
+        // return date
+    }
     componentDidMount(){
         console.log(this.state.bookdetailid)
         getBookById(this.state.bookdetailid).then((res)=>{
@@ -104,7 +108,7 @@ bookdetailid: localStorage.getItem("bookdetailId")};
                     <div className="col-lg-9 col-md-8 col-sm-7 ">
                         {this.state.display && (<div className="d-flex justify-content-between align-items-top">
                             <div className=" pr-3 d-flex justify-content-between align-items-center">
-                            <img src={this.state.bookById.imageURL} alt="..." height="400px"/>
+                            <img src={`http://localhost:4000/${this.state.bookById.bookimg}`} alt="..." height="400px" width="266px"/>
                             </div>
                             <div className='p-3'>
                                 <h4>{this.state.bookById.bookName}</h4>
@@ -112,7 +116,7 @@ bookdetailid: localStorage.getItem("bookdetailId")};
                                 <p>Category: {this.state.bookById.category}</p>
                                 <p>Author: {this.state.bookById.author}</p>
                                 <p>Price: {this.state.bookById.price}</p>
-                                <p>PublishedDate: {this.state.bookById.publishedDate}</p>
+                                <p>PublishedDate: {this.formatData(this.state.bookById.publishedDate)}</p>
                                 <hr></hr>
                                 <h5>About Item:</h5>
                                 <p>{this.state.bookById.description}</p>

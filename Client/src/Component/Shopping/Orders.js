@@ -99,7 +99,7 @@ export default class Orders extends React.Component{
                                                 <div className="row m-3 bookDetails">
                                                     <div className="col-lg-7 col-md-7 col-sm-7">
                                                         <div className="d-flex justify-content-start">
-                                                            <img src={cartItem.book.imageURL} alt="..." height="100px" width="100px" className="border-secondary m-0"/>
+                                                            <img src={`http://localhost:4000/${cartItem.book.bookimg}`} alt="..." height="100px" width="100px" className="border-secondary m-0"/>
                                                             <div className="ml-3 bookDetails">
                                                                 <h5>{cartItem.book.bookName}</h5>
                                                                 <p>Author: <span className="author-color">{cartItem.book.author}</span></p>

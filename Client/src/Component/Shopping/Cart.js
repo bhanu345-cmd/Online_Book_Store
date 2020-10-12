@@ -197,7 +197,7 @@ export default class Cart extends React.Component{
                         {this.state.cartItems.map((cartItem,index)=>{
                             return(
                                 <div className="card flex-row w-100 mt-1 ml-2" key={index}> 
-                                    <img src={cartItem.book.imageURL} className="card-img cartimg" alt="..." height="200px" />
+                                    <img src={`http://localhost:4000/${cartItem.book.bookimg}`} className="card-img cartimg" alt="..." height="200px" />
                                     <div className="card-body">
                                             <h5 className="card-title"><span>{cartItem.book.bookName}</span></h5>
                                             <p className="card-text">Author:<span>{cartItem.book.author}</span></p>
@@ -223,6 +223,7 @@ export default class Cart extends React.Component{
                         );
                         })}
                     </div>
+                {this.state.message===''&&
               <div className="col-lg-4 col-md-4 col-sm-4">
               <div className="card w-75 mt-5">  
                 <div className="card-body">
@@ -282,7 +283,7 @@ export default class Cart extends React.Component{
             </div>
         </div>
     </div>
-</div>
+</div>}
 </div>  
 </div>
 <div className="container-fluid">

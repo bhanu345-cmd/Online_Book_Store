@@ -15,8 +15,8 @@ class BookUpdate extends React.Component{
         Category: '',
         Price: '',
         PublishedDate:'',
-        ImageURL:'',
         description:'',
+        bookimg:'',
         message:'',
         categories:[],
         authors:[],
@@ -35,20 +35,34 @@ class BookUpdate extends React.Component{
             [name]:value
         },()=>{console.log(this.state)});
      }
+     handleChangeFile=(e)=>{
+        this.setState({
+          bookimg: e.target.files[0]
+        });
+      }
      submit=(event)=>{
          event.preventDefault();
-         const payload={
-            _id: this.state.bookID,
-            bookName: this.state.BookTitle,
-            author: this.state.AuthorName,
-            category: this.state.Category,
-            price: this.state.Price,
-            date:this.state.PublishedDate,
-            imageURL:this.state.ImageURL,
-            description:this.state.description
-         };
+         const formData= new FormData();
+         formData.append('_id',this.state.bookID);
+         formData.append('bookName',this.state.BookTitle);
+         formData.append('author',this.state.AuthorName);
+         formData.append('category',this.state.Category);
+         formData.append('price',this.state.Price);
+         formData.append('date',this.state.PublishedDate);
+         formData.append('description',this.state.description);
+         formData.append('bookimg',this.state.bookimg);
+        //  const payload={
+        //     _id: this.state.bookID,
+        //     bookName: this.state.BookTitle,
+        //     author: this.state.AuthorName,
+        //     category: this.state.Category,
+        //     price: this.state.Price,
+        //     date:this.state.PublishedDate,
+        //     imageURL:this.state.ImageURL,
+        //     description:this.state.description
+        //  };
          this.resetUserInputs();
-            Axios.put(`http://localhost:4000/book/updateBook`,payload).then((res)=>{
+            Axios.put(`http://localhost:4000/book/updateBook`,formData).then((res)=>{
             if(res.data.success){
               this.setState({message:res.data.message});
               toast.info(this.state.message, {
@@ -74,15 +88,15 @@ class BookUpdate extends React.Component{
             Category: '',
             Price: '',
             PublishedDate:'',
-            ImageURL:'',
-            description:''
+            description:'',
+            bookimg: ''
          });
      };
      componentDidMount(){
          console.log(this.state.bookID);
          getBookById(this.state.bookID).then((res)=>{
              console.log(res.message);
-             console.log(res)
+             console.log(res.book[0].bookimg)
              console.log(res.book[0].publishedDate);
              if(res.message===true){
                  let date= res.book[0].publishedDate;
@@ -92,8 +106,8 @@ class BookUpdate extends React.Component{
                     Category: res.book[0].category,
                     Price: res.book[0].price,
                     PublishedDate:date.slice(0,10),
-                    ImageURL:res.book[0].imageURL,
                     description:res.book[0].description,
+                    bookimg: res.book[0].bookimg
                  })
              }else{
                 this.setState({message: res.message})}
@@ -165,23 +179,7 @@ render(){
                                 })}
                             </select>
                         </div>
-                    </div>                
-                    <div className="col-6">
-                        <div className="form-group">
-                            <label className="float-sm-left" htmlFor="text">Price:</label>
-                            <input
-                            type="text"
-                            className="form-control"
-                            name="Price"
-                            placeholder="Price"
-                            value={this.state.Price}
-                            onChange={this.handleChange}
-                            required
-                            />
-                        </div>
                     </div>
-                </div>
-                <div className="row">
                     <div className="col-6">
                         <div className="form-group">
                             <label className="float-sm-left" htmlFor="text">PublishedDate:</label>
@@ -196,22 +194,46 @@ render(){
                             required
                             />
                         </div>
-                    </div>
-                    <div className="col-6">
+                    </div>                
+                    
+                </div>
+                <div className="row">
+                <div className="col">
                         <div className="form-group">
-                            <label className="float-sm-left" htmlFor="text">Image URL:</label>
+                            <label className="float-sm-left" htmlFor="text">Price:</label>
                             <input
                             type="text"
                             className="form-control"
-                            name="ImageURL"
-                            placeholder="URL"
-                            value={this.state.ImageURL}
+                            name="Price"
+                            placeholder="Price"
+                            value={this.state.Price}
                             onChange={this.handleChange}
                             required
                             />
                         </div>
                     </div>
+                    
                 </div>
+                <div className="row">
+                    <div className="col-2">
+                    <img  height="50px" width="50px" src={`http://localhost:4000/${this.state.bookimg}`} className="mt-4" alt="..."/>
+                    </div>
+                    <div className="col-10">
+                    <div className="form-group">                
+                <label className="float-sm-left" htmlFor="text">Image file:</label>
+                <input
+                  type="file"
+                  className="form-control"
+                  name="bookimg"
+                  placeholder="URL"
+                  onChange={this.handleChangeFile}
+                  required
+                />
+              </div>
+                    </div>
+
+                </div>
+                
               <div className="form-group">
                 <label className="float-sm-left" htmlFor="text">Description:</label>
                 <textarea

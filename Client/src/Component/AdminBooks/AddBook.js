@@ -6,6 +6,7 @@ import Services from '../Others/Services';
 import Footer from '../Others/Footer';
 import {addBook,getCategories,getAuthors} from '../UserFunctions/UserFunctions';
 import Auth from '../../Authentication/Auth';
+import { ToastContainer, toast } from 'react-toastify';
 class AddBook extends React.Component{
     state={
         BookTitle: '',
@@ -13,9 +14,9 @@ class AddBook extends React.Component{
         Category: '',
         Price: '',
         PublishedDate:'',
-        ImageURL:'',
         description:'',
         message:'',
+        bookimg:'',
         categories:[],
         authors:[]
      };
@@ -32,22 +33,46 @@ class AddBook extends React.Component{
             [name]:value
         },()=>{console.log(this.state)});
      }
+     handleChangeFile=(e)=>{
+       this.setState({
+         bookimg: e.target.files[0]
+       });
+     }
      submit=(event)=>{
          event.preventDefault();
-         const payload={
-            bookName: this.state.BookTitle,
-            author: this.state.AuthorName,
-            category: this.state.Category,
-            price: this.state.Price,
-            date:this.state.PublishedDate,
-            imageURL:this.state.ImageURL,
-            description:this.state.description
-            //ReleaseDate:this.state.ReleaseDate
-         };
+         const formData= new FormData();
+         formData.append('bookName',this.state.BookTitle);
+         formData.append('author',this.state.AuthorName);
+         formData.append('category',this.state.Category);
+         formData.append('price',this.state.Price);
+         formData.append('date',this.state.PublishedDate);
+         formData.append('description',this.state.description);
+         formData.append('bookimg',this.state.bookimg);
+        //  const payload={
+        //     bookName: this.state.BookTitle,
+        //     author: this.state.AuthorName,
+        //     category: this.state.Category,
+        //     price: this.state.Price,
+        //     date:this.state.PublishedDate,
+        //     imageURL:this.state.ImageURL,
+        //     description:this.state.description,
+        //     bookimg: this.state.bookimg
+        //     //ReleaseDate:this.state.ReleaseDate
+        //  };
+        //  const config={
+        //    headers:{
+        //      'content-type': 'multipart/form-data'
+        //    }
+        //  }
          this.resetUserInputs();
-        addBook(payload).then((res)=>{
+        addBook(formData).then((res)=>{
             if(res.message===true){
-              this.setState({message:"Added"})
+              this.setState({message:"Added"});
+              toast.info(this.state.message, {
+                position: toast.POSITION.TOP_CENTER,
+                autoClose: 500,
+                // onClose:() =>window.location.reload()
+              });
               window.location.reload()
             }else{
               this.setState({message:res.message});
@@ -61,7 +86,6 @@ class AddBook extends React.Component{
             Category: '',
             Price: '',
             PublishedDate:'',
-            ImageURL:'',
             description:''
          });
      };
@@ -85,6 +109,7 @@ render(){
     console.log('state',this.state);
     return(
        <Aux>
+         <ToastContainer />
         <div className="container-fluid">
             <AdminNav logoutHandler={this.logoutHandler}/>
         </div>
@@ -146,7 +171,7 @@ render(){
                   required
                 />
               </div>
-              <div className="form-group">
+              {/* <div className="form-group">
                 <label className="float-sm-left" htmlFor="text">Image URL:</label>
                 <input
                   type="text"
@@ -154,6 +179,17 @@ render(){
                   name="ImageURL"
                   placeholder="URL"
                   onChange={this.handleChange}
+                  required
+                />
+              </div> */}
+              <div className="form-group">
+                <label className="float-sm-left" htmlFor="text">Upload Image</label>
+                <input
+                  type="file"
+                  className="form-control"
+                  name="bookimg"
+                  placeholder="URL"
+                  onChange={this.handleChangeFile}
                   required
                 />
               </div>

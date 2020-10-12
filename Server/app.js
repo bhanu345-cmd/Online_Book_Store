@@ -1,6 +1,7 @@
 var express=require('express');
 var mongoose=require('mongoose');
 var cors=require('cors');
+var path=require('path');
 var app=express();
 var bookController=require('./Controllers/bookController.js');
 var userController=require('./Controllers/userController.js');
@@ -13,6 +14,7 @@ app.use('/book',bookController);
 app.use('/user',userController);
 app.use('/cart',cartController);
 app.use('/order',orderController);
+app.use('/uploads',express.static(path.join('uploads')));
 mongoose.connect(config.getDbConnectionString(),{useCreateIndex:true,useNewUrlParser:true,useUnifiedTopology:true,useFindAndModify:false});
 const db=mongoose.connection;
 db.on('error',console.error.bind(console,'connection error:'))

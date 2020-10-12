@@ -6,6 +6,37 @@ var author=require('../Models/author');
 var router=express.Router();
 router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({extended:false}));
+const multer = require('multer');
+
+var storage =multer.diskStorage({
+    destination: function(req,file,cb){
+        cb(null,'./uploads/');
+    },
+    filename: function(req,file,cb){
+        cb(null,new Date().toISOString().replace(/:/g,"-")+"_"+file.originalname);
+    }
+});
+const fileFilter=(req,file,cb)=>{
+    if(file.mimetype==='image/jpeg'||file.mimetype==='image/jpg'||file.mimetype==='image/png'||file.mimetype==='image/jfif'){
+        cb(null,true);
+    }else{
+        cb(null,false);
+    }
+};
+const upload = multer({
+    storage: storage,
+    limits: {fieldSize:  1024*1024*5},
+    fileFilter: fileFilter
+});
+// module.exports = function(app){
+//     app.use(function(req,res,next){
+//     res.header(
+//         "Access-Control-Allow-Headers",
+//         "x-access-token,Origin,Content-Type,Accept"
+//     );
+//     next();
+// })
+// }
 router.get('/getBooks',(req,res)=>{
         books.find({}).then((books)=>{
             if(books.length>0){
@@ -47,7 +78,7 @@ router.get('/getBookById/:id',(req,res)=>{
         }
     }).catch((err)=>res.send({message:err.message}));
 });
-router.put('/updateBook',(req,res)=>{
+router.put('/updateBook',upload.single('bookimg'),(req,res)=>{
     books.findOne({_id:req.body._id},(err,book)=>{
         if(err){
             res.send({message:"not a valid book"})
@@ -55,8 +86,8 @@ router.put('/updateBook',(req,res)=>{
         else{
             book.bookName=req.body.bookName;
             book.price=req.body.price;
-            book.imageURL=req.body.imageURL;
             book.description=req.body.description;
+            book.bookimg= req.file.path;
             book.save((err)=>{
                 if(err){
                     res.send({success:false,message:"Unable to Update"});
@@ -79,7 +110,7 @@ router.get('/getBookByAuthor/:author',(req,res)=>{
         
     
 });
-router.post('/addBook',(req,res)=>{
+router.post('/addBook',upload.single('bookimg'),(req,res)=>{
     var newBook=books({
         bookName:req.body.bookName,
         author:req.body.author,
@@ -87,7 +118,8 @@ router.post('/addBook',(req,res)=>{
         category:req.body.category,
         imageURL:req.body.imageURL,
         description:req.body.description,
-        publishedDate:req.body.date
+        publishedDate:req.body.date,
+        bookimg: req.file.path
     });
    
     newBook.save().then((result)=>{

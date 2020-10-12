@@ -22,7 +22,8 @@ export default class Books extends React.Component{
                         <div className="col-xl-3 col-lg-4 col-md-5 col-sm-6 col-xs-7 booksCard cardcontainer" key={book._id}>
                             <div className="card mt-4 " key={index} id="card" onClick={()=>{this.props.bookDescriptionHandler(book._id)}}>
                                 {/* <a className="btn" onClick={()=>this.getBook(book._id)} > */}
-                                <img  height="250px" src={book.imageURL} className="card-img-top" alt="..."/>
+                                {/* <img  height="250px" src={book.imageURL} className="card-img-top" alt="..."/> */}
+                                <img  height="250px" src={`http://localhost:4000/${book.bookimg}`} className="card-img-top" alt="..."/>
                                 {/* </a> */}
                                 <div className="card-body" key={index}>
                                     <h5 className="card-title bookname" >{book.bookName}</h5>
@@ -51,7 +52,8 @@ export default class Books extends React.Component{
                           <>
                           <div className="col-xl-3 col-lg-4 col-md-5 col-sm-6 col-xs-7 booksCard cardcontainer">
                                 <div className="card mt-4" id="card" onClick={()=>{this.props.bookDescriptionHandler(book._id)}}>
-                                    <img height="250px" src={book.imageURL} className="card-img-top" alt="..."/>
+                                    {/* <img height="250px" src={book.imageURL} className="card-img-top" alt="..."/> */}
+                                    <img  height="250px" src={`http://localhost:4000/${book.bookimg}`} className="card-img-top" alt="..."/>
                                     <div className="card-body" key={index}>
                                         <h5 className="card-title">{book.bookName}</h5>
                                         <p className="card-text authorName">Author:<span>{book.author}</span></p>

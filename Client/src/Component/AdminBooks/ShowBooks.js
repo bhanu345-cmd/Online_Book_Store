@@ -22,6 +22,7 @@ export default class ViewBooks extends React.Component{
         getBooks().then((res)=>{
             if(res.message===true){
                 this.setState({books:res.books});
+                console.log(this.state.books)
             }else{
                 this.setState({message: res.message})
                 toast.error(res.message, {
@@ -108,6 +109,8 @@ export default class ViewBooks extends React.Component{
                         <th scope="col">Category</th>
                         <th scope="col">Author</th>
                         <th scope="col">Price</th>
+                        
+                        <th scope="col">Book Img</th>
                         <th scope="col">Action</th>
                         </tr>
                         </thead>
@@ -120,6 +123,8 @@ export default class ViewBooks extends React.Component{
                                     <td>{book.category}</td>
                                     <td>{book.author}</td>
                                     <td>{book.price}</td>
+                                    
+                                    <td><img src={`http://localhost:4000/${book.bookimg}`} width="50px" height="50px" /></td>
                                     <td>
                                         <i type="button" className="fa fa-pencil-square-o text-info" aria-hidden="true" style={{margin:"0px", fontSize:"15px"}} onClick={()=>this.updateHandler(book._id)}></i>{' '}{' '}
                                         <i type="button" className="fa fa-trash text-danger" aria-hidden="true" style={{margin:"0px", fontSize:"15px"}} onClick={()=>this.confimationHandler(book._id)}></i>
