@@ -122,12 +122,13 @@ bookdetailid: localStorage.getItem("bookdetailId")};
                                 </div>
                             </div>
                         </div>)}
-                        <Books {...this.props} books={this.state.books} searchResult={this.state.result} message={this.state.message} display={this.state.display} addToCart={this.addToCartHandler} status={true}/>
+                        <Books {...this.props} books={this.state.books} searchResult={this.state.result} message={this.state.message} display={!this.state.display} addToCart={this.addToCartHandler} status={true}/>
 
                     </div>
                 </div>
             </div> 
             <div className="container-fluid">
+            <hr className="hrtag"/>
                 <Services />
                 <Footer /> 
             </div>  

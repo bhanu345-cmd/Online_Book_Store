@@ -17,7 +17,6 @@ class EditProfile extends React.Component{
             firstName: '',
             lastName: '',
             userName: '',
-            password: '',
             address: '',
             state: '',
             city: '',
@@ -28,7 +27,6 @@ class EditProfile extends React.Component{
                 firstName: '',
                 lastName: '',
                 userName: '',
-                password: '',
                 address: '',
                 state: '',
                 city: '',
@@ -50,7 +48,6 @@ class EditProfile extends React.Component{
                     firstName: res.data[0].firstName,
                     lastName: res.data[0].lastName,
                     userName: res.data[0].userName,
-                    password:res.data[0].password,
                     phnNo:res.data[0].phnNo,
                     address:res.data[0].address,
                     state:res.data[0].state,
@@ -96,13 +93,6 @@ class EditProfile extends React.Component{
                   : 'userName is not valid!';
                 
               break;
-            case 'password': 
-              errors.password = 
-                value.length < 8
-                  ? 'Password must be at least 8 characters long!'
-                  : '';
-                
-              break;
             case 'address': 
               errors.address = 
                 value.length < 8
@@ -133,12 +123,11 @@ class EditProfile extends React.Component{
     }
     handleSubmit=async(event)=>{
         event.preventDefault();
-        const {firstName,lastName,userName,password,phnNo,address,state,city,pincode}=this.state;
+        const {firstName,lastName,userName,phnNo,address,state,city,pincode}=this.state;
         const data={
             firstName:firstName,
             lastName:lastName,
             userName:userName,
-            password:password,
             phnNo:phnNo,
             address:address,
             state:state,
@@ -232,13 +221,6 @@ class EditProfile extends React.Component{
                                 <div className="float-right error">
                                 {errors.userName.length > 0 && 
                                     <span className='error'>{errors.userName}</span>}</div>
-                            </div>
-                            <div className="form-group">
-                                <label htmlFor="password" className="float-left">Password:</label>
-                                <input id="password" value={this.state.password} type="password" className="form-control" onChange={this.handleChange} placeholder="Password" required/>
-                                <div className="float-right error">
-                                {errors.password.length > 0 && 
-                                    <span className='error'>{errors.password}</span>}</div>
                             </div>
                             <div className="row">
                             <div className="col-6">

@@ -22,3 +22,6 @@ code {
     max-width: 2000px;
 } 
 }
+.fa{
+  cursor: pointer;
+}

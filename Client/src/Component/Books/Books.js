@@ -8,7 +8,7 @@ export default class Books extends React.Component{
     }
     render(){
         return(<>
-                {!this.props.status?
+                {this.props.display?
                 <>
                 <hr/>
                 <div className="col-12"><h4>Most Popular Books...</h4></div>
@@ -59,7 +59,7 @@ export default class Books extends React.Component{
                                         <p className="card-text">Price:{' '}<i className="fa fa-inr"style={{fontSize:"12px"}}></i><span className="text-primary font-weight-bold">{book.price}</span></p>
                                         <div className="card-footer">
                                         <button  className="btn btn-danger btn-sm" onClick={()=>this.props.addToCart(book._id)}>Buy</button>
-                                       <button className="btn btn-success btn-sm" onClick={()=>this.props.addToCart(book._id)}>Add to Cart</button>
+                                        <button className="btn btn-success btn-sm" onClick={()=>this.props.addToCart(book._id)}>Add to Cart</button>
                                         {/* {!this.auth.isAuthenticated()?
                                        <>
                                        <button  className="btn btn-danger btn-sm" data-toggle="modal" data-target=".bd-example-modal-lg" >Buy</button>
@@ -79,10 +79,10 @@ export default class Books extends React.Component{
                         <h5 className="mt-4">{this.props.message }</h5>
                         </div>}                        
                     </div>
-                    {this.props.display? '':
+                    {/* {this.props.display? '':
                     <div className="pt-2 float-right">
                     <button className="btn btn-success btn-small" onClick={()=>{window.location.reload()}}>Go Back</button>
-                </div>}
+                </div>} */}
                 </>
         
         );

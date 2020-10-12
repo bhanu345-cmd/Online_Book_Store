@@ -35,7 +35,7 @@ class App extends React.Component {
         <Route path="/admin" render={(props)=>this.auth.isAdminAuthenticated()?<Admin {...props}/>:<Redirect to='/login'/>}/>
         <Route path="/Home" render={(props)=>this.auth.isAuthenticated()?<Home {...props}/>:<Redirect to='/'/>}/>
         <Route path="/cart" render={(props)=>this.auth.isAuthenticated()?<Cart {...props} userName={this.auth.getUserName()}/>:<Redirect to='/login'/>}/>
-        <Route path="/orders" render={(props)=>this.auth.isAuthenticated()&&<Orders {...props}/>}/>
+        <Route path="/orders" render={(props)=>this.auth.isAuthenticated()?<Orders {...props}/>:<Redirect to='/login'/>}/>
         <Route path="/editDetails" render={(props)=>this.auth.isAuthenticated() && <EditProfile {...props} userName={this.auth.getUserName()}/>}/>
         <Route path="/addAuthor" render={(props)=>this.auth.isAdminAuthenticated()?<AddAuthor {...props}/>:<Redirect to='/login'/>}/>
         <Route path="/addCategory" render={(props)=>this.auth.isAdminAuthenticated()?<AddCategory {...props}/>:<Redirect to='/login'/>}/>

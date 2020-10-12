@@ -44,7 +44,7 @@ class Profile extends React.Component{
                         <p>Name: {data[0].firstName}{' '}{data[0].lastName}</p>
                         <p>User Name: {data[0].userName}</p>
                         <p>Phone Number: {data[0].phnNo}</p>
-                        <p>Address: {data[0].address}{','}{data[0].state}{','}{data[0].city}{'.'}</p>
+                        <p>Address: {data[0].address}{','}{data[0].state}{','}{data[0].city}{'-'}{data[0].pincode}{'.'}</p>
                         
                     </div>
                     <div className="modal-footer">

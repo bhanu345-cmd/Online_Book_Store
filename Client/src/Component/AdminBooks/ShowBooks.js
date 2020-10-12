@@ -94,7 +94,7 @@ export default class ViewBooks extends React.Component{
                 <div className="container-fluid">
                     <AdminNav logoutHandler={this.logoutHandler}/>
                 </div>
-                <div className="container">
+                <div className="container ">
                     <div className="jumbotron w-75  mt-4 mb-4 border-0">
                     <h1 style={{fontSize:"25px"}}>List of Books</h1>
                     <h4 className="text-center">{this.state.message}</h4>
