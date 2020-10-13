@@ -7,7 +7,8 @@ var router=express.Router();
 router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({extended:false}));
 const multer = require('multer');
-
+var fs= require('fs');
+var path=require('path');
 var storage =multer.diskStorage({
     destination: function(req,file,cb){
         cb(null,'./uploads/');
@@ -84,6 +85,13 @@ router.put('/updateBook',upload.single('bookimg'),async(req,res)=>{
             res.send({message:"not a valid book"})
         }
         else{
+            fs.unlink(book.bookimg,(err)=>{
+                if(err){
+                console.log(err)}
+                else{
+                    console.log("Deleted Succesfully to update");
+                }
+            })
             book.bookName=req.body.bookName;
             book.price=req.body.price;
             book.description=req.body.description;
@@ -111,12 +119,6 @@ router.get('/getBookByAuthor/:author',async(req,res)=>{
     
 });
 router.post('/addBook',upload.single('bookimg'),async(req,res)=>{
-    // if (!req.file) {
-    //     console.log("No file received or invalid file type");
-    //     return res.send({
-    //         message: "No file received or invalid file type",
-    //         success: false
-    //     });}
     var newBook=books({
         bookName:req.body.bookName,
         author:req.body.author,
@@ -136,8 +138,16 @@ router.post('/addBook',upload.single('bookimg'),async(req,res)=>{
     }).catch(err=>res.send({message:"404 error"}));
 });
 router.post('/deleteBook/:id',async(req,res)=>{
-    books.findByIdAndRemove({_id:req.params.id}).then(()=>{
-        res.send({message:true});
+    books.findByIdAndRemove({_id:req.params.id}).then((book)=>{
+        console.log(book.bookimg+" file")
+        fs.unlink(book.bookimg,(err)=>{
+            if(err){
+            console.log(err)}
+            else{
+                console.log("Deleted Succesfully");
+            }
+        })
+    res.send({message:true});  
     }).catch(err=>res.send({message:err.message}));
 });
 router.post('/addCategory/:category',async(req,res)=>{
