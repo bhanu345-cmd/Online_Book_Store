@@ -3,15 +3,38 @@ var bodyParser=require('body-parser');
 var books=require('../Models/book');
 var category=require('../Models/category');
 var author=require('../Models/author');
+const multer = require('multer');
+var path =require('path');
+var fs= require('fs');
 var router=express.Router();
 router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({extended:false}));
+var storage =multer.diskStorage({
+    destination: function(req,file,cb){
+        cb(null,'./uploads/');
+    },
+    filename: function(req,file,cb){
+        cb(null,new Date().toISOString().replace(/:/g,"-")+"_"+file.originalname);
+    }
+});
+const fileFilter=(req,file,cb)=>{
+    if(file.mimetype==='image/jpeg'||file.mimetype==='image/jpg'||file.mimetype==='image/png'||file.mimetype==='image/jfif'){
+        cb(null,true);
+    }else{
+        cb(null,false);
+    }
+};
+const upload = multer({
+    storage: storage,
+    limits: {fieldSize:  1024*1024*5},
+    fileFilter: fileFilter
+});
 router.get('/getBooks',(req,res)=>{
         books.find({}).then((books)=>{
             if(books.length>0){
                 return res.send({message:true,books:books});
             }else{
-                return res.send({message:"Could not find books"});
+                return res.send({message:"No books found"});
             }
         }).catch((err)=>res.send({message:err.message}));
 });
@@ -58,13 +81,13 @@ router.get('/getBookByAuthor/:author',(req,res)=>{
         
     
 });
-router.post('/addBook',(req,res)=>{
+router.post('/addBook',upload.single('imageURL'),(req,res)=>{
     var newBook=books({
         bookName:req.body.bookName,
         author:req.body.author,
         price:req.body.price,
         category:req.body.category,
-        imageURL:req.body.imageURL,
+        imageURL:req.file.path,
         description:req.body.description,
         publishedDate:req.body.date
     });
@@ -75,11 +98,19 @@ router.post('/addBook',(req,res)=>{
         }else{
             res.send({message:"couldnot save"});
         }
-    }).catch(err=>res.send({message:"404 error"}));
+    }).catch(err=>res.send({message:err.message}));
 });
 router.post('/deleteBook/:id',(req,res)=>{
-    books.findByIdAndRemove({_id:req.params.id}).then(()=>{
-        res.send({message:true});
+    books.findByIdAndRemove({_id:req.params.id}).then((book)=>{
+        fs.unlink(book.imageURL,(err)=>{
+            if(err){
+               return res.send({message:true,errmessage:"Book deleted but image could not be deleted"});
+            }else{
+                return res.send({message:true});
+            }
+            
+        });
+       
     }).catch(err=>res.send({message:err.message}));
 });
 router.post('/addCategory/:category',(req,res)=>{
@@ -172,4 +203,32 @@ router.get('/search/:name',(req,res)=>{
     
   
 });
+router.put('/updateBook',upload.single('imageURL'),async(req,res)=>{
+    books.findOne({_id:req.body._id},(err,book)=>{
+        if(err){
+            res.send({message:"not a valid book"})
+        }
+        else{
+            fs.unlink(book.imageURL,(err)=>{
+                if(err){
+                console.log(err)}
+                else{
+                    console.log("Deleted Succesfully to update");
+                }
+            })
+            book.bookName=req.body.bookName;
+            book.price=req.body.price;
+            book.description=req.body.description;
+            book.imageURL= req.file.path;
+            book.save((err)=>{
+                if(err){
+                    res.send({success:false,message:"Unable to Update"});
+                }
+                else{
+                    res.send({success:true,message:"Updated Successfully"});
+                }
+            })
+        }
+    })
+})
 module.exports=router;

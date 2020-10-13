@@ -10,7 +10,6 @@ class Profile extends React.Component{
     };
     componentDidMount(){
         Axios.get(`http://localhost:4000/user/getUser/${this.props.userName}`).then((res)=>{
-            console.log(res.data)
             if(res.data){
                 this.setState({details:res.data[0]});
             }else{

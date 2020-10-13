@@ -35,6 +35,9 @@ class Navbar extends React.Component{
                             </li>}
                             {this.auth.isAuthenticated()&& <li className="nav-item"><Profile {...this.props} userName={this.props.userName}/></li>}
                             <li className="nav-item">
+                                <Link to={{pathname:`/orders`}}><span className="nav-link text-dark"><i className="fa fa-truck"></i></span></Link>
+                            </li>
+                            <li className="nav-item">
                                 <Link className="nav-link text-dark" to='/shoppingCart'><i className="fa fa-shopping-cart"><span className='badge badge-warning' id='lblCartCount'>{this.props.count}</span></i></Link>
                             </li>
                             {this.auth.isAuthenticated() && <li className="nav-item"><button className="btn btn-success" onClick={this.props.logout}>LogOut</button></li>}

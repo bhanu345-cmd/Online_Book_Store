@@ -24,14 +24,12 @@ import Auth from '../../Authentication/Auth';
         const {name,value}=e.target;
         this.setState({
             [name]:value
-        },()=>{
-            console.log(this.state);
         });
      }
      submit=(event)=>{
          event.preventDefault();
          const payload={
-            name: this.state.AuthorName,
+            name: this.state.AuthorName.toUpperCase(),
             contactNo: this.state.ContactNo,
             emailId: this.state.EmailID,
             address:this.state.Address

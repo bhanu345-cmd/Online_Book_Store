@@ -1,5 +1,6 @@
 var mongoose=require('mongoose');
 module.exports=mongoose.model('orders',new mongoose.Schema({
     orderedItems:{type:Array},
-    userName:{type:String,required:true}
+    userName:{type:String,required:true},
+    date:{type:Date,default: Date.now()}
 }));

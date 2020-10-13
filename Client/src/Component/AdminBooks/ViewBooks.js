@@ -22,22 +22,10 @@ export default class ViewBooks extends React.Component{
             if(res.message===true){
                 this.setState({books:res.books});
             }else{
-                this.setState({message: res.message})
-                toast.error(res.message, {
-                    position: toast.POSITION.TOP_CENTER,
-                    autoClose: true,
-                    // onClose:() =>window.location.reload()
-                  }
-                  );
-                // alert(res.message);
+                this.setState({message: res.message});
             }
         }).catch(err=>{if(err) 
-            toast.error("404 error !", {
-            position: toast.POSITION.TOP_CENTER,
-            autoClose: true,
-            onClose:() =>window.location.reload()
-          }
-          );
+            this.setState({message: err.message});
         // alert("404 error")
     });
     }
@@ -47,13 +35,13 @@ export default class ViewBooks extends React.Component{
     }
     confimationHandler = (id) =>{
         toast(
-            <>            
+            <Aux>            
             <p className="text-dark pt-3 text-center">Do you want to delete it?</p>
             <div className="pull-right pt-0 mt-0">
             <button className="btn btn-success btn-sm mr-2" onClick={()=>this.deleteHandler(id)}>Yes</button>
             <button className="btn btn-danger btn-sm">No</button>
             </div>
-            </>, {
+            </Aux>, {
             position: toast.POSITION.TOP_CENTER,
             autoClose: false,
             // onClose:() =>window.location.reload()
@@ -62,8 +50,15 @@ export default class ViewBooks extends React.Component{
     }
     deleteHandler=(id)=>{
         deleteBookById(id).then((res)=>{
-            if(res.message===true){
-                toast.info("Deleted Successfully !", {
+            if(res.message===true && res.errmessage){
+                toast.info(res.errmessage, {
+                    position: toast.POSITION.TOP_CENTER,
+                    autoClose: true,
+                    onClose:() =>window.location.reload()
+                  }
+                  );
+            }else if(res.message===true){
+                toast.info("Deleted successfully", {
                     position: toast.POSITION.TOP_CENTER,
                     autoClose: true,
                     onClose:() =>window.location.reload()
@@ -95,7 +90,8 @@ export default class ViewBooks extends React.Component{
                 </div>
                 <div className="container">
                     <div className="jumbotron w-75  mt-4 mb-4 border-0">
-                    <h1 style={{fontSize:"25px"}}>List of Books</h1>
+                    {!this.state.message && <h1 style={{fontSize:"25px"}}>List of Books</h1>}
+                    {this.state.message && <h5>{this.state.message}</h5>}
                     <table className="table showCategories">
                     {this.state.books.length>0 &&
                         <Aux> 
@@ -116,7 +112,9 @@ export default class ViewBooks extends React.Component{
                                     <td>{book.category}</td>
                                     <td>{book.author}</td>
                                     <td>{book.price}</td>
-                                    <td><i type="button" className="fa fa-trash text-danger" aria-hidden="true" style={{margin:"0px", fontSize:"15px"}} onClick={()=>this.confimationHandler(book._id)}></i> </td>
+                                    <td>
+                                        <i type="button" className="fa fa-pencil-square-o text-info mr-2" aria-hidden="true" style={{margin:"0px", fontSize:"15px"}} onClick={()=>this.updateHandler(book._id)}></i>
+                                        <i type="button" className="fa fa-trash text-danger" aria-hidden="true" style={{margin:"0px", fontSize:"15px"}} onClick={()=>this.confimationHandler(book._id)}></i> </td>
                                 </tr>
                             )
                         })}

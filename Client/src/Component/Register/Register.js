@@ -156,6 +156,7 @@ class Register extends React.Component{
         const {errors} = this.state;
         return(
             <div className="container text-center">
+            <ToastContainer/>
             <div className="projName text-center">
                 <a href="/#"><strong>Book Store</strong></a>
             </div>

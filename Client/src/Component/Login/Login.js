@@ -81,12 +81,7 @@ class Login extends React.Component{
                 if(res.message===true){
                     this.props.history.push('/Home');
                 }else{
-                    toast.error(res.message, {
-                        position: toast.POSITION.TOP_CENTER,
-                        autoClose: true,
-                        // onClose:() =>window.location.reload()
-                      }
-                      );
+                    this.setState({message:res.message});
                 }
             });
         }

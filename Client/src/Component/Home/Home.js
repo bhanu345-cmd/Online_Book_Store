@@ -11,7 +11,7 @@ import Footer from '../../Others/Footer';
 import {search} from '../UserFunctions/UserFunctions.js'
 import Banner from '../Banner/Banner.js';
 import Axios from 'axios';
-import {getCartItems,getBookByCategory,getBookByAuthor,getBookById} from '../UserFunctions/UserFunctions.js';
+import {getCartItems,getBookByCategory,getBookByAuthor} from '../UserFunctions/UserFunctions.js';
 class Home extends React.Component{
     state={searchItem:"",books:[],display:true,result:[],message:"",displaySearch:true,count:0};
     constructor(props){
@@ -56,7 +56,6 @@ class Home extends React.Component{
     }
     getBooksByCategory=async(category)=>{
         await this.setState({display:false});
-        await this.setState
         this.resetHandler();
         getBookByCategory(category).then((res)=>{
             if(res.message===true){
@@ -86,7 +85,7 @@ class Home extends React.Component{
     componentDidMount(){
         Axios.get("http://localhost:4000/book/getBooks").then((res)=>{
             if(res.data.message===true){
-                this.setState({books:res.data.books});
+                this.setState({books:res.data.books.slice(0,8)});
             }else{ 
                 this.setState({message:"No books Found"});
             }

@@ -2,9 +2,9 @@ import React from 'react';
 import Auth from '../../Authentication/Auth.js';
 import Aux from '../../hoc/Auxiliary.js';
 import Navbar from '../Navbar/Navbar';
-import carousel1 from '../Images/carousel1.jpg';
 import './Cart.css';
 import {decrement,increment,deleteBook,getCartItems,placeOrder } from '../UserFunctions/UserFunctions.js';
+import { ToastContainer, toast } from 'react-toastify';
 export default class Cart extends React.Component{
     state={
         searchItem:"",
@@ -36,9 +36,9 @@ export default class Cart extends React.Component{
                     
                 });
             }else{
-                    this.setState({message:"Your cart is empty"});   
+                    this.setState({message:res.message});   
             }
-        }).catch(err=>this.setState({message:"404 error"}));
+        }).catch(err=>this.setState({message:err.message}));
         
     }
     logoutHandler=()=>{
@@ -47,12 +47,13 @@ export default class Cart extends React.Component{
     decrementHandler=(id)=>{
         decrement(id,this.auth.getUserName()).then((res)=>{
             if(res.message===true){
-                this.setState({message:`decremented Successfully`});
                 window.location.reload();
             }else{
-                this.setState({message: `Unable to do the action please try again later`},()=>{
-                    alert(this.state.message);
-                });
+                toast.error("Unable to decrement try again later!", {
+                    position: toast.POSITION.TOP_CENTER,
+                    autoClose: true,
+                  }
+                  );
                 
             }
         }).catch((err=>this.setState({message:'Error in loading the cart'})));
@@ -61,12 +62,13 @@ export default class Cart extends React.Component{
     incrementHandler= (event,id)=>{
         increment(id,this.auth.getUserName()).then((res)=>{
             if(res.message===true){
-                this.setState({message:`incremented Successfully`});
                 window.location.reload();
             }else{
-                this.setState({message: `Unable to do the action please try again later`},()=>{
-                    alert(this.state.message);
-                });
+                toast.error("Unable to increment try again later!", {
+                    position: toast.POSITION.TOP_CENTER,
+                    autoClose: true,
+                  }
+                  );
                 
             }
         }).catch((err=>this.setState({message:'Error in loading the cart'})));
@@ -75,11 +77,18 @@ export default class Cart extends React.Component{
     deletecartItem=(id)=>{
        deleteBook(id,this.auth.getUserName()).then((res)=>{    
         if(res.message===true){
-                this.setState({message:`increemented Successfully`});
-                window.location.reload();
+            toast.info("Deleted successfully!", {
+                position: toast.POSITION.TOP_CENTER,
+                autoClose: true,
+                onClose:() =>window.location.reload()
+              }
+              );
             }else{
-                this.setState({message: `Unable to do the action please try again later`});
-                alert(this.state.message);
+                toast.error("Unable to delete try again later!", {
+                    position: toast.POSITION.TOP_CENTER,
+                    autoClose: true,
+                  }
+                  );
             }
         });
     }
@@ -120,11 +129,15 @@ export default class Cart extends React.Component{
             return false;
         }
         else{
-                placeOrder({cartItems:this.state.cartItems,userName:this.auth.getUserName()}).then((res)=>{
+            placeOrder({cartItems:this.state.cartItems,userName:this.auth.getUserName()}).then((res)=>{
                     if(res.message===true){
                         this.props.history.push('/orders');
                     }else{
-                        alert("Could not place order");
+                        toast.error("Could not place order", {
+                            position: toast.POSITION.TOP_CENTER,
+                            autoClose: true,
+                          }
+                          );
                         return false;
                     }
                 }).catch((err)=>{if(err){this.setState({message:"404 error"})}});
@@ -136,6 +149,7 @@ export default class Cart extends React.Component{
     render(){
         return(
             <Aux>
+            <ToastContainer/>
             <div className="container-fluid">
                 <Navbar {...this.props} userName={this.auth.getUserName()} display={this.state.displayCart} logout={()=>{this.logoutHandler()}} count={this.state.cartItems.length}/>
             </div>
@@ -147,7 +161,7 @@ export default class Cart extends React.Component{
                         {this.state.cartItems.map((cartItem,index)=>{
                             return(
                                 <div className="card flex-row w-75" key={index}> 
-                                    <img src={carousel1} className="card-img cartimg" alt="..." height="200px" />
+                                    <img src={`http://localhost:4000/${cartItem.book.imageURL}`} className="card-img cartimg" alt="..." height="200px" />
                                     <div className="card-body">
                                             <h5 className="card-title"><span>{cartItem.book.bookName}</span></h5>
                                             <p className="card-text">Author:<span>{cartItem.book.author}</span></p>

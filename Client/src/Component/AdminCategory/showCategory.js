@@ -24,21 +24,9 @@ export default class ShowCategories extends React.Component{
                 this.setState({categories:res.categories});
             }else{
                 this.setState({message: res.message})
-                toast.error(res.message, {
-                    position: toast.POSITION.TOP_CENTER,
-                    autoClose: true,
-                    // onClose:() =>window.location.reload()
-                  }
-                  );
-                // alert(res.message);
             }
         }).catch(err=>{if(err) 
-            toast.error("404 error !", {
-                position: toast.POSITION.TOP_CENTER,
-                autoClose: true,
-                onClose:() =>window.location.reload()
-              }
-              );
+            this.setState({message:err.message});
             // alert("404 error")
         });
     }
@@ -88,12 +76,14 @@ export default class ShowCategories extends React.Component{
     render(){
         return(
             <Aux>
+                <ToastContainer/>
                 <div className="container-fluid">
                     <AdminNav logoutHandler={this.logoutHandler}/>
                 </div>
                 <div className="container">
                     <div className="jumbotron w-75  mt-4 mb-4 border-0">
-                    <h1 style={{fontSize:"25px"}}>List of Categories</h1>
+                    {this.state.categories.length>0 && <h1 style={{fontSize:"25px"}}>List of Categories</h1>}
+                    {this.state.message&&<h5>{this.state.message}</h5>}
                     <table className="table showCategories">
                     {this.state.categories.length>0 &&
                         <Aux> 

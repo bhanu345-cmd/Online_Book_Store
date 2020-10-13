@@ -6,6 +6,7 @@ import Services from '../../Others/Services';
 import Footer from '../../Others/Footer';
 import {addBook,getCategories,getAuthors} from '../UserFunctions/UserFunctions';
 import Auth from '../../Authentication/Auth';
+import { ToastContainer, toast } from 'react-toastify';
 class AddBook extends React.Component{
     state={
         BookTitle: '',
@@ -17,7 +18,8 @@ class AddBook extends React.Component{
         description:'',
         message:'',
         categories:[],
-        authors:[]
+        authors:[],
+        fileTypeError:''
      };
      constructor(props){
       super(props);
@@ -30,28 +32,57 @@ class AddBook extends React.Component{
         const {name,value}=e.target;
         this.setState({
             [name]:value
-        },()=>{console.log(this.state)});
+        });
      }
+     handleChangeFile=(e)=>{
+      const {name,files}=e.target;
+      let filetype=files[0].name.split('.').pop();
+      if(filetype==='jpg'||filetype==='png'||filetype==='jpeg'||filetype==='jfif'){       
+          this.setState({
+            [name]:files[0]
+          });
+      }else{
+        this.setState({fileTypeError:"Only jpg,png,jpeg,jfif are accepted"});
+      }
+    }
      submit=(event)=>{
          event.preventDefault();
-         const payload={
-            bookName: this.state.BookTitle,
-            author: this.state.AuthorName,
-            category: this.state.Category,
-            price: this.state.Price,
-            date:this.state.PublishedDate,
-            imageURL:this.state.ImageURL,
-            description:this.state.description
-            //ReleaseDate:this.state.ReleaseDate
-         };
-         this.resetUserInputs();
-        addBook(payload).then((res)=>{
-            if(res.message===true){
-              this.setState({message:"Added"})
-            }else{
-              this.setState({message:res.message});
-            }
-        }).catch(err=>{this.setState({message:err.messsage})})
+         if(this.state.fileTypeError){
+          toast.error("Enter valid files", {
+            position: toast.POSITION.TOP_CENTER,
+            autoClose: true,
+            onClose:() =>window.location.reload()
+          }
+          );
+           return false;
+         }else{
+            const formData= new FormData();
+            formData.append('bookName',this.state.BookTitle);
+            formData.append('author',this.state.AuthorName);
+            formData.append('category',this.state.Category);
+            formData.append('price',this.state.Price);
+            formData.append('date',this.state.PublishedDate);
+            formData.append('description',this.state.description);
+            formData.append('imageURL',this.state.ImageURL);
+            /*const payload={
+                bookName: this.state.BookTitle,
+                author: this.state.AuthorName,
+                category: this.state.Category,
+                price: this.state.Price,
+                date:this.state.PublishedDate,
+                imageURL:this.state.ImageURL,
+                description:this.state.description
+                //ReleaseDate:this.state.ReleaseDate
+            };*/
+            this.resetUserInputs();
+            addBook(formData).then((res)=>{
+                if(res.message===true){
+                  this.setState({message:"Added"})
+                }else{
+                  this.setState({message:res.message});
+                }
+            }).catch(err=>{this.setState({message:err.messsage})})
+        }
      }
      resetUserInputs=()=>{
          this.setState({
@@ -69,28 +100,34 @@ class AddBook extends React.Component{
             if(res.message===true){
                 this.setState({categories:res.categories});
             }else{
-                alert(res.message);
+              toast.error("Add categories to add book", {
+                position: toast.POSITION.TOP_CENTER,
+                autoClose: true
+              })
             }
           }).catch(err=>{if(err) alert(err.message)});
         getAuthors().then((res)=>{
           if(res.message===true){
               this.setState({authors:res.authors});
           }else{
-              alert(res.message);
+            toast.error("Add Authors to add book", {
+              position: toast.POSITION.TOP_CENTER,
+              autoClose: true
+            })
           }
           }).catch(err=>{if(err) alert("404 error")});
      }
 render(){
-    console.log('state',this.state);
-    return(
+        return(
        <Aux>
+         <ToastContainer/>
         <div className="container-fluid">
             <AdminNav logoutHandler={this.logoutHandler}/>
         </div>
         <div className="container">
         <div className="row pt-3">
         <div className="col-12 d-flex justify-content-center">
-          <div className="jumbotron text-center">
+          {this.state.categories.length>0 && this.state.authors.length>0 &&<div className="jumbotron text-center">
               <h4>Add Book</h4>
               <form  onSubmit={this.submit}>
               <div className="form-group">
@@ -101,25 +138,26 @@ render(){
                   name="BookTitle"
                   placeholder="Enter Book Title"
                   onChange={this.handleChange}
+                  value={this.state.BookTitle}
                   required
                 />
               </div>
               <div className="form-group">
-              <label for="AuthorName" className="float-sm-left">Author:</label>
+              <label htmlFor="AuthorName" className="float-sm-left">Author:</label>
                 <select className="custom-select" id="AuthorName" name="AuthorName" required onChange={this.handleChange}>
                   <option>Select an author</option>
-                  {this.state.authors.map((author)=>{
-                    return <option value={author.name}>{author.name}</option>
-                  })}
+                  {this.state.authors.map((author)=>
+                    <option value={author.name} key={author._id}>{author.name}</option>
+                  )}
                 </select>
               </div>
               <div className="form-group">
-              <label for="Category" className="float-sm-left">Category:</label>
+              <label htmlFor="Category" className="float-sm-left">Category:</label>
               <select className="custom-select" id="Category" name="Category" required onChange={this.handleChange}>
                   <option>Select an category</option>
-                  {this.state.categories.map((category)=>{
-                    return <option value={category.name}>{category.name}</option>
-                  })}
+                  {this.state.categories.map((category)=>
+                    <option value={category.name} key={category._id}>{category.name}</option>
+                  )}
                 </select>
               </div>
               <div className="form-group">
@@ -130,6 +168,7 @@ render(){
                   name="Price"
                   placeholder="Price"
                   onChange={this.handleChange}
+                  value={this.state.Price}
                   required
                 />
               </div>
@@ -148,13 +187,14 @@ render(){
               <div className="form-group">
                 <label className="float-sm-left" htmlFor="text">Image URL:</label>
                 <input
-                  type="text"
+                  type="file"
                   className="form-control"
                   name="ImageURL"
                   placeholder="URL"
-                  onChange={this.handleChange}
+                  onChange={this.handleChangeFile}
                   required
                 />
+                {this.state.fileTypeError && <span className='error text-right'>{this.state.fileTypeError}</span>}
               </div>
               <div className="form-group">
                 <label className="float-sm-left" htmlFor="text">Description:</label>
@@ -164,6 +204,7 @@ render(){
                   name="description"
                   placeholder="description"
                   onChange={this.handleChange}
+                  value={this.state.description}
                   rows="3"
                   required
                 />
@@ -176,7 +217,7 @@ render(){
               </button>
               <h5 className="mt-2" style={{fontSize:"16px",color:'red'}}>{this.state.message}</h5>
             </form>
-          </div>
+          </div>}
         </div>
         </div> 
         </div>

@@ -20,7 +20,7 @@ router.post('/placeOrder',(req,res)=>{
 });
 router.get('/orderedItems',(req,res)=>{
     orders.find({userName:req.query.userName}).then((orderedItemList)=>{
-        if(orderedItemList){
+        if(orderedItemList.length>0){
             res.send({message:true,orders:orderedItemList});
         }else{
             res.send({message:false});

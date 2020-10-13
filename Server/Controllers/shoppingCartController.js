@@ -56,7 +56,7 @@ router.get('/getCartItems',(req,res)=>{
         if(userCartBooks.length>0){
                     res.send({cartItems:userCartBooks,message:true});//array
                 }else{
-                    res.send({message:false});
+                    res.send({message:"Your cart is empty"});
                 }
             }).catch((err)=>res.send({message:err.message}));
         

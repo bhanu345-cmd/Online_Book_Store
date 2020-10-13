@@ -15,21 +15,12 @@ export default class ShowAuthors extends React.Component{
             if(res.message===true){
                 this.setState({authors:res.authors});
             }else {
-                toast.error(res.message, {
-                position: toast.POSITION.TOP_CENTER,
-                autoClose: true,
-              }
-              );
-            //   this.setState({message: res.message})
+                
+             this.setState({message: res.message})
             // alert(res.message);
         }
         }).catch(err=>{if(err) 
-            toast.error("404 error !", {
-                position: toast.POSITION.TOP_CENTER,
-                autoClose: true,
-                onClose:() =>window.location.reload()
-            }
-            );
+           this.setState({message:err.message});
         // alert("404 error")
         });
     }
@@ -94,7 +85,8 @@ export default class ShowAuthors extends React.Component{
                 </div>
                 <div className="container">
                     <div className="jumbotron w-75  mt-4 mb-4 border-0">
-                    <h1 style={{fontSize:"25px"}}>List of Authors</h1>
+                    {!this.state.message&&<h1 style={{fontSize:"25px"}}>List of Authors</h1>}
+                    {this.state.message && <h5>{this.state.message}</h5>}
                     <table className="table showAuthors">
                     {this.state.authors.length>0 &&
                         <Aux> 

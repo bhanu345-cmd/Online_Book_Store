@@ -3,7 +3,6 @@ import Auth from '../../Authentication/Auth.js';
 import Aux from '../../hoc/Auxiliary.js';
 import Navbar from '../Navbar/Navbar';
 import {orders} from '../UserFunctions/UserFunctions';
-import carousel1 from '../Images/carousel1.jpg';
 import {Link} from 'react-router-dom';
 import './Order.css';
 export default class Orders extends React.Component{
@@ -30,7 +29,6 @@ export default class Orders extends React.Component{
                     });
                     return 0;
                 });
-                console.log(orders);
                 this.setState({result:orders});
             }else{
                 this.setState({message:"Place orders to view order list"});
@@ -47,21 +45,21 @@ export default class Orders extends React.Component{
             </div>
             <div className="container">
                 <div className="mt-5">
-                <h3 className="text-dark"><span >My Orders</span></h3>
-                                {this.state.result.map((cartItem,index)=>{
+                {!this.state.message && <h3 className="text-dark"><span >My Orders</span></h3>}
+                {this.state.message&&<h5 className="text-dark">{this.state.message}</h5>}
+                                {this.state.result.map((orderedItem,index)=>{
                                     return(
-                                    <>
+                                    <Aux key={index}>
                                     <div className="row mt-3 font-custom-style" style={{border: "1px #ddd solid"}}>
                                         <div className="col-12">
                                             <div className="row  row-header">
                                                 <div className="col">
                                                     <ul className="list-group list-group-horizontal">
                                                         <li className="list-group-item"><div className="row">ORDER PLACED</div>
-                                                            <div className="row">Date</div>
                                                         </li>
                                                     <li className="list-group-item">
                                                         <div className="row">TOTAL</div>
-                                                        <div className="row">{cartItem.totalPrice}</div>
+                                                        <div className="row">{orderedItem.totalPrice}</div>
                                                     </li>
                                                     <li className="list-group-item">
                                                         <div className="row">SHIP TO </div>
@@ -90,12 +88,12 @@ export default class Orders extends React.Component{
                                                 <div className="row m-3 bookDetails">
                                                     <div className="col-lg-7 col-md-7 col-sm-7">
                                                         <div className="d-flex justify-content-start">
-                                                            <img src={carousel1} alt="..." height="100px" width="100px" className="border-secondary m-0"/>
+                                                            <img src={`http://localhost:4000/${orderedItem.book.imageURL}`} alt="..." height="100px" width="100px" className="border-secondary m-0"/>
                                                             <div className="ml-3 bookDetails">
-                                                                <h5>{cartItem.book.bookName}</h5>
-                                                                <p>Author:<span className="author-color">{cartItem.book.author}</span></p>
-                                                                <p>Category:{cartItem.book.category}</p>
-                                                                <p>Price:<span className="price-color">{cartItem.book.price}</span></p>
+                                                                <h5>{orderedItem.book.bookName}</h5>
+                                                                <p>Author:<span className="author-color">{orderedItem.book.author}</span></p>
+                                                                <p>Category:{orderedItem.book.category}</p>
+                                                                <p>Price:<span className="price-color">{orderedItem.book.price}</span></p>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -114,7 +112,7 @@ export default class Orders extends React.Component{
                                         </div>    
                                            
                                     </div>   
-                                    </>
+                                    </Aux>
                                 );
                             })}
                     </div>

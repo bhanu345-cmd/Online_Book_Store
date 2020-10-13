@@ -44,7 +44,6 @@ class EditProfile extends React.Component{
         this.auth.logout();
     }
     componentDidMount(){
-        console.log(this.props.userName);
         Axios.get(`http://localhost:4000/user/getUser/${this.props.userName}`).then((res)=>{
             console.log(res.data)
             if(res.data){
