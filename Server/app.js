@@ -14,7 +14,7 @@ app.use('/book',bookController);
 app.use('/user',userController);
 app.use('/cart',cartController);
 app.use('/order',orderController);
-app.use('/uploads',express.static(path.join('uploads')));
+app.use('/uploads',express.static(path.join(__dirname,'uploads')));
 mongoose.connect(config.getDbConnectionString(),{useCreateIndex:true,useNewUrlParser:true,useUnifiedTopology:true,useFindAndModify:false});
 const db=mongoose.connection;
 db.on('error',console.error.bind(console,'connection error:'))

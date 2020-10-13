@@ -18,7 +18,8 @@ class AddBook extends React.Component{
         message:'',
         bookimg:'',
         categories:[],
-        authors:[]
+        authors:[],
+        error: ''
      };
      constructor(props){
       super(props);
@@ -34,12 +35,30 @@ class AddBook extends React.Component{
         },()=>{console.log(this.state)});
      }
      handleChangeFile=(e)=>{
-       this.setState({
-         bookimg: e.target.files[0]
-       });
+       console.log(e.target.files[0].name)
+       let filetype=e.target.files[0].name.split('.').pop();
+       let error=this.state.error;
+       console.log("File Type:" +filetype+",bookimg "+this.state.bookimg);
+       if(filetype==='jpg'||filetype==='png'||filetype==='jpeg'||filetype==='jfif'){                    
+        this.setState({message:""});
+         console.log("inside if")
+         this.setState({error:'',
+          bookimg: e.target.files[0]
+        });
+         
+       }
+       else{
+        console.log("inside else")
+        error="No file received or Invalid file type(NOTE:jpg,jpeg,png,jfif are accepted)"
+         this.setState({error:error,
+          bookimg: e.target.files[0]
+        });
+
+       }
      }
      submit=(event)=>{
          event.preventDefault();
+         if(this.state.error===''){
          const formData= new FormData();
          formData.append('bookName',this.state.BookTitle);
          formData.append('author',this.state.AuthorName);
@@ -70,15 +89,23 @@ class AddBook extends React.Component{
               this.setState({message:"Added"});
               toast.info(this.state.message, {
                 position: toast.POSITION.TOP_CENTER,
-                autoClose: 500,
-                // onClose:() =>window.location.reload()
+                autoClose: 1500,
+                onClose:() =>window.location.reload()
               });
-              window.location.reload()
             }else{
               this.setState({message:res.message});
             }
         }).catch(err=>{this.setState({message:err.messsage})})
      }
+     else{
+      this.setState({message:"Enter all feilds correctly"});
+      toast.error("Enter all feilds correctly", {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: 2000,
+      }
+      );
+     }
+    }
      resetUserInputs=()=>{
          this.setState({
             BookTitle: '',
@@ -131,20 +158,20 @@ render(){
                 />
               </div>
               <div className="form-group">
-              <label for="AuthorName" className="float-sm-left">Author:</label>
+              <label htmlFor="AuthorName" className="float-sm-left">Author:</label>
                 <select className="custom-select" id="AuthorName" name="AuthorName" required onChange={this.handleChange}>
                   <option>Select an author</option>
-                  {this.state.authors.map((author)=>{
-                    return <option value={author.name}>{author.name}</option>
+                  {this.state.authors.map((author,index)=>{
+                    return <option key={index} value={author.name}>{author.name}</option>
                   })}
                 </select>
               </div>
               <div className="form-group">
-              <label for="Category" className="float-sm-left">Category:</label>
+              <label htmlFor="Category" className="float-sm-left">Category:</label>
               <select className="custom-select" id="Category" name="Category" required onChange={this.handleChange}>
                   <option>Select an category</option>
-                  {this.state.categories.map((category)=>{
-                    return <option value={category.name}>{category.name}</option>
+                  {this.state.categories.map((category,index)=>{
+                    return <option key={index} value={category.name}>{category.name}</option>
                   })}
                 </select>
               </div>
@@ -183,15 +210,19 @@ render(){
                 />
               </div> */}
               <div className="form-group">
-                <label className="float-sm-left" htmlFor="text">Upload Image</label>
+                <label className="float-sm-left" htmlFor="text">Upload Image:</label>
                 <input
                   type="file"
                   className="form-control"
                   name="bookimg"
-                  placeholder="URL"
+                  placeholder="Image File"
+                  id="bookimg"
                   onChange={this.handleChangeFile}
                   required
                 />
+                <div className="float-right error">
+                                {this.state.error.length > 0 && 
+                                    <span className='error'>{this.state.error}</span>}</div>
               </div>
               <div className="form-group">
                 <label className="float-sm-left" htmlFor="text">Description:</label>

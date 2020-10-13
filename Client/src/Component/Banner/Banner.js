@@ -20,7 +20,7 @@ class Banner extends React.Component{
                 </div>
                 <div className="col-lg-6 col-md-6 c0l-sm-6 p-1">
                     <div className="card bannercard">
-                        <img className="card-img-top cover" src={everybook} alt="Card image cap" height="200"/>            
+                        <img className="card-img-top cover" src={everybook} alt="Card_image_cap" height="200"/>            
                     </div>
                 </div>
             </div>
@@ -30,17 +30,17 @@ class Banner extends React.Component{
                     <div className="row">
                         <div className="col-lg-4 col-md-4 p-1">
                             <div className="card bannercard">
-                                <img className="card-img-top cover authorimg" src={chetan} alt="Card image cap" height="200"/>            
+                                <img className="card-img-top cover authorimg" src={chetan} alt="Card_image_cap" height="200"/>            
                             </div>
                         </div>
                         <div className="col-lg-4 col-md-4 p-1">
                             <div className="card bannercard">
-                                <img className="card-img-top cover authorimg" src={jkrowling} alt="Card image cap" height="200"/>            
+                                <img className="card-img-top cover authorimg" src={jkrowling} alt="Card_image_cap" height="200"/>            
                             </div>
                         </div>
                         <div className="col-lg-4 col-md-4 p-1">
                             <div className="card bannercard">
-                                <img className="card-img-top cover authorimg" src={pauloCoelho} alt="Card image cap" height="200"/>            
+                                <img className="card-img-top cover authorimg" src={pauloCoelho} alt="Card_image_cap" height="200"/>            
                             </div>
                         </div>
                     </div>
@@ -49,17 +49,17 @@ class Banner extends React.Component{
                     <div className="row">
                         <div className="col-lg-4 col-md-4 p-1">
                             <div className="card bannercard">
-                                <img className="card-img-top cover authorimg" src={bookGenres} alt="Card image cap" height="200"/>            
+                                <img className="card-img-top cover authorimg" src={bookGenres} alt="Card_image_cap" height="200"/>            
                             </div>
                         </div>
                         <div className="col-lg-4 col-md-4 p-1">
                             <div className="card bannercard">
-                                <img className="card-img-top cover authorimg" src={webd} alt="Card image cap" height="200"/>            
+                                <img className="card-img-top cover authorimg" src={webd} alt="Card_image_cap" height="200"/>            
                             </div>
                         </div>
                         <div className="col-lg-4 col-md-4 p-1">
                             <div className="card bannercard">
-                                <img className="card-img-top cover authorimg" src={science} alt="Card image cap" height="200"/>            
+                                <img className="card-img-top cover authorimg" src={science} alt="Card_image_cap" height="200"/>            
                             </div>
                         </div>
                     </div>

@@ -22,7 +22,6 @@ export default class ViewBooks extends React.Component{
         getBooks().then((res)=>{
             if(res.message===true){
                 this.setState({books:res.books});
-                console.log(this.state.books)
             }else{
                 this.setState({message: res.message})
                 toast.error(res.message, {
@@ -64,6 +63,7 @@ export default class ViewBooks extends React.Component{
     }
     deleteHandler=(id)=>{
         deleteBookById(id).then((res)=>{
+            // window.location.reload()
             if(res.message===true){
                 toast.info("Deleted Successfully !", {
                     position: toast.POSITION.TOP_CENTER,
@@ -115,9 +115,9 @@ export default class ViewBooks extends React.Component{
                         </tr>
                         </thead>
                         <tbody>
-                        {this.state.books.map((book)=>{
+                        {this.state.books.map((book,index)=>{
                             return(
-                                <tr>
+                                <tr key={index}>
                                     <td >{this.state.count=this.state.count+1}</td>
                                     <td>{book.bookName}</td>
                                     <td>{book.category}</td>

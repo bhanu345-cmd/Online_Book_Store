@@ -70,3 +70,5 @@ Category: Autobiography
 Price: 735
 Description:Avul Pakir Jainulabdeen Abdul Kalam, this Is The Story Of Kalam`S Rise From Obscurity And His Personal And Professional Struggles, As Well As The Story Of Agni, Prithvi, Akash, Trishul And Nag--Missiles That Have Become Household Names In India And That Have Raised The Nation To The Level Of A Missile Power Of International Reckoning
 -----------------------
+//
+db.books.update({},{$unset: {imageURL:""}},{multi: true});

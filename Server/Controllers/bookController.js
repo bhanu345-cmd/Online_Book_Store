@@ -37,7 +37,7 @@ const upload = multer({
 //     next();
 // })
 // }
-router.get('/getBooks',(req,res)=>{
+router.get('/getBooks',async(req,res)=>{
         books.find({}).then((books)=>{
             if(books.length>0){
                 return res.send({message:true,books:books});
@@ -47,7 +47,7 @@ router.get('/getBooks',(req,res)=>{
         }).catch((err)=>res.send({message:err.message}));
 });
 
-router.get('/getBook/:name',(req,res)=>{
+router.get('/getBook/:name',async(req,res)=>{
     books.find({bookName:req.params.name},function(err,book){
         if(book){
             res.send(book);
@@ -58,7 +58,7 @@ router.get('/getBook/:name',(req,res)=>{
 });
 
 
-router.get('/getBookByCategory/:category',(req,res)=>{
+router.get('/getBookByCategory/:category',async(req,res)=>{
     books.find({category:req.params.category}).then((books)=>{
         if(books.length>0){
             res.send({message:true,books:books});
@@ -69,7 +69,7 @@ router.get('/getBookByCategory/:category',(req,res)=>{
         
     
 });
-router.get('/getBookById/:id',(req,res)=>{
+router.get('/getBookById/:id',async(req,res)=>{
     books.find({_id:req.params.id}).then((book)=>{
         if(books.length>0){
             res.send({message:true,book:book});
@@ -78,7 +78,7 @@ router.get('/getBookById/:id',(req,res)=>{
         }
     }).catch((err)=>res.send({message:err.message}));
 });
-router.put('/updateBook',upload.single('bookimg'),(req,res)=>{
+router.put('/updateBook',upload.single('bookimg'),async(req,res)=>{
     books.findOne({_id:req.body._id},(err,book)=>{
         if(err){
             res.send({message:"not a valid book"})
@@ -99,7 +99,7 @@ router.put('/updateBook',upload.single('bookimg'),(req,res)=>{
         }
     })
 })
-router.get('/getBookByAuthor/:author',(req,res)=>{
+router.get('/getBookByAuthor/:author',async(req,res)=>{
     books.find({author:req.params.author}).then((books)=>{
         if(books.length>0){
             res.send({message:true,books:books});
@@ -110,13 +110,18 @@ router.get('/getBookByAuthor/:author',(req,res)=>{
         
     
 });
-router.post('/addBook',upload.single('bookimg'),(req,res)=>{
+router.post('/addBook',upload.single('bookimg'),async(req,res)=>{
+    // if (!req.file) {
+    //     console.log("No file received or invalid file type");
+    //     return res.send({
+    //         message: "No file received or invalid file type",
+    //         success: false
+    //     });}
     var newBook=books({
         bookName:req.body.bookName,
         author:req.body.author,
         price:req.body.price,
         category:req.body.category,
-        imageURL:req.body.imageURL,
         description:req.body.description,
         publishedDate:req.body.date,
         bookimg: req.file.path
@@ -130,12 +135,12 @@ router.post('/addBook',upload.single('bookimg'),(req,res)=>{
         }
     }).catch(err=>res.send({message:"404 error"}));
 });
-router.post('/deleteBook/:id',(req,res)=>{
+router.post('/deleteBook/:id',async(req,res)=>{
     books.findByIdAndRemove({_id:req.params.id}).then(()=>{
         res.send({message:true});
     }).catch(err=>res.send({message:err.message}));
 });
-router.post('/addCategory/:category',(req,res)=>{
+router.post('/addCategory/:category',async(req,res)=>{
     category.findOne({name:req.params.category}).then((result)=>{
         if(result){
             res.send({message:"Category already exists"});
@@ -152,7 +157,7 @@ router.post('/addCategory/:category',(req,res)=>{
     })
     
 })
-router.get('/getCategories',(req,res)=>{
+router.get('/getCategories',async(req,res)=>{
     category.find({}).then((result)=>{
         if(result.length>0){
             res.send({message:true,categories:result});
@@ -161,12 +166,12 @@ router.get('/getCategories',(req,res)=>{
         }
     }).catch((err)=>res.send({message:"404 error"}));
 })
-router.post('/deleteCategory/:id',(req,res)=>{
+router.post('/deleteCategory/:id',async(req,res)=>{
     category.findByIdAndRemove({_id:req.params.id}).then(()=>{
         res.send({message:true});
     }).catch(err=>res.send({message:err.message}));
 });
-router.post('/addAuthor',(req,res)=>{
+router.post('/addAuthor',async(req,res)=>{
     author.findOne({name:req.body.name}).then((result)=>{
         if(result){
             res.send({message:"Author already exists"});
@@ -184,7 +189,7 @@ router.post('/addAuthor',(req,res)=>{
     
 })
 
-router.get('/getAuthors',(req,res)=>{
+router.get('/getAuthors',async(req,res)=>{
     author.find({}).then((result)=>{
         if(result.length>0){
             res.send({message:true,authors:result});
@@ -193,12 +198,12 @@ router.get('/getAuthors',(req,res)=>{
         }
     }).catch((err)=>res.send({message:"404 error"}));
 })
-router.post('/deleteAuthor/:id',(req,res)=>{
+router.post('/deleteAuthor/:id',async(req,res)=>{
     author.findByIdAndRemove({_id:req.params.id}).then(()=>{
         res.send({message:true});
     }).catch(err=>res.send({message:err.message}));
 });
-router.get('/search/:name',(req,res)=>{
+router.get('/search/:name',async(req,res)=>{
         books.find({"bookName":{$regex : `^${req.params.name}.*` , $options: 'si' }}).then((searchedBooks)=>{
             if(searchedBooks.length>0){
                 res.send(searchedBooks);

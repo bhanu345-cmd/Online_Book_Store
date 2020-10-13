@@ -9,7 +9,7 @@ import LeftNavbar from '../Navbar/LeftNavbar';
 import Navbar from '../Navbar/Navbar';
 import Books from '../Books/Books';
 export default class BookDescription extends React.Component{
-    state={searchItem:"",books:[],display:true,result:[],message:"",displaySearch:true,count:0,bookById:{},
+    state={searchItem:"",books:[],display:true,result:[],message:"",displaySearch:true,count:0,bookById:{},bookimg:'',
 bookdetailid: localStorage.getItem("bookdetailId")};
     constructor(props){
         super(props);
@@ -75,16 +75,25 @@ bookdetailid: localStorage.getItem("bookdetailId")};
         }).catch(err=>this.setState({message:"404 Error"}));
 
     }
-    formatData=(date)=>{
-        console.log(date);
-        // return date
+    formatData=(publisheddate)=>{
+        if(publisheddate!==undefined){
+        var date=new Date(publisheddate);
+        const currentMonth = date.getMonth()+1;
+        const monthString = currentMonth >= 10 ? currentMonth : `0${currentMonth}`;
+        const currentDate = date.getDate();
+        const dateString = currentDate >= 10 ? currentDate : `0${currentDate}`;
+        return `${date.getFullYear()}-${monthString}-${dateString}`;
+        }else{
+            return null;
+        }
     }
     componentDidMount(){
-        console.log(this.state.bookdetailid)
         getBookById(this.state.bookdetailid).then((res)=>{
             console.log(res);
             if(res.message===true){
                 this.setState({bookById:res.book[0]});
+                this.setState({bookimg:`http://localhost:4000/${res.book[0].bookimg}`
+                });
                 console.log(this.state.bookById)
             }else{
                 this.setState({message:res.message});
@@ -103,12 +112,12 @@ bookdetailid: localStorage.getItem("bookdetailId")};
             <div className="container">
                 <div className="row">
                     <div className=" col-lg-2 col-md-3 col-sm-4 bg-white ml-lg-2 ml-md-0">
-                        <LeftNavbar getBookByCategory={this.getBooksByCategory} getBookByAuthor={this.getBooksByAuthor}/>                    
+                        <LeftNavbar {...this.props} getBookByCategory={this.getBooksByCategory} getBookByAuthor={this.getBooksByAuthor}/>                    
                     </div>
                     <div className="col-lg-9 col-md-8 col-sm-7 ">
                         {this.state.display && (<div className="d-flex justify-content-between align-items-top">
                             <div className=" pr-3 d-flex justify-content-between align-items-center">
-                            <img src={`http://localhost:4000/${this.state.bookById.bookimg}`} alt="..." height="400px" width="266px"/>
+                            <img src={this.state.bookimg} alt="..." height="400px" width="266px"/>
                             </div>
                             <div className='p-3'>
                                 <h4>{this.state.bookById.bookName}</h4>
@@ -126,7 +135,7 @@ bookdetailid: localStorage.getItem("bookdetailId")};
                                 </div>
                             </div>
                         </div>)}
-                        <Books {...this.props} books={this.state.books} searchResult={this.state.result} message={this.state.message} display={!this.state.display} addToCart={this.addToCartHandler} status={true}/>
+                        {/* <Books {...this.props} books={this.state.books} searchResult={this.state.result} message={this.state.message} display={this.state.display} addToCart={this.addToCartHandler} status={true}/> */}
 
                     </div>
                 </div>

@@ -8,14 +8,12 @@ export default class Books extends React.Component{
     }
     render(){
         return(<>
-                {this.props.display?
+                {this.props.display&&
                 <>
                 <hr/>
                 <div className="col-12"><h4>Most Popular Books...</h4></div>
                 <hr className="hrtagbooks"/>
-                </>
-                :
-                    ''}
+                </>}
                 <div className="row">
                     {this.props.display?this.props.books.map((book,index)=>{
                       return(                          
@@ -81,10 +79,10 @@ export default class Books extends React.Component{
                         <h5 className="mt-4">{this.props.message }</h5>
                         </div>}                        
                     </div>
-                    {/* {this.props.display? '':
+                    {!this.props.display &&
                     <div className="pt-2 float-right">
                     <button className="btn btn-success btn-small" onClick={()=>{window.location.reload()}}>Go Back</button>
-                </div>} */}
+                </div>}
                 </>
         
         );

@@ -204,7 +204,7 @@ export default class Cart extends React.Component{
                                             <p className="card-text">Price(per copy):{' '}<i className="fa fa-inr" style={{fontSize:"12px"}}></i><span className="text-primary font-weight-bold price">{cartItem.book.price}</span></p>
                                             <div className="input-group">
                                                 <div className="input-group-prepend">
-                                                    {cartItem.quantity===1?<button className="btn btn-danger" disabled>-</button> : <button className="input-group-text bg-danger" type="button" onClick={()=>this.decrementHandler(cartItem.book._id)}>-</button>}    
+                                                    {cartItem.quantity===1?<button className="btn btn-danger" disabled={true} style={{cursor:"not-allowed"}} >-</button> : <button className="input-group-text bg-danger" type="button" onClick={()=>this.decrementHandler(cartItem.book._id)}>-</button>}    
                                                 </div>
                                                 <input type="text" className="border-0 bg-light text-center"  style={{ width: "30px" }} value={cartItem.quantity} readOnly aria-label="Recipient's username" aria-describedby="basic-addon2"/>
                                                 <div className="input-group-append">

@@ -18,6 +18,7 @@ class BookUpdate extends React.Component{
         description:'',
         bookimg:'',
         message:'',
+        error:'',
         categories:[],
         authors:[],
         bookID: localStorage.getItem("bookId")
@@ -36,12 +37,29 @@ class BookUpdate extends React.Component{
         },()=>{console.log(this.state)});
      }
      handleChangeFile=(e)=>{
-        this.setState({
-          bookimg: e.target.files[0]
-        });
+        console.log(e.target.files[0].name)
+        let filetype=e.target.files[0].name.split('.').pop();
+        let error=this.state.error;
+        console.log("File Type:" +filetype+",bookimg "+this.state.bookimg);
+        if(filetype==='jpg'||filetype==='png'||filetype==='jpeg'||filetype==='jfif'){
+          console.log("inside if")
+          this.setState({error:'',
+           bookimg: e.target.files[0]
+         });
+          
+        }
+        else{
+         console.log("inside else")
+         error="No file received or Invalid file type(NOTE:jpg,jpeg,png,jfif are accepted)"
+          this.setState({error:error,
+           bookimg: e.target.files[0]
+         });
+ 
+        }
       }
      submit=(event)=>{
          event.preventDefault();
+         if(this.state.error===''){
          const formData= new FormData();
          formData.append('_id',this.state.bookID);
          formData.append('bookName',this.state.BookTitle);
@@ -81,6 +99,15 @@ class BookUpdate extends React.Component{
             }
         }).catch(err=>{this.setState({message:err.messsage})})
      }
+     else{
+        this.setState({message:"Enter all feilds correctly"});
+        toast.error("Enter all feilds correctly", {
+            position: toast.POSITION.TOP_CENTER,
+            autoClose: 2000,
+          }
+          );
+       }
+    }
      resetUserInputs=()=>{
          this.setState({
             BookTitle: '',
@@ -107,7 +134,7 @@ class BookUpdate extends React.Component{
                     Price: res.book[0].price,
                     PublishedDate:date.slice(0,10),
                     description:res.book[0].description,
-                    bookimg: res.book[0].bookimg
+                    bookimg:`http://localhost:4000/${res.book[0].bookimg}`
                  })
              }else{
                 this.setState({message: res.message})}
@@ -158,11 +185,11 @@ render(){
                     </div>
                     <div className="col-6">
                         <div className="form-group">
-                            <label for="AuthorName" className="float-sm-left">Author:</label>
-                            <select className="custom-select" id="AuthorName" name="AuthorName" value={this.state.AuthorName} required onChange={this.handleChange} disabled="true">
+                            <label htmlFor="AuthorName" className="float-sm-left">Author:</label>
+                            <select className="custom-select" id="AuthorName" name="AuthorName" value={this.state.AuthorName} required onChange={this.handleChange} disabled={true}>
                             <option>Select an author</option>
-                            {this.state.authors.map((author)=>{
-                                return <option value={author.name}>{author.name}</option>
+                            {this.state.authors.map((author,index)=>{
+                                return <option key={index} value={author.name}>{author.name}</option>
                             })}
                             </select>
                         </div>
@@ -171,11 +198,11 @@ render(){
                 <div className="row">                
                     <div className="col-6">
                         <div className="form-group">
-                            <label for="Category" className="float-sm-left">Category:</label>
-                            <select className="custom-select" id="Category" name="Category" value={this.state.Category} required onChange={this.handleChange} disabled="true">
+                            <label htmlFor="Category" className="float-sm-left">Category:</label>
+                            <select className="custom-select" id="Category" name="Category" value={this.state.Category} required onChange={this.handleChange} disabled={true}>
                                 <option>Select an category</option>
-                                {this.state.categories.map((category)=>{
-                                    return <option value={category.name}>{category.name}</option>
+                                {this.state.categories.map((category,index)=>{
+                                    return <option key={index} value={category.name}>{category.name}</option>
                                 })}
                             </select>
                         </div>
@@ -189,7 +216,7 @@ render(){
                             name="PublishedDate"
                             value={this.state.PublishedDate}
                             placeholder="PublishedDate"
-                            readOnly="true"
+                            readOnly={true}
                             onChange={this.handleChange}
                             required
                             />
@@ -216,11 +243,11 @@ render(){
                 </div>
                 <div className="row">
                     <div className="col-2">
-                    <img  height="50px" width="50px" src={`http://localhost:4000/${this.state.bookimg}`} className="mt-4" alt="..."/>
+                    <img  height="50px" width="50px" src={this.state.bookimg} className="mt-4" alt="..."/>
                     </div>
                     <div className="col-10">
                     <div className="form-group">                
-                <label className="float-sm-left" htmlFor="text">Image file:</label>
+                <label className="float-sm-left" htmlFor="text">Upload Image:</label>
                 <input
                   type="file"
                   className="form-control"
@@ -229,6 +256,9 @@ render(){
                   onChange={this.handleChangeFile}
                   required
                 />
+                <div className="float-right error">
+                                {this.state.error.length > 0 && 
+                                    <span className='error'>{this.state.error}</span>}</div>
               </div>
                     </div>
 
