@@ -30,8 +30,7 @@ class Home extends React.Component{
     }
     
     addToCartHandler=(id)=>{
-        console.log(id);
-        Axios.post(`http://localhost:4000/cart/addBook?id=${id}&userName=${this.auth.getUserName()}`).then((res)=>{    
+        Axios.post(`cart/addBook?id=${id}&userName=${this.auth.getUserName()}`).then((res)=>{    
             if(res.data.message===true){
                     this.props.history.push(`/shoppingcart`);               
                 }else{
@@ -41,49 +40,54 @@ class Home extends React.Component{
             });
     }
 
-    getSearchResult=async(event)=>{
+    getSearchResult=(event)=>{
         event.preventDefault();
         this.resetHandler();
-        await this.setState({display:false});
-        search(this.state.searchItem).then((searchResult)=>
+        this.setState({display:false},()=>{
+            search(this.state.searchItem).then((searchResult)=>
                         {
                             if(searchResult.length>0){
                                 this.setState({result:searchResult});
                             }else{
                                 this.setState({message:`No book found with ${this.state.searchItem} name`});
                             }
-        }).catch(err=>{this.setState({message:"404 error"})});
+            }).catch(err=>{this.setState({message:"404 error"})});
+        });
+        
     }
-    getBooksByCategory=async(category)=>{
-        await this.setState({display:false});
+    getBooksByCategory=(category)=>{
         this.resetHandler();
-        getBookByCategory(category).then((res)=>{
-            if(res.message===true){
-                this.setState({result:res.books});
-            }else{
-                this.setState({message:res.message});
-            }
-        }).catch(err=>this.setState({message:"404 Error"}));
-
+        this.setState({display:false},()=>{
+            getBookByCategory(category).then((res)=>{
+                if(res.message===true){
+                    this.setState({result:res.books});
+                }else{
+                    this.setState({message:res.message});
+                }
+            }).catch(err=>this.setState({message:"404 Error"}));
+        });
+        
     }
-    getBooksByAuthor=async(author)=>{
-        await this.setState({display:false});
+    getBooksByAuthor=(author)=>{
         this.resetHandler();
-        getBookByAuthor(author).then((res)=>{
-            if(res.message===true){
-                this.setState({result:res.books});
-            }else{
-                this.setState({message:res.message});
-            }
-        }).catch(err=>this.setState({message:"404 Error"}));
-
+        this.setState({display:false},()=>{
+            getBookByAuthor(author).then((res)=>{
+                if(res.message===true){
+                    this.setState({result:res.books});
+                }else{
+                    this.setState({message:res.message});
+                }
+            }).catch(err=>this.setState({message:"404 Error"}));
+        });
     }
+
     bookDescriptionHandler=(id)=>{
         this.props.history.push(`/bookDescription/${id}`)
 
     }
+    
     componentDidMount(){
-        Axios.get("http://localhost:4000/book/getBooks").then((res)=>{
+        Axios.get("book/getBooks").then((res)=>{
             if(res.data.message===true){
                 this.setState({books:res.data.books.slice(0,8)});
             }else{ 

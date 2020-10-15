@@ -92,7 +92,6 @@ export default class ShowAuthors extends React.Component{
                         <Aux> 
                         <thead>
                         <tr>
-                        <th scope="col">id</th>
                         <th scope="col">Name</th>
                         <th scope="col">Email</th>
                         <th scope="col">ContactNo</th>
@@ -104,7 +103,6 @@ export default class ShowAuthors extends React.Component{
                         {this.state.authors.map((author)=>{
                             return(
                                 <tr>
-                                    <td >{author._id}</td>
                                     <td>{author.name}</td>
                                     <td>{author.emailId}</td>
                                     <td>{author.contactNo}</td>

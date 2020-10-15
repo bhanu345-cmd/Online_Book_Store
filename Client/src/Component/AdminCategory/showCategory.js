@@ -89,7 +89,6 @@ export default class ShowCategories extends React.Component{
                         <Aux> 
                         <thead>
                         <tr>
-                        <th scope="col">id</th>
                         <th scope="col">Category</th>
                         <th scope="col">Action</th>
                         </tr>
@@ -98,7 +97,6 @@ export default class ShowCategories extends React.Component{
                         {this.state.categories.map((category)=>{
                             return(
                                 <tr>
-                                    <td >{category._id}</td>
                                     <td>{category.name}</td>
                                     <td><i type="button" className="fa fa-trash text-danger" aria-hidden="true" style={{margin:"0px", fontSize:"15px"}} onClick={()=>this.confimationHandler(category._id)}></i> </td>
                                 </tr>
