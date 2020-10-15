@@ -3,6 +3,7 @@ import AdminNav from './AdminNav';
 import Banner from '../Banner/Banner';
 import Services from '../../Others/Services';
 import Footer from '../../Others/Footer';
+import "./Admin.css";
 import Auth from '../../Authentication/Auth';
 export default class Admin extends React.Component{
     constructor(props){
@@ -18,7 +19,7 @@ export default class Admin extends React.Component{
             <div className="container-relative">
             <AdminNav logoutHandler={this.logoutHandler} />
             </div>
-            <marquee><h2>This is Admin Home</h2></marquee>
+            <div className="marqq"><h2><p>This is Admin Home</p></h2></div>
             <div className="container-fluid mr-3 ml-3">
             <Banner />
             </div>

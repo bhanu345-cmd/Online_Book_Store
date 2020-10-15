@@ -105,6 +105,7 @@ class Home extends React.Component{
     }
 
     render(){
+        
         return(
             <Aux>
             <div className="container-fluid">
