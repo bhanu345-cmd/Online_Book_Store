@@ -108,7 +108,7 @@ export default class ViewBooks extends React.Component{
                         {this.state.books.map((book)=>{
                             return(
                                 <tr>
-                                    <td >{book.bookName}</td>
+                                    <td ><span className="booknames">{book.bookName}</span></td>
                                     <td>{book.category}</td>
                                     <td>{book.author}</td>
                                     <td>{book.price}</td>
