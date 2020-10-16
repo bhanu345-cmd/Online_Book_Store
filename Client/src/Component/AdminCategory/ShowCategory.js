@@ -1,10 +1,9 @@
 import React from 'react';
-import {getCategories} from '../UserFunctions/UserFunctions';
+import {getCategories,deleteCategory} from '../UserFunctions/UserFunctions';
 import AdminNav from '../Admin/AdminNav';
 import Footer from '../Others/Footer';
 import Services from '../Others/Services';
 import Aux from '../../hoc/Auxiliary';
-import {deleteCategory} from '../UserFunctions/UserFunctions';
 import './ShowCategory.css';
 import Auth from '../../Authentication/Auth';
 import { ToastContainer, toast } from 'react-toastify';
@@ -30,7 +29,6 @@ export default class ShowCategories extends React.Component{
                     // onClose:() =>window.location.reload()
                   }
                   );
-                // alert(res.message);
             }
         }).catch(err=>{if(err) 
             toast.error("404 error !", {
@@ -39,7 +37,6 @@ export default class ShowCategories extends React.Component{
                 onClose:() =>window.location.reload()
               }
               );
-            // alert("404 error")
         });
     }
     confimationHandler = (id) =>{
@@ -60,6 +57,8 @@ export default class ShowCategories extends React.Component{
     deleteHandler=(id)=>{
         deleteCategory(id).then((res)=>{
             if(res.message===true){
+                this.state.count=0
+                this.componentDidMount()
                 toast.info("Deleted Successfully !", {
                     position: toast.POSITION.TOP_CENTER,
                     autoClose: true,
@@ -73,7 +72,6 @@ export default class ShowCategories extends React.Component{
                     onClose:() =>window.location.reload()
                   }
                   );
-            //    alert(res.message);
             }
         }).catch(err=>{if(err) 
             toast.error("404 error !", {
@@ -82,7 +80,6 @@ export default class ShowCategories extends React.Component{
                 onClose:() =>window.location.reload()
               }
               );
-            // alert("404 error")
         });
     }
     render(){
@@ -108,11 +105,11 @@ export default class ShowCategories extends React.Component{
                         </tr>
                         </thead>
                         <tbody>
+                        {/* {this.state.categories.reverse().map((category)=>{ */}
                         {this.state.categories.map((category)=>{
                             return(
                                 <tr>
                                     <td >{this.state.count=this.state.count+1}</td>
-                                    {/* <td >{category._id}</td> */}
                                     <td>{category.name}</td>
                                     <td><i type="button" className="fa fa-trash text-danger" aria-hidden="true" style={{margin:"0px", fontSize:"15px"}} onClick={()=>this.confimationHandler(category._id)}></i> </td>
                                 </tr>

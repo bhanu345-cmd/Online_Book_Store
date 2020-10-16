@@ -1,5 +1,4 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
 import AdminNav from '../Admin/AdminNav';
 import Footer from '../Others/Footer';
 import Services from '../Others/Services';
@@ -30,7 +29,6 @@ export default class ViewBooks extends React.Component{
                     // onClose:() =>window.location.reload()
                   }
                   );
-                // alert(res.message);
             }
         }).catch(err=>{if(err) 
             toast.error("404 error !", {
@@ -39,7 +37,6 @@ export default class ViewBooks extends React.Component{
             onClose:() =>window.location.reload()
           }
           );
-        // alert("404 error")
     });
     }
     updateHandler =(id) =>{
@@ -57,14 +54,15 @@ export default class ViewBooks extends React.Component{
             </>, {
             position: toast.POSITION.TOP_CENTER,
             autoClose: false,
-            // onClose:() =>window.location.reload()
+            // onClose:() =>this.componentDidMount()
           }
           );
     }
     deleteHandler=(id)=>{
         deleteBookById(id).then((res)=>{
-            // window.location.reload()
             if(res.message===true){
+                this.state.count=0
+                this.componentDidMount()
                 toast.info("Deleted Successfully !", {
                     position: toast.POSITION.TOP_CENTER,
                     autoClose: true,
@@ -95,8 +93,8 @@ export default class ViewBooks extends React.Component{
                 <div className="container-fluid">
                     <AdminNav logoutHandler={this.logoutHandler}/>
                 </div>
-                <div className="container ">
-                    <div className="jumbotron w-75  mt-4 mb-4 border-0">
+                <div className="container tablejumbotron">
+                    <div className="jumbotron w-75  mt-4 mb-4 border-0 ">
                     <h1 style={{fontSize:"25px"}}>List of Books</h1>
                     <h4 className="text-center">{this.state.message}</h4>
                     <table className="table showCategories">
@@ -105,26 +103,25 @@ export default class ViewBooks extends React.Component{
                         <thead>
                         <tr>
                         <th scope="col">SNo</th>
+                        <th scope="col">Book Img</th>
                         <th scope="col">BookName</th>
                         <th scope="col">Category</th>
                         <th scope="col">Author</th>
                         <th scope="col">Price</th>
-                        
-                        <th scope="col">Book Img</th>
                         <th scope="col">Action</th>
                         </tr>
                         </thead>
                         <tbody>
+                        {/* {this.state.books.reverse().map((book,index)=>{ */}
                         {this.state.books.map((book,index)=>{
                             return(
                                 <tr key={index}>
                                     <td >{this.state.count=this.state.count+1}</td>
-                                    <td>{book.bookName}</td>
+                                    <td><img src={`http://localhost:4000/${book.bookimg}`} width="50px" height="50px" /></td>
+                                    <td><span className="booknames">{book.bookName}</span></td>
                                     <td>{book.category}</td>
                                     <td>{book.author}</td>
-                                    <td>{book.price}</td>
-                                    
-                                    <td><img src={`http://localhost:4000/${book.bookimg}`} width="50px" height="50px" /></td>
+                                    <td>{book.price}</td>                                    
                                     <td>
                                         <i type="button" className="fa fa-pencil-square-o text-info" aria-hidden="true" style={{margin:"0px", fontSize:"15px"}} onClick={()=>this.updateHandler(book._id)}></i>{' '}{' '}
                                         <i type="button" className="fa fa-trash text-danger" aria-hidden="true" style={{margin:"0px", fontSize:"15px"}} onClick={()=>this.confimationHandler(book._id)}></i>

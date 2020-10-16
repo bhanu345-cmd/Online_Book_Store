@@ -213,7 +213,7 @@ render(){
                 <label className="float-sm-left" htmlFor="text">Upload Image:</label>
                 <input
                   type="file"
-                  className="form-control"
+                  className="form-control-file"
                   name="bookimg"
                   placeholder="Image File"
                   id="bookimg"

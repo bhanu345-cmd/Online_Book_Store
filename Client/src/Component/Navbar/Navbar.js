@@ -60,7 +60,8 @@ class Navbar extends React.Component{
                                     <div className="modal-body">
                                         <h6>You need to login to</h6>
                                         <ul>
-                                        <li>Check your Cart</li>
+                                        <li>Check your Cart</li>                                        
+                                        <li>Check your Orders</li>
                                         <li>Add a book to Cart or Buy a book</li>
                                         </ul>
                                     </div>
@@ -90,6 +91,7 @@ class Navbar extends React.Component{
                                         <h6>You need to login to</h6>
                                         <ul>
                                         <li>Check your Cart</li>
+                                        <li>Check your Orders</li>
                                         <li>Add a book to Cart or Buy a book</li>
                                         </ul>
                                     </div>

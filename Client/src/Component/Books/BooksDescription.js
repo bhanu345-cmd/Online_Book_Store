@@ -8,6 +8,7 @@ import Services from '../Others/Services';
 import LeftNavbar from '../Navbar/LeftNavbar';
 import Navbar from '../Navbar/Navbar';
 import Books from '../Books/Books';
+import './BooksDescription.css';
 export default class BookDescription extends React.Component{
     state={searchItem:"",books:[],display:true,result:[],message:"",displaySearch:true,count:0,bookById:{},bookimg:'',
 bookdetailid: localStorage.getItem("bookdetailId")};
@@ -27,12 +28,12 @@ bookdetailid: localStorage.getItem("bookdetailId")};
     }
     
     addToCartHandler=(id)=>{
-        Axios.post(`http://localhost:4000/cart/addBook?id=${id}&userName=${this.auth.getUserName()}`).then((res)=>{    
+        Axios.post(`cart/addBook?id=${id}&userName=${this.auth.getUserName()}`).then((res)=>{    
             if(res.data.message===true){
                     this.props.history.push(`/cart`);               
                 }else{
                     this.setState({message: `Unable to add to cart please try again later`});
-                    alert(this.state.message);
+                    // alert(this.state.message);
                 }
             });
     }
@@ -52,20 +53,20 @@ bookdetailid: localStorage.getItem("bookdetailId")};
     }
     getBooksByCategory=async(category)=>{
         this.resetHandler();
-        await this.setState({display:false});
-        getBookByCategory(category).then((res)=>{
-            console.log(res);
-            if(res.message===true){
-                this.setState({result:res.books});
-            }else{
-                this.setState({message:res.message});
-            }
-        }).catch(err=> this.setState({message:"404 Error"}));
-
+        this.setState({display:false},()=>{
+            getBookByCategory(category).then((res)=>{
+                console.log(res);
+                if(res.message===true){
+                    this.setState({result:res.books});
+                }else{
+                    this.setState({message:res.message});
+                }
+            }).catch(err=> this.setState({message:"404 Error"}));
+        });
     }
     getBooksByAuthor=async(author)=>{
         this.resetHandler();
-       await this.setState({display:false});
+       this.setState({display:false},()=>{
         getBookByAuthor(author).then((res)=>{
             if(res.message===true){
                 this.setState({result:res.books});
@@ -73,7 +74,7 @@ bookdetailid: localStorage.getItem("bookdetailId")};
                 this.setState({message:res.message});
             }
         }).catch(err=>this.setState({message:"404 Error"}));
-
+       });
     }
     formatData=(publisheddate)=>{
         if(publisheddate!==undefined){

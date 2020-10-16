@@ -21,8 +21,6 @@ export default class ShowAuthors extends React.Component{
                     autoClose: true,
                   }
                   );
-                //   this.setState({message: res.message})
-                // alert(res.message);
             }
         }).catch(err=>{if(err) 
             toast.error("404 error !", {
@@ -31,7 +29,6 @@ export default class ShowAuthors extends React.Component{
                 onClose:() =>window.location.reload()
               }
               );
-            // alert("404 error")
         });
     }
     constructor(props){
@@ -59,14 +56,14 @@ export default class ShowAuthors extends React.Component{
     deleteHandler=(id)=>{
         deleteAuthor(id).then((res)=>{
             if(res.message===true){
+                this.state.count=0
+                this.componentDidMount()
                 toast.info("Deleted Successfully !", {
                     position: toast.POSITION.TOP_CENTER,
                     autoClose: true,
                     onClose:() =>window.location.reload()
                   }
                   );
-                // alert("Deleted Successfully");
-                // window.location.reload();
             }else{
                 toast.error(res.message, {
                     position: toast.POSITION.TOP_CENTER,
@@ -74,7 +71,6 @@ export default class ShowAuthors extends React.Component{
                     onClose:() =>window.location.reload()
                   }
                   );
-            //    alert(res.message);
             }
         }).catch(err=>{if(err) 
             toast.error("404 error !", {
@@ -83,7 +79,6 @@ export default class ShowAuthors extends React.Component{
                 onClose:() =>window.location.reload()
               }
               );
-            // alert("404 error")
         });
     }
     render(){
@@ -96,14 +91,13 @@ export default class ShowAuthors extends React.Component{
                 <div className="container">
                     <div className="jumbotron w-75  mt-4 mb-4 border-0">
                     <h1 style={{fontSize:"25px"}}>List of Authors</h1>
-                    <table className="table showAuthors">
                     <h4 className="text-center">{this.state.message}</h4>
+                    <table className="table showAuthors">                    
                     {this.state.authors.length>0 &&
                         <Aux> 
                         <thead>
                         <tr>
                         <th scope="col">SNo</th>
-                        {/* <th scope="col">id</th> */}
                         <th scope="col">Name</th>
                         <th scope="col">Email</th>
                         <th scope="col">ContactNo</th>
@@ -112,11 +106,11 @@ export default class ShowAuthors extends React.Component{
                         </tr>
                         </thead>
                         <tbody>
+                        {/* {this.state.authors.reverse().map((author)=>{ */}
                         {this.state.authors.map((author)=>{
                             return(
                                 <tr>
                                     <td>{this.state.count=this.state.count+1}</td>
-                                    {/* <td >{author._id}</td> */}
                                     <td>{author.name}</td>
                                     <td>{author.emailId}</td>
                                     <td>{author.contactNo}</td>

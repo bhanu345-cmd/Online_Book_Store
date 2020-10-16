@@ -3,7 +3,9 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-
+import Axios from 'axios';
+require('dotenv').config()
+Axios.defaults.baseURL = process.env.REACT_APP_BASE_URL;
 ReactDOM.render(
   <React.StrictMode>
     <App />

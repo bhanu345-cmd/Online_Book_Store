@@ -3,7 +3,7 @@ import Auth from '../../Authentication/Auth.js';
 import Aux from '../../hoc/Auxiliary.js';
 import Navbar from '../Navbar/Navbar';
 import carousel1 from '../Images/carousel1.jpg';
-import Services from '../Others/Services.js';
+import Services from '../Others/Services';
 import Footer from '../Others/Footer';
 import './Cart.css';
 import {decrement,increment,deleteBook,getCartItems,placeOrder } from '../UserFunctions/UserFunctions.js';
@@ -204,11 +204,11 @@ export default class Cart extends React.Component{
                                             <p className="card-text">Price(per copy):{' '}<i className="fa fa-inr" style={{fontSize:"12px"}}></i><span className="text-primary font-weight-bold price">{cartItem.book.price}</span></p>
                                             <div className="input-group">
                                                 <div className="input-group-prepend">
-                                                    {cartItem.quantity===1?<button className="btn btn-danger" disabled={true} style={{cursor:"not-allowed"}} >-</button> : <button className="input-group-text bg-danger" type="button" onClick={()=>this.decrementHandler(cartItem.book._id)}>-</button>}    
+                                                    {cartItem.quantity===1?<button className="btn btn-secondary" disabled={true} style={{cursor:"not-allowed"}} >-</button> : <button className="input-group-text bg-danger text-white" type="button" onClick={()=>this.decrementHandler(cartItem.book._id)}>-</button>}    
                                                 </div>
-                                                <input type="text" className="border-0 bg-light text-center"  style={{ width: "30px" }} value={cartItem.quantity} readOnly aria-label="Recipient's username" aria-describedby="basic-addon2"/>
+                                                <input type="text" className="border-0 bg-light text-center "  style={{ width: "30px" }} value={cartItem.quantity} readOnly aria-label="Recipient's username" aria-describedby="basic-addon2"/>
                                                 <div className="input-group-append">
-                                                    <span className="input-group-text bg-success" type="button" onClick={(e)=>this.incrementHandler(e,cartItem.book._id)}>+</span>                                
+                                                    <span className="input-group-text bg-success text-white" type="button" onClick={(e)=>this.incrementHandler(e,cartItem.book._id)}>+</span>                                
                                                 </div>
                                             </div>
                                             

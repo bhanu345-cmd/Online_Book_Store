@@ -22,9 +22,6 @@ class App extends React.Component {
     super(props);
     this.auth=new Auth(this.props.history);
   }
-  // componentWillMount(){
-  //   this.authValue=this.auth.isAuthenticated();
-  // }
   render(){
   return (
     <Router>
@@ -52,5 +49,4 @@ class App extends React.Component {
   );
   }
 }
-
 export default App;

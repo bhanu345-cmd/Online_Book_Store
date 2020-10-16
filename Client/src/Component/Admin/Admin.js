@@ -18,8 +18,10 @@ class Admin extends React.Component{
             <div className="container-relative">
             <AdminNav logoutHandler={this.logoutHandler} />
             </div>
+            <div className="marqq"><h2><p>This is Admin Home</p></h2></div>
+            <div className="container-fluid mr-3 ml-3">
             <Banner />
-            {/* <marquee><h2>This is Admin Home</h2></marquee> */}
+            </div>
             <div className="container-fluid">
             <hr className="hrtag"/>
                 <Services />

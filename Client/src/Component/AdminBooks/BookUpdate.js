@@ -243,14 +243,14 @@ render(){
                 </div>
                 <div className="row">
                     <div className="col-2">
-                    <img  height="50px" width="50px" src={this.state.bookimg} className="mt-4" alt="..."/>
+                    <img  height="90px" width="70px" src={this.state.bookimg} className="" alt="..."/>
                     </div>
                     <div className="col-10">
                     <div className="form-group">                
                 <label className="float-sm-left" htmlFor="text">Upload Image:</label>
                 <input
                   type="file"
-                  className="form-control"
+                  className="form-control-file"
                   name="bookimg"
                   placeholder="URL"
                   onChange={this.handleChangeFile}

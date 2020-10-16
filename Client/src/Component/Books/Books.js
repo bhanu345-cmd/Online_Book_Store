@@ -15,7 +15,7 @@ export default class Books extends React.Component{
                 <hr className="hrtagbooks"/>
                 </>}
                 <div className="row">
-                    {this.props.display?this.props.books.map((book,index)=>{
+                    {this.props.display?this.props.books.reverse().map((book,index)=>{
                       return(                          
                         <div className="col-xl-3 col-lg-4 col-md-5 col-sm-6 col-xs-7 booksCard cardcontainer" key={book._id}>
                             <div className="card mt-4 " key={index} id="card" onClick={()=>{this.props.bookDescriptionHandler(book._id)}}>

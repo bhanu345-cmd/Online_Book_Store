@@ -13,14 +13,14 @@ class Banner extends React.Component{
         return(
             <>
             <div className="row">
-                <div className="col-lg-6 col-md-6 col-sm-6 p-1">
+                <div className="col-lg-6 col-md-6 col-sm-6 p-1 w-100">
                     <div className="card bannercard">
-                        <img className="card-img-top cover" src={sofaBook} alt="Card_image_cap" height="200" width="117"/>            
+                        <img className="card-img-top cover " src={sofaBook} alt="Card_image_cap" height="200" w-100/>            
                     </div>
                 </div>
-                <div className="col-lg-6 col-md-6 c0l-sm-6 p-1">
+                <div className="col-lg-6 col-md-6 c0l-sm-6 p-1 w-100">
                     <div className="card bannercard">
-                        <img className="card-img-top cover" src={everybook} alt="Card_image_cap" height="200"/>            
+                        <img className="card-img-top cover " src={everybook} alt="Card_image_cap" height="200"/>            
                     </div>
                 </div>
             </div>

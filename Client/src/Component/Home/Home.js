@@ -5,13 +5,12 @@ import Books from '../Books/Books';
 import './Home.css';
 import Auth from '../../Authentication/Auth.js';
 import Aux from '../../hoc/Auxiliary.js';
-import Authors from '../Authors/Authors.js';
-import Services from '../Others/Services.js';
+import Authors from '../Authors/Authors';
+import Services from '../Others/Services';
 import Footer from '../Others/Footer';
-import {search} from '../UserFunctions/UserFunctions.js'
-import Banner from '../Banner/Banner.js';
+import Banner from '../Banner/Banner';
 import Axios from 'axios';
-import {getCartItems,getBookByCategory,getBookByAuthor} from '../UserFunctions/UserFunctions.js';
+import {getCartItems,getBookByCategory,getBookByAuthor,search} from '../UserFunctions/UserFunctions';
 import { ToastContainer,toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 class Home extends React.Component{
@@ -33,7 +32,7 @@ class Home extends React.Component{
 
     addToCartHandler=(id)=>{
         console.log(id);
-        Axios.post(`http://localhost:4000/cart/addBook?id=${id}&userName=${this.auth.getUserName()}`).then((res)=>{
+        Axios.post(`cart/addBook?id=${id}&userName=${this.auth.getUserName()}`).then((res)=>{
             console.log(res.data.message)    
             if(res.data.message===true){
                     this.props.history.push(`/cart`);           
@@ -53,8 +52,8 @@ class Home extends React.Component{
     getSearchResult=async(event)=>{
         event.preventDefault();
         this.resetHandler();
-        await this.setState({display:false});
-        search(this.state.searchItem).then((searchResult)=>
+        this.setState({display:false},()=>{
+            search(this.state.searchItem).then((searchResult)=>
                         {
                             if(searchResult.length>0){
                                 this.setState({result:searchResult});
@@ -62,6 +61,7 @@ class Home extends React.Component{
                                 this.setState({message:`No book found with ${this.state.searchItem} name`});
                             }
         }).catch(err=>{this.setState({message:"404 error"})});
+        });        
     }
     getBooksByCategory=async(category)=>{
         this.setState({display:false});
@@ -94,7 +94,7 @@ class Home extends React.Component{
 
     }
     componentDidMount(){
-        Axios.get("http://localhost:4000/book/getBooks").then((res)=>{
+        Axios.get("book/getBooks").then((res)=>{
             if(res.data.message===true){
                 this.setState({books:res.data.books});
             }else{ 

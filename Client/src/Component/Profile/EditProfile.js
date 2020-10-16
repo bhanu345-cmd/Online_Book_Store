@@ -1,6 +1,4 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
-// import './Register.css';
 import Navbar from '../Navbar/Navbar';
 import Auth from '../../Authentication/Auth'
 import { ToastContainer,toast } from 'react-toastify';
@@ -41,7 +39,7 @@ class EditProfile extends React.Component{
     }
     componentDidMount(){
         console.log(this.props.userName);
-        Axios.get(`http://localhost:4000/user/getUser/${this.props.userName}`).then((res)=>{
+        Axios.get(`user/getUser/${this.props.userName}`).then((res)=>{
             console.log(res.data)
             if(res.data){
                 this.setState({
@@ -152,7 +150,7 @@ class EditProfile extends React.Component{
         }
         else{
             console.log(data)
-            Axios.put(`http://localhost:4000/user/updateDetails`,data).then((res)=>{
+            Axios.put(`user/updateDetails`,data).then((res)=>{
             console.log(res.data)
             if(res.data.success){
                 this.setState({message:res.data.message});
@@ -185,7 +183,7 @@ class EditProfile extends React.Component{
         console.log(this.state.State);
         return(
             <>
-            <div className="container text-center">
+            <div className="container">
                 <ToastContainer />
                 <div className="container-fluid">
                 <Navbar {...this.props} userName={this.auth.getUserName()} display={this.state.displayCart} logout={()=>{this.logoutHandler()}} count={this.state.count}/>
@@ -274,7 +272,7 @@ class EditProfile extends React.Component{
                                 {errors.phnNo.length > 0 && 
                                     <span className='error'>{errors.phnNo}</span>}</div>
                             </div>                        
-                            <input type="Submit" className="form-control btn-success" value="Update Details" />
+                            <button type="Submit" className="form-control btn-success"  >Update Details</button>
                         </form>
                     </div>
                 </div>                

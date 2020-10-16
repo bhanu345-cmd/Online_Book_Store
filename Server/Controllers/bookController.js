@@ -8,7 +8,6 @@ router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({extended:false}));
 const multer = require('multer');
 var fs= require('fs');
-var path=require('path');
 var storage =multer.diskStorage({
     destination: function(req,file,cb){
         cb(null,'./uploads/');
@@ -29,16 +28,7 @@ const upload = multer({
     limits: {fieldSize:  1024*1024*5},
     fileFilter: fileFilter
 });
-// module.exports = function(app){
-//     app.use(function(req,res,next){
-//     res.header(
-//         "Access-Control-Allow-Headers",
-//         "x-access-token,Origin,Content-Type,Accept"
-//     );
-//     next();
-// })
-// }
-router.get('/getBooks',async(req,res)=>{
+router.get('/getBooks',(req,res)=>{
         books.find({}).then((books)=>{
             if(books.length>0){
                 return res.send({message:true,books:books});
@@ -48,7 +38,7 @@ router.get('/getBooks',async(req,res)=>{
         }).catch((err)=>res.send({message:err.message}));
 });
 
-router.get('/getBook/:name',async(req,res)=>{
+router.get('/getBook/:name',(req,res)=>{
     books.find({bookName:req.params.name},function(err,book){
         if(book){
             res.send(book);
@@ -59,7 +49,7 @@ router.get('/getBook/:name',async(req,res)=>{
 });
 
 
-router.get('/getBookByCategory/:category',async(req,res)=>{
+router.get('/getBookByCategory/:category',(req,res)=>{
     books.find({category:req.params.category}).then((books)=>{
         if(books.length>0){
             res.send({message:true,books:books});
@@ -70,7 +60,7 @@ router.get('/getBookByCategory/:category',async(req,res)=>{
         
     
 });
-router.get('/getBookById/:id',async(req,res)=>{
+router.get('/getBookById/:id',(req,res)=>{
     books.find({_id:req.params.id}).then((book)=>{
         if(books.length>0){
             res.send({message:true,book:book});
@@ -79,7 +69,7 @@ router.get('/getBookById/:id',async(req,res)=>{
         }
     }).catch((err)=>res.send({message:err.message}));
 });
-router.put('/updateBook',upload.single('bookimg'),async(req,res)=>{
+router.put('/updateBook',upload.single('bookimg'),(req,res)=>{
     books.findOne({_id:req.body._id},(err,book)=>{
         if(err){
             res.send({message:"not a valid book"})
@@ -107,7 +97,7 @@ router.put('/updateBook',upload.single('bookimg'),async(req,res)=>{
         }
     })
 })
-router.get('/getBookByAuthor/:author',async(req,res)=>{
+router.get('/getBookByAuthor/:author',(req,res)=>{
     books.find({author:req.params.author}).then((books)=>{
         if(books.length>0){
             res.send({message:true,books:books});
@@ -118,7 +108,7 @@ router.get('/getBookByAuthor/:author',async(req,res)=>{
         
     
 });
-router.post('/addBook',upload.single('bookimg'),async(req,res)=>{
+router.post('/addBook',upload.single('bookimg'),(req,res)=>{
     var newBook=books({
         bookName:req.body.bookName,
         author:req.body.author,
@@ -137,7 +127,7 @@ router.post('/addBook',upload.single('bookimg'),async(req,res)=>{
         }
     }).catch(err=>res.send({message:"404 error"}));
 });
-router.post('/deleteBook/:id',async(req,res)=>{
+router.post('/deleteBook/:id',(req,res)=>{
     books.findByIdAndRemove({_id:req.params.id}).then((book)=>{
         console.log(book.bookimg+" file")
         fs.unlink(book.bookimg,(err)=>{
@@ -150,7 +140,7 @@ router.post('/deleteBook/:id',async(req,res)=>{
     res.send({message:true});  
     }).catch(err=>res.send({message:err.message}));
 });
-router.post('/addCategory/:category',async(req,res)=>{
+router.post('/addCategory/:category',(req,res)=>{
     category.findOne({name:req.params.category}).then((result)=>{
         if(result){
             res.send({message:"Category already exists"});
@@ -167,7 +157,7 @@ router.post('/addCategory/:category',async(req,res)=>{
     })
     
 })
-router.get('/getCategories',async(req,res)=>{
+router.get('/getCategories',(req,res)=>{
     category.find({}).then((result)=>{
         if(result.length>0){
             res.send({message:true,categories:result});
@@ -176,12 +166,12 @@ router.get('/getCategories',async(req,res)=>{
         }
     }).catch((err)=>res.send({message:"404 error"}));
 })
-router.post('/deleteCategory/:id',async(req,res)=>{
+router.post('/deleteCategory/:id',(req,res)=>{
     category.findByIdAndRemove({_id:req.params.id}).then(()=>{
         res.send({message:true});
     }).catch(err=>res.send({message:err.message}));
 });
-router.post('/addAuthor',async(req,res)=>{
+router.post('/addAuthor',(req,res)=>{
     author.findOne({name:req.body.name}).then((result)=>{
         if(result){
             res.send({message:"Author already exists"});
@@ -199,7 +189,7 @@ router.post('/addAuthor',async(req,res)=>{
     
 })
 
-router.get('/getAuthors',async(req,res)=>{
+router.get('/getAuthors',(req,res)=>{
     author.find({}).then((result)=>{
         if(result.length>0){
             res.send({message:true,authors:result});
@@ -208,12 +198,12 @@ router.get('/getAuthors',async(req,res)=>{
         }
     }).catch((err)=>res.send({message:"404 error"}));
 })
-router.post('/deleteAuthor/:id',async(req,res)=>{
+router.post('/deleteAuthor/:id',(req,res)=>{
     author.findByIdAndRemove({_id:req.params.id}).then(()=>{
         res.send({message:true});
     }).catch(err=>res.send({message:err.message}));
 });
-router.get('/search/:name',async(req,res)=>{
+router.get('/search/:name',(req,res)=>{
         books.find({"bookName":{$regex : `^${req.params.name}.*` , $options: 'si' }}).then((searchedBooks)=>{
             if(searchedBooks.length>0){
                 res.send(searchedBooks);

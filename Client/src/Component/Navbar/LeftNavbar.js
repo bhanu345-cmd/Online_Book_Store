@@ -2,7 +2,7 @@ import React from 'react';
 import './LeftNavbar.css';
 import {Link} from 'react-router-dom';
 import Aux from '../../hoc/Auxiliary.js';
-import {getCategories,getAuthors} from '../UserFunctions/UserFunctions.js';
+import {getCategories,getAuthors} from '../UserFunctions/UserFunctions';
 class LeftNavbar extends React.Component{
     state={categories:[],message:'',authors:[]};
     componentDidMount(){
@@ -30,7 +30,7 @@ class LeftNavbar extends React.Component{
                 {this.state.message}
                     <ul className="navbar-nav w-100 category-size">
                         {this.state.categories.map((category,index)=>{
-                            return(
+                            return(                                
                                 <li className="nav-item pl-3" key={index}>
                                 <Link className="nav-link text-dark" to="/#" onClick={()=>this.props.getBookByCategory(category.name)}>{category.name.toUpperCase()}</Link>
                                 </li>
